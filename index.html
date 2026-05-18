@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orangery Solutions — Healthy Church Culture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest: #1c2b1e;
+    --forest-mid: #2d4230;
+    --forest-light: #3d5a42;
+    --sage: #7a9c7e;
+    --sage-light: #b2c9b5;
+    --cream: #f5f0e8;
+    --cream-warm: #ede7d9;
+    --cream-deep: #ddd5c4;
+    --orange: #d4682a;
+    --orange-light: #e8895a;
+    --orange-pale: #f5ddd0;
+    --gold: #c9a052;
+    --gold-pale: #f0e4c8;
+    --charcoal: #2a2a25;
+    --ink: #1a1a16;
+    --muted: #6b6b60;
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--cream);
+    color: var(--charcoal);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    background: rgba(28, 43, 30, 0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    transition: padding 0.3s ease;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+  .nav-logo img {
+    height: 36px;
+    filter: brightness(0) invert(1);
+    opacity: 0.92;
+  }
+  .nav-logo-text {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.2;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: rgba(255,255,255,0.95); }
+  .nav-cta {
+    background: var(--orange) !important;
+    color: white !important;
+    padding: 9px 22px;
+    border-radius: 3px;
+    font-weight: 500 !important;
+    letter-spacing: 0.03em !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--orange-light) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--forest);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 70% at 30% 50%, rgba(45,66,48,0.7) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 80% 20%, rgba(212,104,42,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-grain {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.4;
+  }
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 140px 64px 80px;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .hero-eyebrow-line {
+    width: 32px;
+    height: 1px;
+    background: var(--orange);
+  }
+  .hero-eyebrow-text {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--orange-light);
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(42px, 5.5vw, 68px);
+    font-weight: 400;
+    color: var(--cream);
+    line-height: 1.12;
+    margin-bottom: 24px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-sub {
+    font-size: 17px;
+    font-weight: 300;
+    color: rgba(245,240,232,0.65);
+    line-height: 1.7;
+    max-width: 420px;
+    margin-bottom: 40px;
+  }
+  .hero-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 44px;
+  }
+  .pill {
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: rgba(245,240,232,0.6);
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--orange);
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    padding: 14px 30px;
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    align-self: flex-start;
+  }
+  .btn-primary:hover { background: var(--orange-light); transform: translateY(-1px); }
+  .btn-primary .arrow { transition: transform 0.2s; }
+  .btn-primary:hover .arrow { transform: translateX(4px); }
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    padding: 14px 30px;
+    border-radius: 3px;
+    border: 1px solid rgba(255,255,255,0.2);
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    align-self: flex-start;
+  }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.45); background: rgba(255,255,255,0.05); }
+
+  .hero-image-side {
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-image-side img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.45;
+    mix-blend-mode: luminosity;
+    filter: contrast(1.05);
+  }
+  .hero-image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, var(--forest) 0%, transparent 30%),
+                linear-gradient(to top, var(--forest) 0%, transparent 40%);
+  }
+  .hero-stat-strip {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    z-index: 3;
+  }
+  .stat-item {
+    flex: 1;
+    padding: 22px 28px;
+    border-right: 1px solid rgba(255,255,255,0.08);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--gold);
+    margin-bottom: 3px;
+    display: block;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: rgba(245,240,232,0.45);
+    line-height: 1.4;
+  }
+
+  /* ── SECTION SHARED ── */
+  section { position: relative; }
+  .section-inner {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 96px 48px;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 18px;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--orange);
+    flex-shrink: 0;
+  }
+  .section-headline {
+    font-family: var(--font-display);
+    font-size: clamp(30px, 4vw, 48px);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--forest);
+    margin-bottom: 16px;
+  }
+  .section-headline em { font-style: italic; color: var(--orange); }
+  .section-sub {
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 580px;
+    margin-bottom: 56px;
+  }
+
+  /* ── PAIN SECTION ── */
+  .pain-section { background: var(--cream); }
+
+  .pain-intro {
+    background: var(--forest);
+    border-radius: 6px;
+    padding: 36px 40px;
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .pain-intro::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--orange);
+  }
+  .pain-intro p {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 400;
+    font-style: italic;
+    color: rgba(245,240,232,0.85);
+    line-height: 1.65;
+    max-width: 640px;
+  }
+  .pain-intro strong {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--gold);
+  }
+
+  /* ── STRUGGLE CARDS ── */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .cards-grid .card:nth-child(4),
+  .cards-grid .card:nth-child(5) {
+    grid-column: span 1;
+  }
+  .cards-row-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    max-width: calc(66.66% + 8px);
+  }
+
+  .card {
+    background: white;
+    border: 1px solid var(--cream-deep);
+    border-radius: 6px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    cursor: default;
+  }
+  .card:hover {
+    border-color: var(--sage-light);
+    box-shadow: 0 6px 24px rgba(28,43,30,0.08);
+    transform: translateY(-2px);
+  }
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .card-num {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--forest-light);
+    background: var(--cream-warm);
+    border-radius: 3px;
+    padding: 4px 10px;
+    flex-shrink: 0;
+  }
+  .card-title {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--forest);
+    line-height: 1.2;
+    flex: 1;
+  }
+  .card-section-label {
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 5px;
+    display: block;
+  }
+  .card-body {
+    font-size: 13.5px;
+    color: #555550;
+    line-height: 1.6;
+  }
+  .card-threat {
+    margin-top: auto;
+    background: var(--orange-pale);
+    border-left: 2px solid var(--orange);
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #7a3515;
+    line-height: 1.5;
+    border-radius: 0 4px 4px 0;
+  }
+  .card-divider {
+    height: 1px;
+    background: var(--cream-warm);
+  }
+
+  /* ── SOLUTION SECTION ── */
+  .solution-section { background: var(--forest); }
+  .solution-section .section-headline { color: var(--cream); }
+  .solution-section .section-sub { color: rgba(245,240,232,0.55); }
+  .solution-section .eyebrow { color: var(--gold); }
+  .solution-section .eyebrow::before { background: var(--gold); }
+
+  .solution-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .solution-text p {
+    font-size: 16px;
+    color: rgba(245,240,232,0.65);
+    line-height: 1.75;
+    margin-bottom: 18px;
+  }
+  .solution-text p:last-child { margin-bottom: 0; }
+
+  .outcome-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .outcome-item {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 16px;
+    align-items: start;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 6px;
+    padding: 18px 20px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .outcome-item:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.14);
+  }
+  .outcome-icon-wrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(201,160,82,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .outcome-icon {
+    font-size: 20px;
+  }
+  .outcome-title {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--cream);
+    margin-bottom: 3px;
+  }
+  .outcome-desc {
+    font-size: 13px;
+    color: rgba(245,240,232,0.5);
+    line-height: 1.5;
+  }
+
+  /* ── RECOGNISE SECTION ── */
+  .recognise-section { background: var(--cream-warm); }
+  .recognise-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .recognise-text h2 {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 3.5vw, 42px);
+    font-weight: 400;
+    color: var(--forest);
+    line-height: 1.25;
+    margin-bottom: 20px;
+  }
+  .recognise-text h2 em { font-style: italic; color: var(--orange); }
+  .recognise-text p {
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+  .bad-list, .good-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .bad-list-item, .good-list-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 11px 16px;
+    border-radius: 5px;
+  }
+  .bad-list-item {
+    background: white;
+    border: 1px solid #e8ddd0;
+    color: #555;
+  }
+  .bad-list-item .marker { color: var(--orange); flex-shrink: 0; font-size: 16px; margin-top: -1px; }
+  .good-list-item {
+    background: var(--forest);
+    border: 1px solid transparent;
+    color: rgba(245,240,232,0.8);
+  }
+  .good-list-item .marker { color: var(--gold); flex-shrink: 0; font-size: 16px; margin-top: -1px; }
+  .list-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-bottom: 12px;
+    display: block;
+  }
+  .list-label.good { color: var(--forest-light); }
+  .recognise-lists { display: flex; flex-direction: column; gap: 32px; }
+
+  /* ── WHAT WE DO ── */
+  .services-section { background: var(--cream); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 8px;
+  }
+  .service-card {
+    background: white;
+    border: 1px solid var(--cream-deep);
+    border-radius: 6px;
+    padding: 36px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .service-card:hover {
+    border-color: var(--sage-light);
+    box-shadow: 0 4px 20px rgba(28,43,30,0.07);
+  }
+  .service-icon {
+    font-size: 26px;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .service-tag {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--forest-light);
+    background: var(--cream-warm);
+    border-radius: 3px;
+    padding: 4px 10px;
+    display: inline-block;
+    margin-bottom: 14px;
+  }
+  .service-title {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--forest);
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+  .service-body {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ── PIVOT SECTION ── */
+  .pivot-section { background: var(--forest-mid); }
+  .pivot-section .section-inner { text-align: center; }
+  .pivot-section .section-headline { color: var(--cream); }
+  .pivot-section .eyebrow { color: var(--gold); }
+  .pivot-section .eyebrow::before { background: var(--gold); }
+  .pivot-arrows {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin: 0 auto 48px;
+    max-width: 560px;
+  }
+  .pivot-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    font-family: var(--font-display);
+    font-size: 18px;
+    color: rgba(245,240,232,0.6);
+  }
+  .pivot-row .from { text-align: right; flex: 1; font-style: italic; }
+  .pivot-row .arr { color: var(--gold); font-size: 20px; flex-shrink: 0; }
+  .pivot-row .to { text-align: left; flex: 1; font-weight: 600; color: var(--cream); font-style: normal; }
+
+  /* ── CTA SECTION ── */
+  .cta-section { background: var(--ink); }
+  .cta-section .section-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 64px;
+    align-items: center;
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+  .cta-headline {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 400;
+    color: var(--cream);
+    line-height: 1.25;
+    margin-bottom: 14px;
+  }
+  .cta-headline em { font-style: italic; color: var(--gold); }
+  .cta-sub {
+    font-size: 16px;
+    color: rgba(245,240,232,0.5);
+    line-height: 1.65;
+    max-width: 480px;
+  }
+  .cta-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-end;
+    flex-shrink: 0;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--forest);
+    padding: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .footer-logo img {
+    height: 40px;
+    filter: brightness(0) invert(1);
+    opacity: 0.7;
+  }
+  .footer-info {
+    text-align: center;
+  }
+  .footer-info p {
+    font-size: 12px;
+    color: rgba(245,240,232,0.35);
+    line-height: 1.6;
+  }
+  .footer-links {
+    display: flex;
+    gap: 20px;
+  }
+  .footer-links a {
+    font-size: 12px;
+    color: rgba(245,240,232,0.4);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: rgba(245,240,232,0.8); }
+
+  /* ── ANIMATIONS ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: none;
+  }
+  .fade-up:nth-child(2) { transition-delay: 0.1s; }
+  .fade-up:nth-child(3) { transition-delay: 0.2s; }
+  .fade-up:nth-child(4) { transition-delay: 0.3s; }
+  .fade-up:nth-child(5) { transition-delay: 0.4s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-content { padding: 120px 28px 48px; }
+    .hero-image-side { display: none; }
+    .hero-stat-strip { position: static; }
+    .stat-item { padding: 18px 20px; }
+    .section-inner { padding: 64px 28px; }
+    .cards-grid { grid-template-columns: 1fr; }
+    .cards-row-2 { grid-template-columns: 1fr; max-width: 100%; }
+    .solution-layout { grid-template-columns: 1fr; gap: 40px; }
+    .recognise-grid { grid-template-columns: 1fr; gap: 40px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .cta-section .section-inner { grid-template-columns: 1fr; gap: 32px; }
+    .cta-actions { align-items: flex-start; }
+    footer { flex-direction: column; gap: 24px; text-align: center; }
+    .footer-info { order: 2; }
+    .footer-links { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="https://images.squarespace-cdn.com/content/v1/61771991617ef211f58fd8ae/fc8180ef-0cbc-4d4c-ad56-2b13c32f71c3/Orangery+solutions+logo.png?format=1500w" alt="Orangery Solutions">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#">Healthy Church Culture</a></li>
+    <li><a href="#">About Orangery</a></li>
+    <li><a href="#">Certification</a></li>
+    <li><a href="https://calendly.com/orangery/30min" class="nav-cta">Talk to Someone</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grain"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-line"></span>
+      <span class="hero-eyebrow-text">Orangery Solutions</span>
+    </div>
+    <h1>Your church<br>has a mission.<br><em>Does your culture<br>match it?</em></h1>
+    <p class="hero-sub">We build high-trust, high-impact cultures for church staff teams and elder boards — so your team stops surviving and starts thriving.</p>
+    <div class="hero-pills">
+      <span class="pill">Clarity</span>
+      <span class="pill">Unity</span>
+      <span class="pill">Loyalty</span>
+      <span class="pill">Fruit</span>
+    </div>
+    <a href="https://calendly.com/orangery/30min" class="btn-primary">
+      Start the conversation <span class="arrow">→</span>
+    </a>
+  </div>
+  <div class="hero-image-side">
+    <img src="https://images.squarespace-cdn.com/content/v1/61771991617ef211f58fd8ae/94c006cc-857f-4c1c-962f-7cc7a6efed37/vitaly-gariev-tDGSaNnt-rg-unsplash.jpg" alt="Church team collaborating">
+    <div class="hero-image-overlay"></div>
+  </div>
+  <div class="hero-stat-strip">
+    <div class="stat-item">
+      <span class="stat-num">1 in 2</span>
+      <span class="stat-label">church staff say their team is unhealthy</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">3 yrs</span>
+      <span class="stat-label">consecutive decline in staff health scores</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">25%</span>
+      <span class="stat-label">of top-performing staff quietly slipping away</span>
+    </div>
+  </div>
+</section>
+
+<!-- PAIN SECTION -->
+<section class="pain-section">
+  <div class="section-inner">
+    <span class="eyebrow">Is this your church?</span>
+    <h2 class="section-headline">Your culture might be quietly<br><em>undermining your mission.</em></h2>
+    <p class="section-sub">These aren't corporate problems. They're church problems — with higher emotional stakes, fewer HR guardrails, and a mission too important to let slide.</p>
+
+    <div class="pain-intro fade-up">
+      <p>The one place that should be the <strong>healthiest, most aligned team in the room</strong> — the church staff — is often running on low trust, unclear roles, and unspoken tension. And the damage is slow, quiet, and cumulative.</p>
+    </div>
+
+    <!-- Cards row 1: 3 cards -->
+    <div class="cards-grid" style="margin-bottom: 16px;">
+      <div class="card fade-up">
+        <div class="card-header">
+          <span class="card-num">01</span>
+        </div>
+        <p class="card-title">Vision Drift</p>
+        <div class="card-divider"></div>
+        <div>
+          <span class="card-section-label">What it looks like</span>
+          <p class="card-body">Departments pulling in different directions. New staff never truly absorbed the culture. Language around "why we exist" has gone stale — and nobody's noticed.</p>
+        </div>
+        <div class="card-threat">Without a shared north star, energy fragments and your church's distinctiveness fades.</div>
+      </div>
+      <div class="card fade-up">
+        <div class="card-header">
+          <span class="card-num">02</span>
+        </div>
+        <p class="card-title">Ministry Silos</p>
+        <div class="card-divider"></div>
+        <div>
+          <span class="card-section-label">What it looks like</span>
+          <p class="card-body">Turf wars over budget, volunteers, and calendar. "My ministry, my rooms." Worship vs. children's vs. youth — competing islands instead of one body.</p>
+        </div>
+        <div class="card-threat">Outward impact stalls when the parts of the body stop communicating.</div>
+      </div>
+      <div class="card fade-up">
+        <div class="card-header">
+          <span class="card-num">03</span>
+        </div>
+        <p class="card-title">The Trust Deficit</p>
+        <div class="card-divider"></div>
+        <div>
+          <span class="card-section-label">What it looks like</span>
+          <p class="card-body">Passive agreement in meetings. Real concerns shared in the hallway. Gossip dressed as prayer requests. A growing sense of church "politics."</p>
+        </div>
+        <div class="card-threat">You can't build a church on a team performing unity while living in suspicion.</div>
+      </div>
+    </div>
+
+    <!-- Cards row 2: 2 cards centred -->
+    <div style="display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; max-width: 780px;">
+      <div class="card fade-up">
+        <div class="card-header">
+          <span class="card-num">04</span>
+        </div>
+        <p class="card-title">Leadership Without Clarity</p>
+        <div class="card-divider"></div>
+        <div>
+          <span class="card-section-label">What it looks like</span>
+          <p class="card-body">Role confusion, accountability gaps, senior leaders as bottlenecks. Staff unsure who to go to — decisions feel slow, arbitrary, or political.</p>
+        </div>
+        <div class="card-threat">When no one knows who owns what, God-given opportunities are squandered.</div>
+      </div>
+      <div class="card fade-up">
+        <div class="card-header">
+          <span class="card-num">05</span>
+        </div>
+        <p class="card-title">Staff Health in Decline</p>
+        <div class="card-divider"></div>
+        <div>
+          <span class="card-section-label">What it looks like</span>
+          <p class="card-body">Your best people are quietly leaving. Burnout masked as busyness. A growing gap between what staff say publicly and what they feel privately.</p>
+        </div>
+        <div class="card-threat">You can't lead a healthy congregation from an unhealthy staff room.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECOGNISE SECTION -->
+<section class="recognise-section">
+  <div class="section-inner">
+    <div class="recognise-grid">
+      <div class="recognise-text">
+        <span class="eyebrow">Does this sound familiar?</span>
+        <h2>From hornet's nest<br>to <em>the church people<br>talk about.</em></h2>
+        <p>The gap between a toxic staff culture and a thriving one isn't talent or theology. It's trust, clarity, and the courage to build something better — intentionally.</p>
+        <a href="https://calendly.com/orangery/30min" class="btn-primary" style="background: var(--forest); margin-top: 8px;">
+          Let's talk about your culture <span class="arrow">→</span>
+        </a>
+      </div>
+      <div class="recognise-lists">
+        <div>
+          <span class="list-label">Right now, it might feel like…</span>
+          <div class="bad-list">
+            <div class="bad-list-item"><span class="marker">✗</span> <span><strong>Burnout Central</strong> — "All pressure, no pastoral care."</span></div>
+            <div class="bad-list-item"><span class="marker">✗</span> <span><strong>The Void</strong> — "Where calling goes to die."</span></div>
+            <div class="bad-list-item"><span class="marker">✗</span> <span><strong>Feedback-Free Zone</strong> — "No truth 'til your exit interview."</span></div>
+            <div class="bad-list-item"><span class="marker">✗</span> <span><strong>Cozy Complacent</strong> — "Nice. Polite. Going nowhere."</span></div>
+          </div>
+        </div>
+        <div>
+          <span class="list-label good">The 'IT' Culture looks like…</span>
+          <div class="good-list">
+            <div class="good-list-item"><span class="marker">✓</span> <span>Where clarity meets compassion</span></div>
+            <div class="good-list-item"><span class="marker">✓</span> <span>Where feedback builds, not breaks</span></div>
+            <div class="good-list-item"><span class="marker">✓</span> <span>Where challenge fuels spiritual and organisational growth</span></div>
+            <div class="good-list-item"><span class="marker">✓</span> <span>Where people show up bought into the mission</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION SECTION -->
+<section class="solution-section">
+  <div class="section-inner">
+    <span class="eyebrow">What we do</span>
+    <h2 class="section-headline" style="color: var(--cream);">We don't do fluff.<br>We build cultures people <em>want to stay part of.</em></h2>
+    <p class="section-sub">At Orangery Solutions, we work with church staff teams and elder boards to move from survival mode to standout health — through coaching that transforms how your team communicates, aligns, and grows.</p>
+    <div class="solution-layout">
+      <div class="solution-text">
+        <p>Culture isn't fixed in a weekend retreat. It's built through consistent, intentional work on the invisible things — trust, candor, role clarity, shared language, and relational intelligence.</p>
+        <p>We bring a structured, high-trust process that names what's underneath the surface, creates space for honest conversation, and gives your team tools that make healthy culture inevitable — not accidental.</p>
+        <p>No gimmicks. No guesswork. Just a church culture people talk about — for all the right reasons.</p>
+      </div>
+      <div class="outcome-list">
+        <div class="outcome-item">
+          <div class="outcome-icon-wrap"><span class="outcome-icon">🌱</span></div>
+          <div>
+            <p class="outcome-title">Leaders multiply</p>
+            <p class="outcome-desc">Culture so healthy it develops the next generation naturally — without you forcing it.</p>
+          </div>
+        </div>
+        <div class="outcome-item">
+          <div class="outcome-icon-wrap"><span class="outcome-icon">🤝</span></div>
+          <div>
+            <p class="outcome-title">Teams align</p>
+            <p class="outcome-desc">Shared vision and language that holds even when new people join and seasons change.</p>
+          </div>
+        </div>
+        <div class="outcome-item">
+          <div class="outcome-icon-wrap"><span class="outcome-icon">❤️</span></div>
+          <div>
+            <p class="outcome-title">People stay</p>
+            <p class="outcome-desc">High-trust environments your best staff and volunteers actively choose to remain in.</p>
+          </div>
+        </div>
+        <div class="outcome-item">
+          <div class="outcome-icon-wrap"><span class="outcome-icon">🚀</span></div>
+          <div>
+            <p class="outcome-title">Mission advances</p>
+            <p class="outcome-desc">Healthy teams produce fruit — in the building, in the community, and beyond.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES SECTION -->
+<section class="services-section">
+  <div class="section-inner">
+    <span class="eyebrow">How we work with you</span>
+    <h2 class="section-headline">Four ways we build your<br><em>'IT' Culture</em></h2>
+    <p class="section-sub">From one-on-one coaching to immersive team experiences — every engagement is built around your church's specific season, size, and needs.</p>
+    <div class="services-grid">
+      <div class="service-card fade-up">
+        <span class="service-icon">🎯</span>
+        <span class="service-tag">Coaching</span>
+        <p class="service-title">Coaching for the Culture Setters</p>
+        <p class="service-body">You shape the culture — whether you're the lead pastor, an executive director, or a ministry leader rallying volunteers on a Tuesday night. We coach church leaders who carry both the weight and the spark. Our coaching goes beyond frameworks and performance plans. We dig into who you are, how you lead, and what kind of environment you're actually creating around you.</p>
+      </div>
+      <div class="service-card fade-up">
+        <span class="service-icon">💬</span>
+        <span class="service-tag">Workshops</span>
+        <p class="service-title">Team Workshops That Actually Change Things</p>
+        <p class="service-body">This isn't trust falls and whiteboard theology. These are culture-leveling, clarity-bringing, voice-activating experiences that get everyone speaking the same language — and actually hearing each other for once. We cover 5 Voices team dynamics, communication frameworks, Peace Index, and collaboration blockers, all tailored to your team.</p>
+      </div>
+      <div class="service-card fade-up">
+        <span class="service-icon">🔥</span>
+        <span class="service-tag">Team Building</span>
+        <p class="service-title">Forge Culture. Literally.</p>
+        <p class="service-body">Sometimes the best way to build a ministry team isn't another planning meeting — it's holding fire, breaking glass, and making something real together. In partnership with Visual Philosophy Art Studio, we offer hands-on experiences in blacksmithing, stained glass, and screen printing that bond teams through shared breakthrough — not forced trust exercises.</p>
+      </div>
+      <div class="service-card fade-up">
+        <span class="service-icon">🌿</span>
+        <span class="service-tag">Ongoing Care</span>
+        <p class="service-title">Ongoing Partnership</p>
+        <p class="service-body">Church culture isn't built in a day — and it definitely doesn't sustain itself. For churches that want more than a one-off workshop, we offer ongoing partnership through a retainer model. Part coach, part consultant, part creative spark — we become your outsourced culture and leadership development team.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PIVOT SECTION -->
+<section class="pivot-section">
+  <div class="section-inner">
+    <span class="eyebrow" style="display: inline-flex; margin: 0 auto 24px;">It's time to pivot</span>
+    <h2 class="section-headline" style="color: var(--cream); margin-bottom: 48px;">From where you are<br>to <em>where you're called to be.</em></h2>
+    <div class="pivot-arrows">
+      <div class="pivot-row">
+        <span class="from">Siloed ministries</span>
+        <span class="arr">→</span>
+        <span class="to">Shared purpose</span>
+      </div>
+      <div class="pivot-row">
+        <span class="from">Burnout and bravado</span>
+        <span class="arr">→</span>
+        <span class="to">Trust and collaboration</span>
+      </div>
+      <div class="pivot-row">
+        <span class="from">Chasing superstars</span>
+        <span class="arr">→</span>
+        <span class="to">Championing one another</span>
+      </div>
+      <div class="pivot-row">
+        <span class="from">Survival mode</span>
+        <span class="arr">→</span>
+        <span class="to">Standout health</span>
+      </div>
+    </div>
+    <p style="font-family: var(--font-display); font-size: 20px; font-style: italic; color: rgba(245,240,232,0.5); text-align: center; max-width: 480px; margin: 0 auto 40px; line-height: 1.6;">Because when your church culture works, <strong style="font-style: normal; color: var(--gold); font-weight: 600;">everything</strong> works better.</p>
+    <div style="text-align: center;">
+      <a href="https://calendly.com/orangery/30min" class="btn-primary">Book your strategy session <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="section-inner">
+    <div>
+      <span class="eyebrow" style="color: var(--gold);">Ready to start?</span>
+      <h2 class="cta-headline">Your culture is either working<br>for your mission — or <em>against it.</em></h2>
+      <p class="cta-sub">Let's find out where you are and build toward where you need to be. No obligation, no pressure — just an honest conversation about your church culture.</p>
+    </div>
+    <div class="cta-actions">
+      <a href="https://calendly.com/orangery/30min" class="btn-primary">Book a free culture call <span class="arrow">→</span></a>
+      <a href="mailto:orangery.team.solutions@gmail.com" class="btn-ghost">Send us an email</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <img src="https://images.squarespace-cdn.com/content/v1/61771991617ef211f58fd8ae/177ba3f4-a491-4cee-a7f2-dc5cf58115a2/Orangery+solutions+logo.png" alt="Orangery Solutions">
+  </div>
+  <div class="footer-info">
+    <p>Silicon Valley–San Jose, CA &nbsp;·&nbsp; San Francisco Bay Area</p>
+    <p style="margin-top: 4px;"><a href="mailto:orangery.team.solutions@gmail.com" style="color: rgba(245,240,232,0.35); text-decoration: none;">orangery.team.solutions@gmail.com</a></p>
+  </div>
+  <div class="footer-links">
+    <a href="#">Terms & Conditions</a>
+    <a href="#">Privacy Policy</a>
+    <a href="https://www.linkedin.com/in/luke-haythorpe-030b982a/" target="_blank">LinkedIn</a>
+    <a href="https://www.instagram.com/orangery.solutions/" target="_blank">Instagram</a>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    if (window.scrollY > 60) {
+      nav.style.padding = '14px 48px';
+    } else {
+      nav.style.padding = '20px 48px';
+    }
+  });
+</script>
+</body>
+</html>

@@ -208,6 +208,12 @@
   .btn-primary:hover { background: var(--orange-light); transform: translateY(-1px); }
   .btn-primary .arrow { transition: transform 0.2s; }
   .btn-primary:hover .arrow { transform: translateX(4px); }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+  }
   .btn-ghost {
     display: inline-flex;
     align-items: center;
@@ -615,6 +621,36 @@
     color: var(--muted);
     line-height: 1.7;
   }
+  .diagnostic-banner {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 32px;
+    align-items: center;
+    background: var(--forest);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 6px;
+    padding: 40px 44px;
+    margin-bottom: 8px;
+  }
+  .diagnostic-banner .eyebrow { color: var(--gold); margin-bottom: 12px; }
+  .diagnostic-banner .eyebrow::before { background: var(--gold); }
+  .diagnostic-banner h3 {
+    font-family: var(--font-display);
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: 400;
+    color: var(--cream);
+    line-height: 1.25;
+    margin-bottom: 10px;
+  }
+  .diagnostic-banner h3 em { font-style: italic; color: var(--gold); }
+  .diagnostic-banner p {
+    font-size: 15px;
+    color: rgba(245,240,232,0.6);
+    line-height: 1.65;
+    max-width: 520px;
+  }
+  .diagnostic-banner .btn-primary { flex-shrink: 0; }
 
   /* ── PIVOT SECTION ── */
   .pivot-section { background: var(--forest-mid); }
@@ -739,6 +775,8 @@
     .solution-layout { grid-template-columns: 1fr; gap: 40px; }
     .recognise-grid { grid-template-columns: 1fr; gap: 40px; }
     .services-grid { grid-template-columns: 1fr; }
+    .diagnostic-banner { grid-template-columns: 1fr; padding: 32px 28px; }
+    .diagnostic-banner .btn-primary { align-self: flex-start; }
     .cta-section .section-inner { grid-template-columns: 1fr; gap: 32px; }
     .cta-actions { align-items: flex-start; }
     footer { flex-direction: column; gap: 24px; text-align: center; }
@@ -751,13 +789,12 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">
+  <a href="index.html" class="nav-logo">
     <img src="https://images.squarespace-cdn.com/content/v1/61771991617ef211f58fd8ae/fc8180ef-0cbc-4d4c-ad56-2b13c32f71c3/Orangery+solutions+logo.png?format=1500w" alt="Orangery Solutions">
   </a>
   <ul class="nav-links">
-    <li><a href="#">Healthy Church Culture</a></li>
-    <li><a href="#">About Orangery</a></li>
-    <li><a href="#">Certification</a></li>
+    <li><a href="orangery-culture-diagnostic.html">Culture Diagnostic</a></li>
+    <li><a href="#services">How We Work</a></li>
     <li><a href="https://calendly.com/orangery/30min" class="nav-cta">Talk to Someone</a></li>
   </ul>
 </nav>
@@ -778,9 +815,14 @@
       <span class="pill">Loyalty</span>
       <span class="pill">Fruit</span>
     </div>
-    <a href="https://calendly.com/orangery/30min" class="btn-primary">
-      Start the conversation <span class="arrow">→</span>
-    </a>
+    <div class="hero-actions">
+      <a href="https://calendly.com/orangery/30min" class="btn-primary">
+        Start the conversation <span class="arrow">→</span>
+      </a>
+      <a href="orangery-culture-diagnostic.html" class="btn-ghost">
+        Take the culture diagnostic
+      </a>
+    </div>
   </div>
   <div class="hero-image-side">
     <img src="https://images.squarespace-cdn.com/content/v1/61771991617ef211f58fd8ae/94c006cc-857f-4c1c-962f-7cc7a6efed37/vitaly-gariev-tDGSaNnt-rg-unsplash.jpg" alt="Church team collaborating">
@@ -966,12 +1008,20 @@
 </section>
 
 <!-- SERVICES SECTION -->
-<section class="services-section">
+<section class="services-section" id="services">
   <div class="section-inner">
     <span class="eyebrow">How we work with you</span>
     <h2 class="section-headline">Four ways we build your<br><em>'IT' Culture</em></h2>
     <p class="section-sub">From one-on-one coaching to immersive team experiences — every engagement is built around your church's specific season, size, and needs.</p>
     <div class="services-grid">
+      <div class="diagnostic-banner fade-up">
+        <div>
+          <span class="eyebrow">Free tool</span>
+          <h3>Not ready for a call?<br>Start with the <em>Culture Diagnostic.</em></h3>
+          <p>15 questions across five culture areas. Get your archetype, score breakdown, and where to focus first — about 5 minutes, no signup required.</p>
+        </div>
+        <a href="orangery-culture-diagnostic.html" class="btn-primary">Take the diagnostic <span class="arrow">→</span></a>
+      </div>
       <div class="service-card fade-up">
         <span class="service-icon">🎯</span>
         <span class="service-tag">Coaching</span>
@@ -1044,6 +1094,7 @@
     </div>
     <div class="cta-actions">
       <a href="https://calendly.com/orangery/30min" class="btn-primary">Book a free culture call <span class="arrow">→</span></a>
+      <a href="orangery-culture-diagnostic.html" class="btn-ghost">Take the culture diagnostic</a>
       <a href="mailto:orangery.team.solutions@gmail.com" class="btn-ghost">Send us an email</a>
     </div>
   </div>
@@ -1059,6 +1110,7 @@
     <p style="margin-top: 4px;"><a href="mailto:orangery.team.solutions@gmail.com" style="color: rgba(245,240,232,0.35); text-decoration: none;">orangery.team.solutions@gmail.com</a></p>
   </div>
   <div class="footer-links">
+    <a href="orangery-culture-diagnostic.html">Culture Diagnostic</a>
     <a href="#">Terms & Conditions</a>
     <a href="#">Privacy Policy</a>
     <a href="https://www.linkedin.com/in/luke-haythorpe-030b982a/" target="_blank">LinkedIn</a>

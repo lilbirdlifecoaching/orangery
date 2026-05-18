@@ -108,6 +108,7 @@
     background: var(--forest);
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr auto;
     position: relative;
     overflow: hidden;
   }
@@ -128,12 +129,25 @@
     opacity: 0.4;
   }
   .hero-content {
+    grid-column: 1;
+    grid-row: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 140px 64px 80px;
+    padding: 128px 56px 48px 64px;
     position: relative;
     z-index: 2;
+    align-self: center;
+  }
+  .hero-tagline {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 2.8vw, 30px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--gold);
+    line-height: 1.35;
+    margin-bottom: 20px;
+    max-width: 440px;
   }
   .hero-eyebrow {
     display: flex;
@@ -166,28 +180,42 @@
     color: var(--gold);
   }
   .hero-sub {
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 300;
-    color: rgba(245,240,232,0.65);
+    color: rgba(245,240,232,0.62);
     line-height: 1.7;
-    max-width: 420px;
-    margin-bottom: 40px;
+    max-width: 440px;
+    margin-bottom: 28px;
   }
   .hero-pills {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 44px;
+    gap: 10px;
+    margin-bottom: 32px;
   }
   .pill {
-    border: 1px solid rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.22);
     border-radius: 100px;
-    padding: 6px 16px;
+    padding: 8px 18px;
     font-size: 12px;
-    font-weight: 400;
-    letter-spacing: 0.06em;
-    color: rgba(245,240,232,0.6);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cream);
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+    transition: transform 0.2s, background 0.2s, border-color 0.2s;
   }
+  .pill:hover {
+    transform: translateY(-2px);
+    background: rgba(255,255,255,0.14);
+    border-color: rgba(255,255,255,0.35);
+  }
+  .pill:nth-child(1) { border-color: rgba(201,160,82,0.45); background: rgba(201,160,82,0.14); }
+  .pill:nth-child(2) { border-color: rgba(178,201,181,0.5); background: rgba(122,156,126,0.18); }
+  .pill:nth-child(3) { border-color: rgba(232,137,90,0.45); background: rgba(212,104,42,0.16); }
+  .pill:nth-child(4) { border-color: rgba(245,240,232,0.35); background: rgba(245,240,232,0.1); }
   .btn-primary {
     display: inline-flex;
     align-items: center;
@@ -234,31 +262,35 @@
   .btn-ghost:hover { border-color: rgba(255,255,255,0.45); background: rgba(255,255,255,0.05); }
 
   .hero-image-side {
+    grid-column: 2;
+    grid-row: 1 / 3;
     position: relative;
     overflow: hidden;
+    min-height: 320px;
   }
   .hero-image-side img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
-    opacity: 0.45;
-    mix-blend-mode: luminosity;
-    filter: contrast(1.05);
+    object-position: center 35%;
+    opacity: 0.92;
+    filter: contrast(1.02) saturate(1.05);
   }
   .hero-image-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to right, var(--forest) 0%, transparent 30%),
-                linear-gradient(to top, var(--forest) 0%, transparent 40%);
+    background:
+      linear-gradient(to right, var(--forest) 0%, rgba(28,43,30,0.55) 22%, transparent 55%),
+      linear-gradient(to top, var(--forest) 0%, transparent 35%),
+      linear-gradient(to bottom, rgba(28,43,30,0.25) 0%, transparent 25%);
   }
   .hero-stat-strip {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    position: relative;
     display: flex;
-    border-top: 1px solid rgba(255,255,255,0.08);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    background: rgba(22, 34, 24, 0.97);
     z-index: 3;
   }
   .stat-item {
@@ -358,62 +390,96 @@
   }
 
   /* ── STRUGGLE CARDS ── */
-  .cards-grid {
+  .symptoms-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 18px;
   }
-  .cards-grid .card:nth-child(4),
-  .cards-grid .card:nth-child(5) {
-    grid-column: span 1;
-  }
-  .cards-row-2 {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-    max-width: calc(66.66% + 8px);
-  }
+  .symptoms-grid .symptom-card:nth-child(1) { grid-column: span 2; }
+  .symptoms-grid .symptom-card:nth-child(2) { grid-column: span 2; }
+  .symptoms-grid .symptom-card:nth-child(3) { grid-column: span 2; }
+  .symptoms-grid .symptom-card:nth-child(4) { grid-column: 2 / span 2; }
+  .symptoms-grid .symptom-card:nth-child(5) { grid-column: 4 / span 2; }
 
-  .card {
+  .symptom-card {
+    position: relative;
     background: white;
     border: 1px solid var(--cream-deep);
-    border-radius: 6px;
-    padding: 28px;
+    border-radius: 8px;
+    padding: 28px 26px 24px;
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    gap: 12px;
+    overflow: hidden;
+    transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
     cursor: default;
   }
-  .card:hover {
-    border-color: var(--sage-light);
-    box-shadow: 0 6px 24px rgba(28,43,30,0.08);
-    transform: translateY(-2px);
+  .symptom-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--sage), var(--forest-light));
   }
-  .card-header {
+  .symptom-card:nth-child(2)::before { background: linear-gradient(90deg, var(--orange-light), var(--orange)); }
+  .symptom-card:nth-child(3)::before { background: linear-gradient(90deg, var(--gold), var(--gold-pale)); }
+  .symptom-card:nth-child(4)::before { background: linear-gradient(90deg, var(--forest-light), var(--sage)); }
+  .symptom-card:nth-child(5)::before { background: linear-gradient(90deg, var(--orange), #a84320); }
+  .symptom-card:hover {
+    border-color: var(--sage);
+    box-shadow: 0 12px 40px rgba(28,43,30,0.12);
+    transform: translateY(-4px);
+  }
+  .symptom-card .card-watermark {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-family: var(--font-display);
+    font-size: 56px;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--cream-warm);
+    pointer-events: none;
+    user-select: none;
+  }
+  .symptom-card-header {
     display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 12px;
+    align-items: center;
+    gap: 14px;
+    position: relative;
+    z-index: 1;
   }
+  .symptom-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--cream-warm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .symptom-card:nth-child(1) .symptom-icon { background: rgba(122,156,126,0.2); }
+  .symptom-card:nth-child(2) .symptom-icon { background: rgba(212,104,42,0.15); }
+  .symptom-card:nth-child(3) .symptom-icon { background: rgba(201,160,82,0.2); }
+  .symptom-card:nth-child(4) .symptom-icon { background: rgba(61,90,66,0.12); }
+  .symptom-card:nth-child(5) .symptom-icon { background: rgba(212,104,42,0.12); }
   .card-num {
     font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
+    font-weight: 600;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--forest-light);
-    background: var(--cream-warm);
-    border-radius: 3px;
-    padding: 4px 10px;
-    flex-shrink: 0;
+    margin-bottom: 2px;
+    display: block;
   }
   .card-title {
     font-family: var(--font-display);
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 500;
     color: var(--forest);
     line-height: 1.2;
-    flex: 1;
   }
   .card-section-label {
     font-size: 10px;
@@ -431,13 +497,20 @@
   }
   .card-threat {
     margin-top: auto;
-    background: var(--orange-pale);
-    border-left: 2px solid var(--orange);
-    padding: 10px 14px;
+    background: linear-gradient(135deg, var(--orange-pale) 0%, #f8ebe3 100%);
+    border-left: 3px solid var(--orange);
+    padding: 12px 16px;
     font-size: 13px;
-    color: #7a3515;
-    line-height: 1.5;
-    border-radius: 0 4px 4px 0;
+    font-weight: 400;
+    color: #6b3018;
+    line-height: 1.55;
+    border-radius: 0 6px 6px 0;
+    position: relative;
+    z-index: 1;
+  }
+  .card-threat strong {
+    font-weight: 600;
+    color: #5a2810;
   }
   .card-divider {
     height: 1px;
@@ -760,18 +833,49 @@
   .fade-up:nth-child(4) { transition-delay: 0.3s; }
   .fade-up:nth-child(5) { transition-delay: 0.4s; }
 
+  @media (max-width: 1100px) {
+    .symptoms-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .symptoms-grid .symptom-card:nth-child(1),
+    .symptoms-grid .symptom-card:nth-child(2),
+    .symptoms-grid .symptom-card:nth-child(3),
+    .symptoms-grid .symptom-card:nth-child(4),
+    .symptoms-grid .symptom-card:nth-child(5) {
+      grid-column: span 1;
+    }
+    .symptoms-grid .symptom-card:nth-child(5) {
+      grid-column: 1 / -1;
+      max-width: 520px;
+      justify-self: center;
+      width: 100%;
+    }
+  }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
     nav { padding: 16px 24px; }
     .nav-links { display: none; }
-    .hero { grid-template-columns: 1fr; min-height: auto; }
-    .hero-content { padding: 120px 28px 48px; }
-    .hero-image-side { display: none; }
-    .hero-stat-strip { position: static; }
+    .hero {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto auto;
+      min-height: auto;
+    }
+    .hero-content { grid-column: 1; grid-row: 1; padding: 112px 28px 32px; }
+    .hero-image-side {
+      grid-column: 1;
+      grid-row: 2;
+      display: block;
+      min-height: 240px;
+      max-height: 320px;
+    }
+    .hero-stat-strip { grid-column: 1; grid-row: 3; flex-direction: column; }
+    .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .stat-item:last-child { border-bottom: none; }
+    .symptoms-grid { grid-template-columns: 1fr; }
+    .symptoms-grid .symptom-card { grid-column: 1 / -1 !important; }
     .stat-item { padding: 18px 20px; }
     .section-inner { padding: 64px 28px; }
-    .cards-grid { grid-template-columns: 1fr; }
-    .cards-row-2 { grid-template-columns: 1fr; max-width: 100%; }
     .solution-layout { grid-template-columns: 1fr; gap: 40px; }
     .recognise-grid { grid-template-columns: 1fr; gap: 40px; }
     .services-grid { grid-template-columns: 1fr; }
@@ -807,8 +911,9 @@
       <span class="hero-eyebrow-line"></span>
       <span class="hero-eyebrow-text">Orangery Solutions</span>
     </div>
+    <p class="hero-tagline">Building cultures no one wants to leave</p>
     <h1>Your church<br>has a mission.<br><em>Does your culture<br>match it?</em></h1>
-    <p class="hero-sub">We build high-trust, high-impact cultures for church staff teams and elder boards — so your team stops surviving and starts thriving.</p>
+    <p class="hero-sub">High-trust coaching and diagnostics for church staff teams and elder boards — so your team stops surviving and starts thriving.</p>
     <div class="hero-pills">
       <span class="pill">Clarity</span>
       <span class="pill">Unity</span>
@@ -825,7 +930,7 @@
     </div>
   </div>
   <div class="hero-image-side">
-    <img src="https://images.squarespace-cdn.com/content/v1/61771991617ef211f58fd8ae/94c006cc-857f-4c1c-962f-7cc7a6efed37/vitaly-gariev-tDGSaNnt-rg-unsplash.jpg" alt="Church team collaborating">
+    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1400&q=85&auto=format&fit=crop" alt="Diverse team laughing together in candid conversation">
     <div class="hero-image-overlay"></div>
   </div>
   <div class="hero-stat-strip">
@@ -855,72 +960,87 @@
       <p>The one place that should be the <strong>healthiest, most aligned team in the room</strong> — the church staff — is often running on low trust, unclear roles, and unspoken tension. And the damage is slow, quiet, and cumulative.</p>
     </div>
 
-    <!-- Cards row 1: 3 cards -->
-    <div class="cards-grid" style="margin-bottom: 16px;">
-      <div class="card fade-up">
-        <div class="card-header">
-          <span class="card-num">01</span>
+    <div class="symptoms-grid">
+      <article class="symptom-card fade-up">
+        <span class="card-watermark" aria-hidden="true">01</span>
+        <div class="symptom-card-header">
+          <span class="symptom-icon" aria-hidden="true">🧭</span>
+          <div>
+            <span class="card-num">Symptom 01</span>
+            <p class="card-title">Vision Drift</p>
+          </div>
         </div>
-        <p class="card-title">Vision Drift</p>
         <div class="card-divider"></div>
         <div>
           <span class="card-section-label">What it looks like</span>
           <p class="card-body">Departments pulling in different directions. New staff never truly absorbed the culture. Language around "why we exist" has gone stale — and nobody's noticed.</p>
         </div>
-        <div class="card-threat">Without a shared north star, energy fragments and your church's distinctiveness fades.</div>
-      </div>
-      <div class="card fade-up">
-        <div class="card-header">
-          <span class="card-num">02</span>
+        <p class="card-threat"><strong>The risk:</strong> Without a shared north star, energy fragments and your church's distinctiveness fades.</p>
+      </article>
+      <article class="symptom-card fade-up">
+        <span class="card-watermark" aria-hidden="true">02</span>
+        <div class="symptom-card-header">
+          <span class="symptom-icon" aria-hidden="true">⛪</span>
+          <div>
+            <span class="card-num">Symptom 02</span>
+            <p class="card-title">Ministry Silos</p>
+          </div>
         </div>
-        <p class="card-title">Ministry Silos</p>
         <div class="card-divider"></div>
         <div>
           <span class="card-section-label">What it looks like</span>
           <p class="card-body">Turf wars over budget, volunteers, and calendar. "My ministry, my rooms." Worship vs. children's vs. youth — competing islands instead of one body.</p>
         </div>
-        <div class="card-threat">Outward impact stalls when the parts of the body stop communicating.</div>
-      </div>
-      <div class="card fade-up">
-        <div class="card-header">
-          <span class="card-num">03</span>
+        <p class="card-threat"><strong>The risk:</strong> Outward impact stalls when the parts of the body stop communicating.</p>
+      </article>
+      <article class="symptom-card fade-up">
+        <span class="card-watermark" aria-hidden="true">03</span>
+        <div class="symptom-card-header">
+          <span class="symptom-icon" aria-hidden="true">🤝</span>
+          <div>
+            <span class="card-num">Symptom 03</span>
+            <p class="card-title">The Trust Deficit</p>
+          </div>
         </div>
-        <p class="card-title">The Trust Deficit</p>
         <div class="card-divider"></div>
         <div>
           <span class="card-section-label">What it looks like</span>
           <p class="card-body">Passive agreement in meetings. Real concerns shared in the hallway. Gossip dressed as prayer requests. A growing sense of church "politics."</p>
         </div>
-        <div class="card-threat">You can't build a church on a team performing unity while living in suspicion.</div>
-      </div>
-    </div>
-
-    <!-- Cards row 2: 2 cards centred -->
-    <div style="display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; max-width: 780px;">
-      <div class="card fade-up">
-        <div class="card-header">
-          <span class="card-num">04</span>
+        <p class="card-threat"><strong>The risk:</strong> You can't build a church on a team performing unity while living in suspicion.</p>
+      </article>
+      <article class="symptom-card fade-up">
+        <span class="card-watermark" aria-hidden="true">04</span>
+        <div class="symptom-card-header">
+          <span class="symptom-icon" aria-hidden="true">📋</span>
+          <div>
+            <span class="card-num">Symptom 04</span>
+            <p class="card-title">Leadership Without Clarity</p>
+          </div>
         </div>
-        <p class="card-title">Leadership Without Clarity</p>
         <div class="card-divider"></div>
         <div>
           <span class="card-section-label">What it looks like</span>
           <p class="card-body">Role confusion, accountability gaps, senior leaders as bottlenecks. Staff unsure who to go to — decisions feel slow, arbitrary, or political.</p>
         </div>
-        <div class="card-threat">When no one knows who owns what, God-given opportunities are squandered.</div>
-      </div>
-      <div class="card fade-up">
-        <div class="card-header">
-          <span class="card-num">05</span>
+        <p class="card-threat"><strong>The risk:</strong> When no one knows who owns what, God-given opportunities are squandered.</p>
+      </article>
+      <article class="symptom-card fade-up">
+        <span class="card-watermark" aria-hidden="true">05</span>
+        <div class="symptom-card-header">
+          <span class="symptom-icon" aria-hidden="true">💚</span>
+          <div>
+            <span class="card-num">Symptom 05</span>
+            <p class="card-title">Staff Health in Decline</p>
+          </div>
         </div>
-        <p class="card-title">Staff Health in Decline</p>
         <div class="card-divider"></div>
         <div>
           <span class="card-section-label">What it looks like</span>
           <p class="card-body">Your best people are quietly leaving. Burnout masked as busyness. A growing gap between what staff say publicly and what they feel privately.</p>
         </div>
-        <div class="card-threat">You can't lead a healthy congregation from an unhealthy staff room.</div>
-      </div>
+        <p class="card-threat"><strong>The risk:</strong> You can't lead a healthy congregation from an unhealthy staff room.</p>
+      </article>
     </div>
   </div>
 </section>

@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Orangery Solutions — Healthy Church Culture</title>
+<link rel="icon" href="ORANGE.png" type="image/png">
+<link rel="apple-touch-icon" href="ORANGE.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
@@ -28,6 +30,7 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
+[id] { scroll-margin-top: 88px; }
 body {
   font-family: var(--font-body);
   background: var(--off);
@@ -48,7 +51,7 @@ nav {
   transition: padding 0.3s ease;
 }
 .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.nav-logo img { height: 32px; filter: brightness(0) invert(1); opacity: 0.9; }
+.nav-logo img { height: 40px; width: auto; display: block; }
 .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
 .nav-links a { font-size: 13px; color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
 .nav-links a:hover { color: rgba(255,255,255,0.95); }
@@ -484,7 +487,7 @@ footer {
   display: flex; align-items: center; justify-content: space-between;
   border-top: 1px solid rgba(255,255,255,0.06);
 }
-.footer-logo img { height: 36px; filter: brightness(0) invert(1); opacity: 0.65; }
+.footer-logo img { height: 44px; width: auto; display: block; opacity: 0.95; }
 .footer-info p { font-size: 12px; color: rgba(245,240,232,0.35); line-height: 1.6; }
 .footer-links { display: flex; gap: 18px; }
 .footer-links a { font-size: 12px; color: rgba(245,240,232,0.38); text-decoration: none; transition: color 0.2s; }
@@ -729,13 +732,13 @@ footer {
 <body>
 <!-- NAV -->
 <nav id="main-nav">
-  <a href="#" class="nav-logo">
-    <img src="https://images.squarespace-cdn.com/content/v1/61771991617ef211f58fd8ae/fc8180ef-0cbc-4d4c-ad56-2b13c32f71c3/Orangery+solutions+logo.png?format=1500w" alt="Orangery Solutions">
+  <a href="/" class="nav-logo">
+    <img src="ORANGE.png" alt="Orangery Solutions">
   </a>
   <ul class="nav-links">
-    <li><a href="#">Healthy Church Culture</a></li>
-    <li><a href="#">About Orangery</a></li>
-    <li><a href="#">Certification</a></li>
+    <li><a href="#diagnostic">Culture Diagnostic</a></li>
+    <li><a href="#about">What We Do</a></li>
+    <li><a href="#services">How We Work</a></li>
     <li><a href="https://calendly.com/orangery/30min" class="nav-cta">Talk to Someone</a></li>
   </ul>
 </nav>
@@ -777,7 +780,7 @@ footer {
 </section>
 
 <!-- ══════════ DIAGNOSTIC SECTION ══════════ -->
-<section class="diagnostic-section">
+<section class="diagnostic-section" id="diagnostic">
   <div class="section-inner">
     <span class="eyebrow">Free Culture Diagnostic</span>
     <h2 class="section-headline">How healthy is your<br>church culture, <em>really?</em></h2>
@@ -974,7 +977,7 @@ footer {
 </section>
 
 <!-- ══════════ RECOGNISE SECTION ══════════ -->
-<section class="stone-section">
+<section class="stone-section" id="culture">
   <div class="section-inner">
     <div class="recognise-grid">
       <div class="recognise-text">
@@ -1009,7 +1012,7 @@ footer {
 
 
 <!-- ══════════ SOLUTION SECTION ══════════ -->
-<section class="dark-section">
+<section class="dark-section" id="about">
   <div class="section-inner">
     <span class="eyebrow">What we do</span>
     <h2 class="section-headline" style="color:var(--off);">We don't do fluff.<br>We build cultures people <em>want to stay part of.</em></h2>
@@ -1031,7 +1034,7 @@ footer {
 </section>
 
 <!-- ══════════ SERVICES ══════════ -->
-<section class="services-section">
+<section class="services-section" id="services">
   <div class="section-inner">
     <span class="eyebrow">How we work with you</span>
     <h2 class="section-headline">Four ways we build your <em>'IT' Culture</em></h2>
@@ -1080,15 +1083,15 @@ footer {
 <!-- ══════════ FOOTER ══════════ -->
 <footer>
   <div class="footer-logo">
-    <img src="https://images.squarespace-cdn.com/content/v1/61771991617ef211f58fd8ae/177ba3f4-a491-4cee-a7f2-dc5cf58115a2/Orangery+solutions+logo.png" alt="Orangery Solutions">
+    <img src="ORANGE.png" alt="Orangery Solutions">
   </div>
   <div class="footer-info">
     <p>Silicon Valley–San Jose, CA &nbsp;·&nbsp; San Francisco Bay Area</p>
     <p style="margin-top:3px;"><a href="mailto:lukehaythorpe@orangery.solutions" style="color:rgba(245,240,232,0.35);text-decoration:none;">lukehaythorpe@orangery.solutions</a></p>
   </div>
   <div class="footer-links">
-    <a href="#">Terms & Conditions</a>
-    <a href="#">Privacy Policy</a>
+    <a href="#diagnostic">Culture Diagnostic</a>
+    <a href="orangery-culture-diagnostic.html">Shareable diagnostic link</a>
     <a href="https://www.linkedin.com/in/luke-haythorpe-030b982a/" target="_blank">LinkedIn</a>
     <a href="https://www.instagram.com/orangery.solutions/" target="_blank">Instagram</a>
   </div>
@@ -1400,7 +1403,7 @@ function diagGenerateShareLink() {
   const church = diagSubmitterChurch || 'your church';
   const name   = diagSubmitterName   || '';
   const token  = btoa(encodeURIComponent(church)) + '-' + btoa(encodeURIComponent(name));
-  const url    = window.location.origin + window.location.pathname + '?team=' + encodeURIComponent(token);
+  const url    = window.location.origin + '/orangery-culture-diagnostic.html?team=' + encodeURIComponent(token);
   document.getElementById('diag-share-link').value = url;
   document.getElementById('diag-share-link-wrap').style.display = 'flex';
   document.getElementById('diag-share-btn').style.display = 'none';

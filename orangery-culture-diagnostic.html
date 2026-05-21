@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Church Culture Diagnostic — Orangery Solutions</title>
+<link rel="icon" href="ORANGE.png" type="image/png">
+<link rel="apple-touch-icon" href="ORANGE.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
@@ -22,7 +24,7 @@ body{font-family:var(--font-body);background:var(--off);color:var(--char);font-s
 .diag-page{min-height:100vh;display:flex;flex-direction:column;}
 .diag-page-header{background:var(--char);padding:18px 48px;display:flex;align-items:center;justify-content:space-between;}
 .diag-page-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
-.diag-page-logo img{height:30px;filter:brightness(0) invert(1);opacity:.88;}
+.diag-page-logo img{height:40px;width:auto;display:block;}
 .diag-page-back{font-size:12px;color:rgba(255,255,255,.45);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s;}
 .diag-page-back:hover{color:rgba(255,255,255,.8);}
 .diag-main{flex:1;max-width:1000px;margin:0 auto;padding:56px 32px 80px;width:100%;}
@@ -287,9 +289,9 @@ body{font-family:var(--font-body);background:var(--off);color:var(--char);font-s
 
   <header class="diag-page-header">
     <a href="/" class="diag-page-logo">
-      <img src="https://images.squarespace-cdn.com/content/v1/61771991617ef211f58fd8ae/fc8180ef-0cbc-4d4c-ad56-2b13c32f71c3/Orangery+solutions+logo.png?format=1500w" alt="Orangery Solutions">
+      <img src="ORANGE.png" alt="Orangery Solutions">
     </a>
-    <a href="/" class="diag-page-back">← Back to Orangery</a>
+    <a href="/" class="diag-page-back">← Back to homepage</a>
   </header>
 
   <main class="diag-main">
@@ -796,7 +798,7 @@ function diagGenerateShareLink() {
   const church = diagSubmitterChurch || 'your church';
   const name   = diagSubmitterName   || '';
   const token  = btoa(encodeURIComponent(church)) + '-' + btoa(encodeURIComponent(name));
-  const url    = window.location.origin + window.location.pathname + '?team=' + encodeURIComponent(token);
+  const url    = window.location.origin + '/orangery-culture-diagnostic.html?team=' + encodeURIComponent(token);
   document.getElementById('diag-share-link').value = url;
   document.getElementById('diag-share-link-wrap').style.display = 'flex';
   document.getElementById('diag-share-btn').style.display = 'none';

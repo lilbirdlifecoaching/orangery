@@ -7,7 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
 :root {
   --char:#1e2020;--char-mid:#2e3830;--char-light:#3a4840;
@@ -492,10 +491,10 @@ body{font-family:var(--font-body);background:var(--off);color:var(--char);font-s
 </div>
 
 <script>
-(function(){ emailjs.init({ publicKey: 'YOUR_EMAILJS_PUBLIC_KEY' }); })();
-const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';
-const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
-const ORANGERY_EMAIL = 'lukehaythorpe@orangery.solutions';
+// ── Cloudflare Worker endpoint ──────────────────────────────────────────────
+// Replace this URL with your deployed Worker URL after deploying
+// e.g. https://orangery-diagnostic.YOUR-SUBDOMAIN.workers.dev/send
+const WORKER_URL = 'https://orangery-diagnostic.cwwq46sn7m.workers.dev/send';
 
 const DIAG_CATS = [
   { id:'vision',    label:'Vision Clarity',          icon:'\u{1F9ED}' },
@@ -561,11 +560,25 @@ let diagSubmitterName   = '';
 let diagSubmitterChurch = '';
 let diagSubmitterEmail  = '';
 
+function diagScrollToShell() {
+  const shell = document.querySelector('.diag-shell');
+  if (!shell) return;
+  const navHeight = (document.getElementById('main-nav') || { offsetHeight: 0 }).offsetHeight || 72;
+  const top = shell.getBoundingClientRect().top + window.scrollY - navHeight - 16;
+  window.scrollTo({ top, behavior: 'smooth' });
+}
+
 function diagShowState(id) {
   document.querySelectorAll('.diag-state').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   const shell = document.querySelector('.diag-shell');
-  if (shell) { setTimeout(() => shell.scrollIntoView({ behavior:'smooth', block:'start' }), 50); }
+  if (shell) {
+    setTimeout(() => {
+      const navHeight = (document.getElementById('main-nav') || { offsetHeight: 0 }).offsetHeight || 72;
+      const top = shell.getBoundingClientRect().top + window.scrollY - navHeight - 16;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }, 50);
+  }
 }
 
 function diagStart() {
@@ -618,6 +631,7 @@ function diagNext() {
     if (next) { next.style.animation = 'none'; next.offsetHeight; next.style.animation = ''; next.classList.add('active'); }
     diagUpdateProgress();
     diagCheckComplete();
+    diagScrollToShell();
   } else {
     diagShowState('diag-email');
   }
@@ -630,6 +644,7 @@ function diagPrev() {
     document.getElementById('dq-' + diagSection).classList.add('active');
     diagUpdateProgress();
     diagCheckComplete();
+    diagScrollToShell();
   }
 }
 
@@ -751,15 +766,24 @@ async function diagSubmit() {
     weak_areas:       weakAreas,
     is_team_member:   isTeam ? 'Yes' : 'No',
     team_id:          teamId || 'N/A',
-    submitted_at:     new Date().toLocaleString('en-GB', { dateStyle:'medium', timeStyle:'short' }),
+    submitted_at:     new Date().toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' }),
   };
 
   try {
-    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, { ...baseParams, to_email: ORANGERY_EMAIL, reply_to: email });
-    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, { ...baseParams, to_email: email, reply_to: ORANGERY_EMAIL });
-    setStatus('✓ Report sent! Check your inbox.', 'var(--char-light)');
+    const res = await fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(baseParams),
+    });
+    const json = await res.json();
+    if (json.ok) {
+      setStatus('✓ Report sent! Check your inbox.', 'var(--char-light)');
+    } else {
+      console.warn('Worker error:', json);
+      setStatus('Results ready below — email may be delayed.', 'var(--muted)');
+    }
   } catch(err) {
-    console.warn('EmailJS error:', err);
+    console.warn('Fetch error:', err);
     setStatus('Could not send email — but your results are ready below.', 'var(--muted)');
   }
 

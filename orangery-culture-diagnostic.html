@@ -4,1214 +4,811 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Church Culture Diagnostic — Orangery Solutions</title>
-<link rel="icon" href="ORANGE.png" type="image/png">
-<link rel="apple-touch-icon" href="ORANGE.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
 :root {
-  --forest: #1c2b1e;
-  --forest-mid: #2d4230;
-  --forest-light: #3d5a42;
-  --sage: #7a9c7e;
-  --sage-light: #b2c9b5;
-  --cream: #f5f0e8;
-  --cream-warm: #ede7d9;
-  --cream-deep: #ddd5c4;
-  --orange: #d4682a;
-  --orange-light: #e8895a;
-  --orange-pale: #f5ddd0;
-  --gold: #c9a052;
-  --gold-pale: #f5eccf;
-  --charcoal: #2a2a25;
-  --ink: #1a1a16;
-  --muted: #6b6b60;
-  --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-body: 'DM Sans', system-ui, sans-serif;
+  --char:#1e2020;--char-mid:#2e3830;--char-light:#3a4840;
+  --sage:#7a9980;--rust:#c8543a;--rust-light:#d97055;
+  --gold:#c9a052;--off:#f3f0e8;--stone:#e8e0d4;--stone-deep:#d8cfc0;
+  --muted:#6a6a60;
+  --font-display:"Cormorant Garamond",Georgia,serif;
+  --font-body:"DM Sans",system-ui,sans-serif;
 }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-body);background:var(--off);color:var(--char);font-size:16px;line-height:1.6;min-height:100vh;}
+.diag-page{min-height:100vh;display:flex;flex-direction:column;}
+.diag-page-header{background:var(--char);padding:18px 48px;display:flex;align-items:center;justify-content:space-between;}
+.diag-page-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.diag-page-logo img{height:30px;filter:brightness(0) invert(1);opacity:.88;}
+.diag-page-back{font-size:12px;color:rgba(255,255,255,.45);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s;}
+.diag-page-back:hover{color:rgba(255,255,255,.8);}
+.diag-main{flex:1;max-width:1000px;margin:0 auto;padding:56px 32px 80px;width:100%;}
+.diag-main-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--rust);margin-bottom:12px;}
+.diag-main-eyebrow::before{content:"";width:22px;height:1px;background:var(--rust);flex-shrink:0;}
+.diag-main h1{font-family:var(--font-display);font-size:clamp(28px,4vw,48px);font-weight:400;color:var(--char);line-height:1.15;margin-bottom:10px;}
+.diag-main h1 em{font-style:italic;color:var(--rust);}
+.diag-main-sub{font-size:16px;color:var(--muted);line-height:1.65;margin-bottom:36px;max-width:560px;}
+.fade-up{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;}
+.fade-up.visible{opacity:1;transform:none;}
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+   DIAGNOSTIC SECTION (first cream)
+══════════════════════════════════ */
+.diagnostic-section { background: var(--off); }
+.diagnostic-section .section-inner { padding: 64px 48px 80px; }
 
-body {
-  font-family: var(--font-body);
-  background: var(--cream);
-  color: var(--charcoal);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
+/* Diagnostic shell */
+.diag-shell { background: white; border: 1px solid var(--stone-deep); border-radius: 10px; overflow: hidden; }
 
-/* ── LAYOUT ── */
-.app {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
+/* Diag states */
+.diag-state { display: none; }
+.diag-state.active { display: block; }
 
-/* ── SCREENS ── */
-.screen {
-  display: none;
-  flex: 1;
-  animation: fadeIn 0.5s ease forwards;
+/* ── DIAG INTRO ── */
+.diag-intro {
+  display: grid; grid-template-columns: 1fr 1fr;
 }
-.screen.active { display: flex; flex-direction: column; }
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: none; }
+.diag-intro-left { background: var(--char); padding: 52px 48px;
+  position: relative; overflow: hidden;
 }
-
-/* ── INTRO SCREEN ── */
-.intro-screen {
-  background: var(--forest);
-  min-height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  position: relative;
-  overflow: hidden;
+.diag-intro-left::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 80% 60% at 20% 80%, rgba(201,160,82,0.07) 0%, transparent 60%);
 }
-.intro-grain {
-  position: absolute; inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
-  pointer-events: none; opacity: 0.5; z-index: 0;
+.diag-intro-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+.diag-intro-eyebrow span:first-child { width: 22px; height: 1px; background: var(--rust); display: block; }
+.diag-intro-eyebrow-text { font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--rust-light); }
+.diag-intro-left h2 {
+  font-family: var(--font-display); font-size: clamp(26px, 3vw, 40px);
+  font-weight: 400; color: var(--off); line-height: 1.15; margin-bottom: 16px;
 }
-.intro-content {
-  display: flex; flex-direction: column; justify-content: center;
-  padding: 80px 64px; position: relative; z-index: 2;
-}
-.intro-right {
-  display: flex; flex-direction: column; justify-content: center;
-  padding: 80px 56px 80px 48px; position: relative; z-index: 2;
-  border-left: 1px solid rgba(255,255,255,0.07);
-}
-.brand-logo {
-  display: inline-flex;
-  align-items: center;
-  text-decoration: none;
-}
-.brand-logo img {
-  height: 40px;
-  width: auto;
-  display: block;
-}
-.intro-content .brand-logo {
-  margin-bottom: 48px;
-}
-.intro-content .brand-logo img {
-  height: 48px;
-}
-.quiz-header .brand-logo img,
-.results-header .brand-logo img {
-  height: 36px;
-}
-.intro-eyebrow {
-  display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
-}
-.intro-eyebrow-line { width: 28px; height: 1px; background: var(--orange); }
-.intro-eyebrow-text {
-  font-size: 11px; font-weight: 500; letter-spacing: 0.16em;
-  text-transform: uppercase; color: var(--orange-light);
-}
-.intro-headline {
-  font-family: var(--font-display);
-  font-size: clamp(36px, 4.5vw, 58px);
-  font-weight: 400; color: var(--cream);
-  line-height: 1.1; margin-bottom: 24px;
-}
-.intro-headline em { font-style: italic; color: var(--gold); }
-.intro-sub {
-  font-size: 16px; font-weight: 300;
-  color: rgba(245,240,232,0.6); line-height: 1.75;
-  margin-bottom: 40px; max-width: 400px;
-}
-.intro-meta {
-  display: flex; align-items: center; gap: 20px; margin-bottom: 36px;
-}
-.meta-pill {
+.diag-intro-left h2 em { font-style: italic; color: var(--gold); }
+.diag-intro-left p { font-size: 15px; color: rgba(245,240,232,0.6); line-height: 1.7; margin-bottom: 28px; max-width: 360px; }
+.diag-meta { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 32px; }
+.diag-meta-pill {
   display: flex; align-items: center; gap: 7px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 100px; padding: 7px 14px;
-  font-size: 12px; color: rgba(245,240,232,0.55);
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 100px; padding: 6px 13px; font-size: 12px; color: rgba(245,240,232,0.5);
 }
-.meta-pill svg { opacity: 0.6; }
-
-.btn-start {
-  display: inline-flex; align-items: center; gap: 12px;
-  background: var(--orange); color: white;
-  border: none; border-radius: 3px;
-  padding: 16px 34px; font-family: var(--font-body);
-  font-size: 15px; font-weight: 500; letter-spacing: 0.03em;
+.btn-diag-start {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--rust); color: white; border: none;
+  border-radius: 3px; padding: 14px 28px;
+  font-family: var(--font-body); font-size: 14px; font-weight: 500;
   cursor: pointer; transition: background 0.2s, transform 0.15s;
-  align-self: flex-start;
 }
-.btn-start:hover { background: var(--orange-light); transform: translateY(-1px); }
-.btn-start .arr { transition: transform 0.2s; }
-.btn-start:hover .arr { transform: translateX(5px); }
-
-.intro-categories {
-  display: flex; flex-direction: column; gap: 14px;
-}
-.intro-cat-label {
-  font-size: 11px; font-weight: 500; letter-spacing: 0.14em;
-  text-transform: uppercase; color: rgba(245,240,232,0.35);
-  margin-bottom: 6px;
-}
-.cat-row {
+.btn-diag-start:hover { background: var(--rust-light); transform: translateY(-1px); }
+.diag-intro-right { padding: 52px 40px; display: flex; flex-direction: column; justify-content: center; gap: 12px; }
+.diag-cat-label { font-size: 11px; font-weight: 500; letter-spacing: 0.13em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.diag-cat-row {
   display: flex; align-items: center; gap: 14px;
-  padding: 14px 18px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 5px;
+  padding: 13px 16px; background: var(--stone);
+  border: 1px solid var(--stone-deep); border-radius: 6px;
 }
-.cat-icon {
-  width: 36px; height: 36px; border-radius: 50%;
-  background: rgba(201,160,82,0.12);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 16px; flex-shrink: 0;
+.diag-cat-icon {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--stone-deep); display: flex; align-items: center; justify-content: center;
+  font-size: 15px; flex-shrink: 0;
 }
-.cat-name {
-  font-family: var(--font-display);
-  font-size: 17px; font-weight: 500; color: var(--cream);
-}
-.cat-sub { font-size: 12px; color: rgba(245,240,232,0.4); line-height: 1.4; }
+.diag-cat-name { font-family: var(--font-display); font-size: 16px; font-weight: 500; color: var(--char); }
+.diag-cat-sub { font-size: 12px; color: var(--muted); line-height: 1.3; }
 
-/* ── QUIZ SCREEN ── */
-.quiz-screen {
-  background: var(--cream);
-  min-height: 100vh; flex-direction: column;
-}
-.quiz-header {
-  background: var(--forest);
-  padding: 20px 48px;
+/* ── DIAG QUIZ ── */
+.diag-quiz-header {
+  background: var(--char); padding: 16px 32px;
   display: flex; align-items: center; justify-content: space-between;
   border-bottom: 1px solid rgba(255,255,255,0.06);
-  position: sticky; top: 0; z-index: 10;
 }
-.quiz-header .brand-logo { margin-bottom: 0; }
-.quiz-progress-wrap {
-  display: flex; align-items: center; gap: 16px; flex: 1;
-  max-width: 400px; margin: 0 auto;
-}
-.progress-bar-bg {
-  flex: 1; height: 3px; background: rgba(255,255,255,0.1);
-  border-radius: 100px; overflow: hidden;
-}
-.progress-bar-fill {
-  height: 100%; background: var(--orange);
-  border-radius: 100px;
-  transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
-  width: 0%;
-}
-.progress-label {
-  font-size: 12px; color: rgba(245,240,232,0.4);
-  white-space: nowrap; flex-shrink: 0;
-}
-.quiz-exit {
-  font-size: 12px; color: rgba(245,240,232,0.35);
-  background: none; border: none; cursor: pointer;
-  padding: 6px 12px;
-  transition: color 0.2s;
-}
-.quiz-exit:hover { color: rgba(245,240,232,0.7); }
+.diag-quiz-meta { font-size: 12px; color: rgba(245,240,232,0.45); }
+.diag-progress-wrap { display: flex; align-items: center; gap: 14px; flex: 1; max-width: 360px; margin: 0 auto; }
+.diag-progress-bg { flex: 1; height: 3px; background: rgba(255,255,255,0.1); border-radius: 100px; overflow: hidden; }
+.diag-progress-fill { height: 100%; background: var(--rust); border-radius: 100px; transition: width 0.5s cubic-bezier(0.4,0,0.2,1); width: 0%; }
+.diag-progress-label { font-size: 11px; color: rgba(245,240,232,0.4); white-space: nowrap; }
+.diag-exit-btn { font-size: 12px; color: rgba(245,240,232,0.3); background: none; border: none; cursor: pointer; padding: 4px 8px; transition: color 0.2s; }
+.diag-exit-btn:hover { color: rgba(245,240,232,0.7); }
 
-.quiz-body {
-  flex: 1; display: flex; flex-direction: column;
-  align-items: center; padding: 64px 24px 80px;
-}
-.question-block {
-  width: 100%; max-width: 680px;
-  display: none;
-  animation: slideIn 0.45s ease forwards;
-}
-.question-block.active { display: block; }
+.diag-quiz-body { padding: 40px 48px 36px; }
 
-@keyframes slideIn {
-  from { opacity: 0; transform: translateX(20px); }
-  to { opacity: 1; transform: none; }
-}
+.diag-q-block { display: none; animation: qSlide 0.4s ease forwards; }
+.diag-q-block.active { display: block; }
+@keyframes qSlide { from { opacity: 0; transform: translateX(16px); } to { opacity: 1; transform: none; } }
 
-.q-category {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-size: 11px; font-weight: 500; letter-spacing: 0.15em;
-  text-transform: uppercase; color: var(--orange);
-  margin-bottom: 8px;
-}
-.q-category::before {
-  content: ''; width: 20px; height: 1px; background: var(--orange);
-}
-.q-section-title {
-  font-family: var(--font-display);
-  font-size: clamp(28px, 3.5vw, 40px);
-  font-weight: 400; color: var(--forest);
-  line-height: 1.2; margin-bottom: 8px;
-}
-.q-section-count {
-  font-size: 13px; color: var(--muted);
-  margin-bottom: 40px;
-}
+.diag-q-category { font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--rust); margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+.diag-q-category::before { content: ''; width: 16px; height: 1px; background: var(--rust); }
+.diag-q-section-title { font-family: var(--font-display); font-size: clamp(22px, 2.8vw, 34px); font-weight: 400; color: var(--char); line-height: 1.2; margin-bottom: 6px; }
+.diag-q-hint { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
 
-.question-item {
-  background: white;
-  border: 1px solid var(--cream-deep);
-  border-radius: 8px; padding: 28px 32px;
-  margin-bottom: 16px;
+.diag-q-item {
+  background: var(--stone); border: 1px solid var(--stone-deep);
+  border-radius: 7px; padding: 22px 24px; margin-bottom: 12px;
   transition: border-color 0.2s;
 }
-.question-item:hover { border-color: var(--sage-light); }
-.q-text {
-  font-size: 16px; color: var(--charcoal);
-  line-height: 1.6; margin-bottom: 22px; font-weight: 400;
-}
-.q-scale {
-  display: flex; gap: 8px;
-}
-.q-option {
-  flex: 1; display: flex; flex-direction: column;
-  align-items: center; gap: 6px;
-  cursor: pointer;
-}
-.q-option input { display: none; }
-.q-option-btn {
-  width: 100%; height: 42px;
-  border: 1.5px solid var(--cream-deep);
-  border-radius: 6px; background: var(--cream-warm);
-  cursor: pointer; transition: all 0.18s;
-  display: flex; align-items: center; justify-content: center;
+.diag-q-item:hover { border-color: var(--sage); }
+.diag-q-text { font-size: 15px; color: var(--char); line-height: 1.6; margin-bottom: 18px; }
+.diag-q-scale { display: flex; gap: 7px; }
+.diag-q-opt { flex: 1; }
+.diag-q-opt input { display: none; }
+.diag-q-btn {
+  width: 100%; height: 40px; border: 1.5px solid var(--stone-deep);
+  border-radius: 5px; background: var(--stone); cursor: pointer;
   font-size: 14px; font-weight: 500; color: var(--muted);
+  transition: all 0.16s; display: flex; align-items: center; justify-content: center;
 }
-.q-option input:checked + .q-option-btn,
-.q-option-btn.selected {
-  background: var(--forest);
-  border-color: var(--forest);
-  color: var(--cream);
-}
-.q-option:hover .q-option-btn:not(.selected) {
-  border-color: var(--sage);
-  background: white;
-  color: var(--forest);
-}
-.q-option-label {
-  font-size: 10px; color: var(--muted);
-  text-align: center; line-height: 1.3;
-  max-width: 60px;
-}
+.diag-q-btn.sel { background: var(--char); border-color: var(--char); color: var(--off); }
+.diag-q-opt:hover .diag-q-btn:not(.sel) { border-color: var(--sage); color: var(--char); background: white; }
+.diag-scale-ends { display: flex; justify-content: space-between; margin-top: 6px; padding: 0 2px; }
+.diag-scale-end { font-size: 11px; color: var(--muted); font-style: italic; }
 
-.scale-labels {
-  display: flex; justify-content: space-between;
-  margin-top: 8px; padding: 0 2px;
-}
-.scale-label-text {
-  font-size: 11px; color: var(--muted); font-style: italic;
-}
-
-.quiz-nav {
+.diag-quiz-nav {
   display: flex; align-items: center; justify-content: space-between;
-  margin-top: 32px; max-width: 680px; width: 100%;
+  padding: 24px 48px; border-top: 1px solid var(--stone-deep);
+  background: var(--stone);
 }
-.btn-nav {
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 13px 28px; border-radius: 3px;
-  font-family: var(--font-body); font-size: 14px;
-  font-weight: 500; cursor: pointer; transition: all 0.18s;
-  border: 1.5px solid;
+.diag-nav-dots { display: flex; gap: 7px; }
+.diag-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--stone-deep); transition: background 0.2s; }
+.diag-dot.active { background: var(--rust); }
+.diag-dot.done { background: var(--sage); }
+.btn-diag-nav {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 11px 24px; border-radius: 3px; font-family: var(--font-body);
+  font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.18s; border: 1.5px solid;
 }
-.btn-back {
-  background: transparent; color: var(--muted);
-  border-color: var(--cream-deep);
-}
-.btn-back:hover { border-color: var(--sage); color: var(--forest); }
-.btn-next {
-  background: var(--orange); color: white;
-  border-color: var(--orange);
-}
-.btn-next:hover { background: var(--orange-light); border-color: var(--orange-light); }
-.btn-next:disabled {
-  background: var(--cream-deep); border-color: var(--cream-deep);
-  color: var(--muted); cursor: not-allowed; transform: none;
-}
-.nav-dots {
-  display: flex; gap: 8px;
-}
-.nav-dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--cream-deep); transition: background 0.2s;
-}
-.nav-dot.active { background: var(--orange); }
-.nav-dot.done { background: var(--forest-light); }
+.btn-diag-back { background: transparent; color: var(--muted); border-color: var(--stone-deep); }
+.btn-diag-back:hover { border-color: var(--sage); color: var(--char); }
+.btn-diag-next { background: var(--rust); color: white; border-color: var(--rust); }
+.btn-diag-next:hover { background: var(--rust-light); border-color: var(--rust-light); }
+.btn-diag-next:disabled { background: var(--stone-deep); border-color: var(--stone-deep); color: var(--muted); cursor: not-allowed; }
 
-/* ── RESULTS SCREEN ── */
-.results-screen {
-  background: var(--cream);
-  min-height: 100vh; flex-direction: column;
+/* ── DIAG EMAIL GATE ── */
+.diag-email-gate { padding: 52px 48px; max-width: 580px; margin: 0 auto; text-align: center; background: var(--off); }
+.diag-email-gate h3 { font-family: var(--font-display); font-size: 32px; font-weight: 400; color: var(--char); margin-bottom: 12px; line-height: 1.2; }
+.diag-email-gate h3 em { font-style: italic; color: var(--rust); }
+.diag-email-gate p { font-size: 15px; color: var(--muted); line-height: 1.65; margin-bottom: 28px; }
+.diag-email-form { display: flex; flex-direction: column; gap: 12px; text-align: left; }
+.diag-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.diag-field label { font-size: 12px; font-weight: 500; color: var(--char); letter-spacing: 0.05em; display: block; margin-bottom: 6px; }
+.diag-field input {
+  width: 100%; padding: 11px 14px; border: 1.5px solid var(--stone-deep);
+  border-radius: 5px; font-family: var(--font-body); font-size: 14px;
+  color: var(--char); background: var(--stone);
+  transition: border-color 0.2s, background 0.2s; outline: none;
 }
-.results-header {
-  background: var(--forest);
-  padding: 20px 48px;
-  display: flex; align-items: center; justify-content: space-between;
+.diag-field input:focus { border-color: var(--sage); background: white; }
+.btn-diag-results {
+  width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px;
+  background: var(--rust); color: white; border: none; border-radius: 3px;
+  padding: 14px 28px; font-family: var(--font-body); font-size: 15px; font-weight: 500;
+  cursor: pointer; transition: background 0.2s, transform 0.15s; margin-top: 4px;
 }
-.results-body {
-  display: flex; flex-direction: column; align-items: center;
-  padding: 64px 24px 80px;
-}
-.results-inner { width: 100%; max-width: 820px; }
+.btn-diag-results:hover { background: var(--rust-light); transform: translateY(-1px); }
+.btn-diag-results:disabled { background: var(--stone-deep); color: var(--muted); cursor: not-allowed; transform: none; }
+.diag-privacy { font-size: 11px; color: var(--muted); text-align: center; margin-top: 8px; line-height: 1.5; }
+.diag-email-status { font-size: 13px; text-align: center; margin-top: 8px; min-height: 20px; }
 
-.results-hero {
-  text-align: center; margin-bottom: 56px;
-}
-.results-eyebrow {
+/* ── DIAG RESULTS ── */
+.diag-results { padding: 48px; background: var(--off); }
+.diag-results-top { text-align: center; margin-bottom: 40px; }
+.diag-result-eyebrow {
   display: inline-flex; align-items: center; gap: 10px;
   font-size: 11px; font-weight: 500; letter-spacing: 0.16em;
-  text-transform: uppercase; color: var(--orange); margin-bottom: 16px;
+  text-transform: uppercase; color: var(--rust); margin-bottom: 12px;
 }
-.results-eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--orange); }
-.results-eyebrow::after { content: ''; width: 20px; height: 1px; background: var(--orange); }
+.diag-result-eyebrow::before, .diag-result-eyebrow::after { content: ''; width: 18px; height: 1px; background: var(--rust); }
+.diag-archetype-name { font-family: var(--font-display); font-size: clamp(32px, 4vw, 52px); font-weight: 400; color: var(--char); line-height: 1.1; margin-bottom: 12px; }
+.diag-archetype-name em { font-style: italic; color: var(--rust); }
+.diag-archetype-desc { font-size: 16px; color: var(--muted); line-height: 1.7; max-width: 520px; margin: 0 auto 28px; }
 
-.archetype-name {
-  font-family: var(--font-display);
-  font-size: clamp(38px, 5vw, 62px);
-  font-weight: 400; color: var(--forest);
-  line-height: 1.1; margin-bottom: 16px;
-}
-.archetype-name em { font-style: italic; color: var(--orange); }
-.archetype-desc {
-  font-size: 17px; color: var(--muted);
-  line-height: 1.7; max-width: 560px;
-  margin: 0 auto 32px;
-}
+.diag-gauge-wrap { display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; }
+.diag-gauge-svg { width: 180px; height: 100px; overflow: visible; }
 
-/* ── SCORE GAUGE ── */
-.gauge-wrap {
-  display: flex; flex-direction: column;
-  align-items: center; margin-bottom: 48px;
+.diag-breakdown-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 32px;
 }
-.gauge-svg { width: 200px; height: 120px; overflow: visible; }
-.gauge-score-num {
-  font-family: var(--font-display);
-  font-size: 52px; font-weight: 500; color: var(--forest);
-  line-height: 1; margin-bottom: 4px;
+.diag-bd-card {
+  background: var(--stone); border: 1px solid var(--stone-deep);
+  border-radius: 7px; padding: 16px 12px; text-align: center;
+  transition: border-color 0.2s;
 }
-.gauge-score-label {
-  font-size: 13px; color: var(--muted); letter-spacing: 0.06em;
-}
+.diag-bd-card:hover { border-color: var(--sage); }
+.diag-bd-icon { font-size: 20px; margin-bottom: 8px; display: block; }
+.diag-bd-cat { font-size: 10px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; line-height: 1.3; }
+.diag-bd-bar-bg { height: 5px; background: var(--stone); border-radius: 100px; overflow: hidden; margin-bottom: 7px; }
+.diag-bd-bar-fill { height: 100%; border-radius: 100px; transition: width 1.2s cubic-bezier(0.4,0,0.2,1); width: 0%; }
+.diag-bd-score { font-family: var(--font-display); font-size: 20px; font-weight: 500; color: var(--char); }
+.diag-bd-status { font-size: 11px; color: var(--muted); margin-top: 2px; }
 
-/* ── CATEGORY BREAKDOWN ── */
-.breakdown-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 12px; margin-bottom: 40px;
+.diag-insight {
+  background: var(--char); border-radius: 7px; padding: 28px 32px;
+  margin-bottom: 24px; position: relative; overflow: hidden;
 }
-.breakdown-card {
-  background: white;
-  border: 1px solid var(--cream-deep);
-  border-radius: 8px; padding: 20px 16px;
-  text-align: center;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-.breakdown-card:hover {
-  border-color: var(--sage-light);
-  box-shadow: 0 4px 16px rgba(28,43,30,0.07);
-}
-.breakdown-icon { font-size: 22px; margin-bottom: 10px; display: block; }
-.breakdown-cat {
-  font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
-  text-transform: uppercase; color: var(--muted);
-  margin-bottom: 12px; line-height: 1.3;
-}
-.breakdown-bar-bg {
-  height: 6px; background: var(--cream-deep);
-  border-radius: 100px; overflow: hidden; margin-bottom: 8px;
-}
-.breakdown-bar-fill {
-  height: 100%; border-radius: 100px;
-  transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
-  width: 0%;
-}
-.breakdown-score {
-  font-family: var(--font-display);
-  font-size: 22px; font-weight: 500; color: var(--forest);
-}
-.breakdown-status {
-  font-size: 11px; color: var(--muted); margin-top: 3px;
-}
+.diag-insight::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--gold); }
+.diag-insight-label { font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; display: block; }
+.diag-insight-text { font-family: var(--font-display); font-size: 18px; font-weight: 400; font-style: italic; color: rgba(243,240,232,0.8); line-height: 1.65; }
+.diag-insight-text strong { font-style: normal; color: var(--gold); font-weight: 600; }
 
-/* ── INSIGHT PANEL ── */
-.insight-panel {
-  background: var(--forest);
-  border-radius: 8px; padding: 36px 40px;
-  margin-bottom: 32px; position: relative; overflow: hidden;
+.diag-weak-label { font-size: 11px; font-weight: 500; letter-spacing: 0.13em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+.diag-weak-list { display: flex; flex-direction: column; gap: 9px; margin-bottom: 28px; }
+.diag-weak-item {
+  background: white; border: 1px solid var(--stone-deep); border-left: 3px solid var(--rust);
+  border-radius: 0 6px 6px 0; padding: 13px 16px;
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 14px;
 }
-.insight-panel::before {
-  content: ''; position: absolute;
-  left: 0; top: 0; bottom: 0; width: 3px;
-  background: var(--gold);
-}
-.insight-label {
-  font-size: 11px; font-weight: 500; letter-spacing: 0.14em;
-  text-transform: uppercase; color: var(--gold);
-  margin-bottom: 12px; display: block;
-}
-.insight-text {
-  font-family: var(--font-display);
-  font-size: 19px; font-weight: 400; font-style: italic;
-  color: rgba(245,240,232,0.8); line-height: 1.65;
-}
-.insight-text strong { font-style: normal; color: var(--gold); font-weight: 600; }
+.diag-weak-name { font-family: var(--font-display); font-size: 16px; font-weight: 500; color: var(--char); margin-bottom: 2px; }
+.diag-weak-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.diag-weak-score { font-family: var(--font-display); font-size: 22px; font-weight: 500; color: var(--rust); flex-shrink: 0; }
 
-/* ── WEAK AREAS ── */
-.weak-areas { margin-bottom: 32px; }
-.weak-areas-title {
-  font-size: 11px; font-weight: 500; letter-spacing: 0.14em;
-  text-transform: uppercase; color: var(--muted);
-  margin-bottom: 16px;
+.diag-cta-box {
+  background: var(--stone); border: 1px solid var(--stone-deep);
+  border-radius: 7px; padding: 28px 32px;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
 }
-.weak-list { display: flex; flex-direction: column; gap: 10px; }
-.weak-item {
-  background: white; border: 1px solid var(--cream-deep);
-  border-left: 3px solid var(--orange);
-  border-radius: 0 6px 6px 0; padding: 14px 18px;
-  display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
-}
-.weak-item-name {
-  font-family: var(--font-display);
-  font-size: 17px; font-weight: 500; color: var(--forest);
-  margin-bottom: 3px;
-}
-.weak-item-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
-.weak-item-score {
-  font-family: var(--font-display);
-  font-size: 24px; font-weight: 500; color: var(--orange);
-  flex-shrink: 0; white-space: nowrap;
-}
-
-/* ── CTA BOX ── */
-.cta-box {
-  background: var(--cream-warm);
-  border: 1px solid var(--cream-deep);
-  border-radius: 8px; padding: 36px 40px;
-  display: flex; align-items: center; justify-content: space-between; gap: 32px;
-}
-.cta-box-text h3 {
-  font-family: var(--font-display);
-  font-size: 26px; font-weight: 400; color: var(--forest);
-  line-height: 1.2; margin-bottom: 8px;
-}
-.cta-box-text h3 em { font-style: italic; color: var(--orange); }
-.cta-box-text p { font-size: 14px; color: var(--muted); line-height: 1.6; }
-.cta-box-actions { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; flex-shrink: 0; }
-.btn-cta-primary {
-  display: inline-flex; align-items: center; gap: 10px;
-  background: var(--orange); color: white;
-  border: none; border-radius: 3px;
-  padding: 14px 28px; font-family: var(--font-body);
-  font-size: 14px; font-weight: 500; cursor: pointer;
-  text-decoration: none; white-space: nowrap;
+.diag-cta-box h3 { font-family: var(--font-display); font-size: 24px; font-weight: 400; color: var(--char); line-height: 1.2; margin-bottom: 6px; }
+.diag-cta-box h3 em { font-style: italic; color: var(--rust); }
+.diag-cta-box p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+.diag-cta-actions { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; flex-shrink: 0; }
+.btn-diag-book {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: var(--rust); color: white; border: none; border-radius: 3px;
+  padding: 13px 24px; font-family: var(--font-body); font-size: 14px; font-weight: 500;
+  cursor: pointer; text-decoration: none; white-space: nowrap;
   transition: background 0.2s, transform 0.15s;
 }
-.btn-cta-primary:hover { background: var(--orange-light); transform: translateY(-1px); }
-.btn-retake {
-  background: none; border: none; color: var(--muted);
-  font-size: 13px; cursor: pointer; text-decoration: underline;
-  font-family: var(--font-body); text-underline-offset: 3px;
-  transition: color 0.2s;
-}
-.btn-retake:hover { color: var(--forest); }
+.btn-diag-book:hover { background: var(--rust-light); transform: translateY(-1px); }
+.btn-diag-retake { background: none; border: none; color: var(--muted); font-size: 13px; cursor: pointer; text-decoration: underline; font-family: var(--font-body); text-underline-offset: 3px; transition: color 0.2s; }
+.btn-diag-retake:hover { color: var(--char); }
 
-/* ── RESPONSIVE ── */
-@media (max-width: 860px) {
-  .intro-screen { grid-template-columns: 1fr; }
-  .intro-right { display: none; }
-  .intro-content { padding: 60px 28px; }
-  .quiz-header { padding: 16px 20px; }
-  .quiz-body { padding: 40px 16px 60px; }
-  .breakdown-grid { grid-template-columns: repeat(3, 1fr); }
-  .breakdown-grid .breakdown-card:nth-child(4),
-  .breakdown-grid .breakdown-card:nth-child(5) { grid-column: span 1; }
-  .cta-box { flex-direction: column; }
-  .cta-box-actions { align-items: flex-start; }
-  .results-header { padding: 16px 20px; }
-  .results-body { padding: 40px 16px 60px; }
+/* ══════════════════════════════════@media(max-width:900px){
+  .diag-page-header{padding:14px 20px;}
+  .diag-main{padding:36px 20px 60px;}
+  .diag-intro{grid-template-columns:1fr;}
+  .diag-intro-right{display:none;}
+  .diag-quiz-body{padding:28px 20px 20px;}
+  .diag-quiz-nav{padding:16px 20px;}
+  .diag-breakdown-grid{grid-template-columns:repeat(3,1fr);}
+  .diag-results{padding:24px 20px;}
+  .diag-cta-box{flex-direction:column;}
+  .diag-cta-actions{align-items:flex-start;}
+  .diag-email-gate{padding:32px 20px;}
+  .diag-form-row{grid-template-columns:1fr;}
+  .diag-share-box{flex-direction:column;}
+  .diag-share-actions{align-items:flex-start;}
+  .diag-share-note{text-align:left;}
 }
-@media (max-width: 540px) {
-  .breakdown-grid { grid-template-columns: 1fr 1fr; }
-  .q-scale { flex-wrap: wrap; }
-  .quiz-nav { flex-wrap: wrap; gap: 12px; }
+@media(max-width:540px){
+  .diag-breakdown-grid{grid-template-columns:1fr 1fr;}
+  .diag-q-scale{flex-wrap:wrap;}
 }
 </style>
 </head>
 <body>
-<div class="app">
+<div class="diag-page">
 
-<!-- ══════════════════════════════════════
-     INTRO SCREEN
-══════════════════════════════════════ -->
-<div id="screen-intro" class="screen intro-screen active">
-  <div class="intro-grain"></div>
-  <div class="intro-content">
-    <a href="index.html" class="brand-logo">
-      <img src="ORANGE.png" alt="Orangery Solutions">
+  <header class="diag-page-header">
+    <a href="/" class="diag-page-logo">
+      <img src="https://images.squarespace-cdn.com/content/v1/61771991617ef211f58fd8ae/fc8180ef-0cbc-4d4c-ad56-2b13c32f71c3/Orangery+solutions+logo.png?format=1500w" alt="Orangery Solutions">
     </a>
-    <div class="intro-eyebrow">
-      <span class="intro-eyebrow-line"></span>
-      <span class="intro-eyebrow-text">Free Culture Diagnostic</span>
+    <a href="/" class="diag-page-back">← Back to Orangery</a>
+  </header>
+
+  <main class="diag-main">
+    <span class="diag-main-eyebrow">Free Culture Diagnostic</span>
+    <h1>How healthy is your<br>church culture, <em>really?</em></h1>
+    <p class="diag-main-sub">18 questions across 6 dimensions. In around 6 minutes you will have a personalised picture of where your culture is right now — and where to focus first.</p>
+
+    <div class="diag-shell">
+
+      <!-- INTRO -->
+      <div class="diag-state active" id="diag-intro">
+        <div class="diag-intro">
+          <div class="diag-intro-left">
+            <div class="diag-intro-eyebrow"><span></span><span class="diag-intro-eyebrow-text">Church Culture Health Check</span></div>
+            <h2>Discover your<br><em>culture score</em></h2>
+            <p>18 honest questions across 6 dimensions of church culture. Instant results, a personalised health level, and a clear picture of where your team actually is right now.</p>
+            <div class="diag-meta">
+              <div class="diag-meta-pill">&#x23F1; 6 minutes</div>
+              <div class="diag-meta-pill">&#x2736; 6 categories</div>
+              <div class="diag-meta-pill">&#x26A1; Instant results</div>
+            </div>
+            <button class="btn-diag-start" onclick="diagStart()">Begin the diagnostic &#x2192;</button>
+          </div>
+          <div class="diag-intro-right">
+            <p class="diag-cat-label">What we are measuring</p>
+            <div class="diag-cat-row"><div class="diag-cat-icon">&#x1F9ED;</div><div><p class="diag-cat-name">Vision Clarity</p><p class="diag-cat-sub">Do your teams share a north star?</p></div></div>
+            <div class="diag-cat-row"><div class="diag-cat-icon">&#x1F6AA;</div><div><p class="diag-cat-name">Day-to-Day Collaboration</p><p class="diag-cat-sub">What actually happens when teams need each other?</p></div></div>
+            <div class="diag-cat-row"><div class="diag-cat-icon">&#x1F91D;</div><div><p class="diag-cat-name">Team Unity</p><p class="diag-cat-sub">One community, or competing islands?</p></div></div>
+            <div class="diag-cat-row"><div class="diag-cat-icon">&#x1F512;</div><div><p class="diag-cat-name">Trust &amp; Candour</p><p class="diag-cat-sub">What is said in meetings vs. hallways?</p></div></div>
+            <div class="diag-cat-row"><div class="diag-cat-icon">&#x1F3AF;</div><div><p class="diag-cat-name">Leadership Clarity</p><p class="diag-cat-sub">Who owns what and does everyone know?</p></div></div>
+            <div class="diag-cat-row"><div class="diag-cat-icon">&#x1F331;</div><div><p class="diag-cat-name">Staff Wellbeing</p><p class="diag-cat-sub">Are your best people staying or leaving?</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- QUIZ -->
+      <div class="diag-state" id="diag-quiz">
+        <div class="diag-quiz-header">
+          <span class="diag-quiz-meta">Orangery Diagnostic</span>
+          <div class="diag-progress-wrap">
+            <div class="diag-progress-bg"><div class="diag-progress-fill" id="diag-prog-fill"></div></div>
+            <span class="diag-progress-label" id="diag-prog-label">1 of 6</span>
+          </div>
+          <button class="diag-exit-btn" onclick="diagReset()">&#x2715; Exit</button>
+        </div>
+        <div class="diag-quiz-body">
+
+          <div class="diag-q-block active" id="dq-0">
+            <p class="diag-q-category">01 &#x2014; Vision Clarity</p>
+            <h3 class="diag-q-section-title">Where is your church going?<br>Does everyone know?</h3>
+            <p class="diag-q-hint">Rate how true each statement feels right now. Be honest &#x2014; this is for you.</p>
+            <div class="diag-q-item"><p class="diag-q-text">Our staff could each describe our church's mission and direction in the same way, without being prompted or coached.</p><div class="diag-q-scale" data-q="0"><label class="diag-q-opt"><input type="radio" name="dq0" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq0" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq0" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq0" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq0" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+            <div class="diag-q-item"><p class="diag-q-text">When new people join our staff, they genuinely absorb who we are and what we are about. It does not feel like we are constantly reintroducing them to the culture.</p><div class="diag-q-scale" data-q="1"><label class="diag-q-opt"><input type="radio" name="dq1" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq1" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq1" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq1" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq1" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+            <div class="diag-q-item"><p class="diag-q-text">Our vision feels alive and relevant today &#x2014; not something written years ago that nobody actually refers to in real decisions.</p><div class="diag-q-scale" data-q="2"><label class="diag-q-opt"><input type="radio" name="dq2" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq2" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq2" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq2" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq2" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+          </div>
+
+          <div class="diag-q-block" id="dq-1">
+            <p class="diag-q-category">02 &#x2014; Day-to-Day Collaboration</p>
+            <h3 class="diag-q-section-title">What actually happens<br>when teams need each other?</h3>
+            <p class="diag-q-hint">These questions are about lived reality &#x2014; what it feels like in the moment, not what the org chart says.</p>
+            <div class="diag-q-item"><p class="diag-q-text">When I go to another department with a need, I genuinely feel like a priority &#x2014; not like I am interrupting something more important.</p><div class="diag-q-scale" data-q="3"><label class="diag-q-opt"><input type="radio" name="dq3" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq3" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq3" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq3" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq3" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+            <div class="diag-q-item"><p class="diag-q-text">There are no unspoken hierarchies here. The status or size of a ministry does not determine whose needs get met first or whose voice gets heard.</p><div class="diag-q-scale" data-q="4"><label class="diag-q-opt"><input type="radio" name="dq4" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq4" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq4" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq4" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq4" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+            <div class="diag-q-item"><p class="diag-q-text">When I need something from another part of the organisation, I know who to go to and feel confident the response will be timely and genuinely collaborative.</p><div class="diag-q-scale" data-q="5"><label class="diag-q-opt"><input type="radio" name="dq5" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq5" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq5" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq5" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq5" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+          </div>
+
+          <div class="diag-q-block" id="dq-2">
+            <p class="diag-q-category">03 &#x2014; Team Unity</p>
+            <h3 class="diag-q-section-title">One community, or<br>competing islands?</h3>
+            <p class="diag-q-hint">Rate how true each statement feels right now.</p>
+            <div class="diag-q-item"><p class="diag-q-text">Our ministry areas genuinely celebrate each other's wins &#x2014; there is no quiet competition over budget, volunteers, or visibility.</p><div class="diag-q-scale" data-q="6"><label class="diag-q-opt"><input type="radio" name="dq6" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq6" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq6" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq6" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq6" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+            <div class="diag-q-item"><p class="diag-q-text">When a major initiative comes up, people from different areas of the organisation step in without being asked. There is an all-of-us instinct here.</p><div class="diag-q-scale" data-q="7"><label class="diag-q-opt"><input type="radio" name="dq7" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq7" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq7" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq7" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq7" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+            <div class="diag-q-item"><p class="diag-q-text">People across our organisation genuinely know and care about each other &#x2014; the connections here feel real, not just professional.</p><div class="diag-q-scale" data-q="8"><label class="diag-q-opt"><input type="radio" name="dq8" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq8" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq8" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq8" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq8" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+          </div>
+
+          <div class="diag-q-block" id="dq-3">
+            <p class="diag-q-category">04 &#x2014; Trust &amp; Candour</p>
+            <h3 class="diag-q-section-title">What is really being<br>said in the hallways?</h3>
+            <p class="diag-q-hint">Rate how true each statement feels right now.</p>
+            <div class="diag-q-item"><p class="diag-q-text">People here feel genuinely safe to raise a concern, push back, or name something difficult &#x2014; without fear of being sidelined or labelled as a problem.</p><div class="diag-q-scale" data-q="9"><label class="diag-q-opt"><input type="radio" name="dq9" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq9" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq9" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq9" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq9" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+            <div class="diag-q-item"><p class="diag-q-text">What is said in meetings reflects what people actually think. There is no pattern of agreement in the room followed by frustration elsewhere.</p><div class="diag-q-scale" data-q="10"><label class="diag-q-opt"><input type="radio" name="dq10" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq10" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq10" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq10" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq10" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+            <div class="diag-q-item"><p class="diag-q-text">Feedback moves in both directions. Leaders seek it out, receive it well, and people trust that raising something will lead somewhere useful.</p><div class="diag-q-scale" data-q="11"><label class="diag-q-opt"><input type="radio" name="dq11" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq11" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq11" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq11" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq11" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+          </div>
+
+          <div class="diag-q-block" id="dq-4">
+            <p class="diag-q-category">05 &#x2014; Leadership Clarity</p>
+            <h3 class="diag-q-section-title">Does everyone know<br>who owns what?</h3>
+            <p class="diag-q-hint">Rate how true each statement feels right now.</p>
+            <div class="diag-q-item"><p class="diag-q-text">Everyone here has a clear sense of what they are responsible for &#x2014; there is minimal overlap, confusion, or who should handle this moments.</p><div class="diag-q-scale" data-q="12"><label class="diag-q-opt"><input type="radio" name="dq12" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq12" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq12" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq12" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq12" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+            <div class="diag-q-item"><p class="diag-q-text">Decisions get made at the right level. Senior leaders are not bottlenecks, and people are not left waiting for approval on things they should own.</p><div class="diag-q-scale" data-q="13"><label class="diag-q-opt"><input type="radio" name="dq13" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq13" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq13" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq13" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq13" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+            <div class="diag-q-item"><p class="diag-q-text">The leaders here are actively investing in the people around them &#x2014; not just getting things done, but genuinely developing the next generation.</p><div class="diag-q-scale" data-q="14"><label class="diag-q-opt"><input type="radio" name="dq14" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq14" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq14" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq14" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq14" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+          </div>
+
+          <div class="diag-q-block" id="dq-5">
+            <p class="diag-q-category">06 &#x2014; Staff Wellbeing</p>
+            <h3 class="diag-q-section-title">Are your best people<br>staying or quietly leaving?</h3>
+            <p class="diag-q-hint">Rate how true each statement feels right now.</p>
+            <div class="diag-q-item"><p class="diag-q-text">People here genuinely feel seen and cared for as human beings &#x2014; not just as the role they fill or the output they produce.</p><div class="diag-q-scale" data-q="15"><label class="diag-q-opt"><input type="radio" name="dq15" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq15" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq15" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq15" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq15" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+            <div class="diag-q-item"><p class="diag-q-text">The pace here is sustainable. Leaders model healthy rhythms, and burnout is not quietly accepted as the cost of doing ministry.</p><div class="diag-q-scale" data-q="16"><label class="diag-q-opt"><input type="radio" name="dq16" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq16" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq16" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq16" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq16" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+            <div class="diag-q-item"><p class="diag-q-text">Our strongest people are choosing to stay and grow here &#x2014; there is no quiet attrition problem where the best ones drift away without warning.</p><div class="diag-q-scale" data-q="17"><label class="diag-q-opt"><input type="radio" name="dq17" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq17" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq17" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq17" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq17" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+          </div>
+
+        </div>
+        <div class="diag-quiz-nav">
+          <button class="btn-diag-nav btn-diag-back" id="diag-btn-back" onclick="diagPrev()" style="visibility:hidden;">&#x2190; Back</button>
+          <div class="diag-nav-dots" id="diag-dots">
+            <div class="diag-dot active"></div><div class="diag-dot"></div><div class="diag-dot"></div><div class="diag-dot"></div><div class="diag-dot"></div><div class="diag-dot"></div>
+          </div>
+          <button class="btn-diag-nav btn-diag-next" id="diag-btn-next" onclick="diagNext()" disabled>Next &#x2192;</button>
+        </div>
+      </div>
+
+      <!-- EMAIL GATE -->
+      <div class="diag-state" id="diag-email">
+        <div class="diag-email-gate">
+          <h3>One last step to<br><em>unlock your results</em></h3>
+          <p>Enter your details and we will send your full culture report to your inbox &#x2014; including a practical first step based on where you are right now.</p>
+          <div class="diag-email-form">
+            <div class="diag-form-row">
+              <div class="diag-field"><label>First name</label><input type="text" id="diag-fname" placeholder="e.g. Sarah"></div>
+              <div class="diag-field"><label>Last name</label><input type="text" id="diag-lname" placeholder="e.g. Johnson"></div>
+            </div>
+            <div class="diag-field"><label>Email address</label><input type="email" id="diag-email-input" placeholder="you@yourchurch.org"></div>
+            <div class="diag-field"><label>Church / Organisation</label><input type="text" id="diag-church" placeholder="e.g. Grace Community Church"></div>
+            <div class="diag-field"><label>Your role</label><input type="text" id="diag-role" placeholder="e.g. Lead Pastor, Executive Director"></div>
+            <button class="btn-diag-results" id="diag-submit-btn" onclick="diagSubmit()">See my results &#x2192;</button>
+            <p class="diag-privacy">&#x1F512; We respect your privacy. Your results stay with you and Orangery &#x2014; no spam, ever.</p>
+            <p class="diag-email-status" id="diag-email-status"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <div class="diag-state" id="diag-results">
+        <div class="diag-results">
+          <div class="diag-results-top">
+            <p class="diag-result-eyebrow">Your culture health level</p>
+            <div class="diag-health-badge">
+              <div class="diag-health-dot" id="diag-health-dot"></div>
+              <div>
+                <div class="diag-health-level" id="diag-health-level">&#x2014;</div>
+                <div class="diag-health-range" id="diag-health-range">&#x2014;</div>
+              </div>
+            </div>
+            <p class="diag-archetype-desc" id="diag-archetype-desc">&#x2014;</p>
+            <div class="diag-gauge-wrap">
+              <svg class="diag-gauge-svg" viewBox="0 0 180 100" overflow="visible">
+                <path d="M 18 90 A 72 72 0 0 1 162 90" fill="none" stroke="#d8cfc0" stroke-width="12" stroke-linecap="round"/>
+                <path id="diag-gauge-arc" d="M 18 90 A 72 72 0 0 1 162 90" fill="none" stroke="#c8543a" stroke-width="12" stroke-linecap="round" stroke-dasharray="226.2" stroke-dashoffset="226.2" style="transition:stroke-dashoffset 1.4s cubic-bezier(0.4,0,0.2,1)"/>
+                <text x="90" y="78" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="32" font-weight="500" fill="#1e2020" id="diag-gauge-num">0</text>
+                <text x="90" y="96" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="#6a6a60" letter-spacing="2">CULTURE SCORE / 90</text>
+              </svg>
+            </div>
+          </div>
+          <div class="diag-breakdown-grid" id="diag-bd-grid"></div>
+          <div class="diag-insight">
+            <span class="diag-insight-label">What this means for your mission</span>
+            <p class="diag-insight-text" id="diag-insight-text">&#x2014;</p>
+          </div>
+          <p class="diag-weak-label">Where to focus first</p>
+          <div class="diag-weak-list" id="diag-weak-list"></div>
+          <div class="diag-next-step">
+            <div class="diag-next-step-inner">
+              <span class="diag-next-step-label">A practical first step &#x2014; free, no strings</span>
+              <p class="diag-next-step-text" id="diag-next-step-text">&#x2014;</p>
+            </div>
+          </div>
+          <div class="diag-share-box">
+            <div class="diag-share-text">
+              <h4>Want to know how your team sees it?</h4>
+              <p>Share this diagnostic with your staff and get a picture of the culture from multiple perspectives &#x2014; not just the view from the top.</p>
+            </div>
+            <div class="diag-share-actions">
+              <button class="btn-diag-share" id="diag-share-btn" onclick="diagGenerateShareLink()">Generate team share link &#x2192;</button>
+              <div class="diag-share-link-wrap" id="diag-share-link-wrap" style="display:none">
+                <input type="text" class="diag-share-input" id="diag-share-link" readonly>
+                <button class="btn-diag-copy" onclick="diagCopyLink()">Copy</button>
+              </div>
+              <p class="diag-share-note">Each response is tagged to your church and sent to Orangery &#x2014; so you will get a combined picture of how the whole team experiences the culture.</p>
+            </div>
+          </div>
+          <div class="diag-cta-box">
+            <div>
+              <h3>We are for you &#x2014; and we are for<br>your <em>highest good.</em></h3>
+              <p>A free 30-minute culture conversation with Orangery is not a sales call &#x2014; it is a chance to think out loud with someone genuinely on your side.</p>
+            </div>
+            <div class="diag-cta-actions">
+              <a href="https://calendly.com/orangery/30min" class="btn-diag-book">Book a free conversation &#x2192;</a>
+              <button class="btn-diag-retake" onclick="diagReset()">Retake the diagnostic</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
-    <h1 class="intro-headline">How healthy is<br>your church<br><em>culture, really?</em></h1>
-    <p class="intro-sub">In 5 minutes, this diagnostic will reveal what's working, what's quietly eroding your mission, and where to focus first.</p>
-    <div class="intro-meta">
-      <div class="meta-pill">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-        15 questions
-      </div>
-      <div class="meta-pill">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
-        5 categories
-      </div>
-      <div class="meta-pill">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        Instant results
-      </div>
-    </div>
-    <button class="btn-start" onclick="startQuiz()">
-      Begin the diagnostic <span class="arr">→</span>
-    </button>
   </div>
-  <div class="intro-right">
-    <p class="intro-cat-label">What we're measuring</p>
-    <div class="intro-categories">
-      <div class="cat-row">
-        <div class="cat-icon">🧭</div>
-        <div>
-          <p class="cat-name">Vision Clarity</p>
-          <p class="cat-sub">Do your teams share a north star?</p>
-        </div>
-      </div>
-      <div class="cat-row">
-        <div class="cat-icon">🤝</div>
-        <div>
-          <p class="cat-name">Team Unity</p>
-          <p class="cat-sub">One body, or competing islands?</p>
-        </div>
-      </div>
-      <div class="cat-row">
-        <div class="cat-icon">🔒</div>
-        <div>
-          <p class="cat-name">Trust & Candour</p>
-          <p class="cat-sub">What's said in meetings vs. hallways?</p>
-        </div>
-      </div>
-      <div class="cat-row">
-        <div class="cat-icon">🎯</div>
-        <div>
-          <p class="cat-name">Leadership Clarity</p>
-          <p class="cat-sub">Who owns what, and does everyone know it?</p>
-        </div>
-      </div>
-      <div class="cat-row">
-        <div class="cat-icon">🌱</div>
-        <div>
-          <p class="cat-name">Staff Wellbeing</p>
-          <p class="cat-sub">Are your best people staying — or leaving?</p>
-        </div>
-      </div>
-    </div>
-  </div>
+</section>
+  </main>
+
 </div>
-
-<!-- ══════════════════════════════════════
-     QUIZ SCREEN
-══════════════════════════════════════ -->
-<div id="screen-quiz" class="screen quiz-screen">
-  <div class="quiz-header">
-    <a href="index.html" class="brand-logo">
-      <img src="ORANGE.png" alt="Orangery Solutions">
-    </a>
-    <div class="quiz-progress-wrap">
-      <div class="progress-bar-bg">
-        <div class="progress-bar-fill" id="progress-fill"></div>
-      </div>
-      <span class="progress-label" id="progress-label">Section 1 of 5</span>
-    </div>
-    <button class="quiz-exit" onclick="resetQuiz()">✕ Exit</button>
-  </div>
-
-  <div class="quiz-body">
-
-    <!-- SECTION 1: Vision -->
-    <div class="question-block active" id="section-0">
-      <p class="q-category">Category 01 — Vision Clarity</p>
-      <h2 class="q-section-title">Where is your church going?<br>Does everyone know?</h2>
-      <p class="q-section-count">3 questions · Rate how true each statement feels for your team right now</p>
-      <div class="question-item">
-        <p class="q-text">Our staff team could each articulate our church's mission and direction in the same way, without being coached to do so.</p>
-        <div class="q-scale" data-q="0">
-          <label class="q-option"><input type="radio" name="q0" value="1"><div class="q-option-btn">1</div></label>
-          <label class="q-option"><input type="radio" name="q0" value="2"><div class="q-option-btn">2</div></label>
-          <label class="q-option"><input type="radio" name="q0" value="3"><div class="q-option-btn">3</div></label>
-          <label class="q-option"><input type="radio" name="q0" value="4"><div class="q-option-btn">4</div></label>
-          <label class="q-option"><input type="radio" name="q0" value="5"><div class="q-option-btn">5</div></label>
-        </div>
-        <div class="scale-labels">
-          <span class="scale-label-text">Not at all</span>
-          <span class="scale-label-text">Absolutely</span>
-        </div>
-      </div>
-      <div class="question-item">
-        <p class="q-text">When new staff or volunteers join, they absorb our culture naturally — we don't have to constantly re-explain who we are.</p>
-        <div class="q-scale" data-q="1">
-          <label class="q-option"><input type="radio" name="q1" value="1"><div class="q-option-btn">1</div></label>
-          <label class="q-option"><input type="radio" name="q1" value="2"><div class="q-option-btn">2</div></label>
-          <label class="q-option"><input type="radio" name="q1" value="3"><div class="q-option-btn">3</div></label>
-          <label class="q-option"><input type="radio" name="q1" value="4"><div class="q-option-btn">4</div></label>
-          <label class="q-option"><input type="radio" name="q1" value="5"><div class="q-option-btn">5</div></label>
-        </div>
-        <div class="scale-labels">
-          <span class="scale-label-text">Not at all</span>
-          <span class="scale-label-text">Absolutely</span>
-        </div>
-      </div>
-      <div class="question-item">
-        <p class="q-text">Our vision feels alive and relevant today — not something written five years ago that nobody refers to.</p>
-        <div class="q-scale" data-q="2">
-          <label class="q-option"><input type="radio" name="q2" value="1"><div class="q-option-btn">1</div></label>
-          <label class="q-option"><input type="radio" name="q2" value="2"><div class="q-option-btn">2</div></label>
-          <label class="q-option"><input type="radio" name="q2" value="3"><div class="q-option-btn">3</div></label>
-          <label class="q-option"><input type="radio" name="q2" value="4"><div class="q-option-btn">4</div></label>
-          <label class="q-option"><input type="radio" name="q2" value="5"><div class="q-option-btn">5</div></label>
-        </div>
-        <div class="scale-labels">
-          <span class="scale-label-text">Not at all</span>
-          <span class="scale-label-text">Absolutely</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- SECTION 2: Unity -->
-    <div class="question-block" id="section-1">
-      <p class="q-category">Category 02 — Team Unity</p>
-      <h2 class="q-section-title">One body, or<br>competing islands?</h2>
-      <p class="q-section-count">3 questions · Rate how true each statement feels for your team right now</p>
-      <div class="question-item">
-        <p class="q-text">Our ministry departments genuinely celebrate each other's wins — there's no sense of competition over budget, volunteers, or recognition.</p>
-        <div class="q-scale" data-q="3">
-          <label class="q-option"><input type="radio" name="q3" value="1"><div class="q-option-btn">1</div></label>
-          <label class="q-option"><input type="radio" name="q3" value="2"><div class="q-option-btn">2</div></label>
-          <label class="q-option"><input type="radio" name="q3" value="3"><div class="q-option-btn">3</div></label>
-          <label class="q-option"><input type="radio" name="q3" value="4"><div class="q-option-btn">4</div></label>
-          <label class="q-option"><input type="radio" name="q3" value="5"><div class="q-option-btn">5</div></label>
-        </div>
-        <div class="scale-labels">
-          <span class="scale-label-text">Not at all</span>
-          <span class="scale-label-text">Absolutely</span>
-        </div>
-      </div>
-      <div class="question-item">
-        <p class="q-text">When a major initiative comes up, staff from different ministries rally together naturally — there's an "all hands" spirit, not a "not my job" response.</p>
-        <div class="q-scale" data-q="4">
-          <label class="q-option"><input type="radio" name="q4" value="1"><div class="q-option-btn">1</div></label>
-          <label class="q-option"><input type="radio" name="q4" value="2"><div class="q-option-btn">2</div></label>
-          <label class="q-option"><input type="radio" name="q4" value="3"><div class="q-option-btn">3</div></label>
-          <label class="q-option"><input type="radio" name="q4" value="4"><div class="q-option-btn">4</div></label>
-          <label class="q-option"><input type="radio" name="q4" value="5"><div class="q-option-btn">5</div></label>
-        </div>
-        <div class="scale-labels">
-          <span class="scale-label-text">Not at all</span>
-          <span class="scale-label-text">Absolutely</span>
-        </div>
-      </div>
-      <div class="question-item">
-        <p class="q-text">Staff from different ministry areas genuinely know and care about each other — our team feels like a family, not a collection of departments.</p>
-        <div class="q-scale" data-q="5">
-          <label class="q-option"><input type="radio" name="q5" value="1"><div class="q-option-btn">1</div></label>
-          <label class="q-option"><input type="radio" name="q5" value="2"><div class="q-option-btn">2</div></label>
-          <label class="q-option"><input type="radio" name="q5" value="3"><div class="q-option-btn">3</div></label>
-          <label class="q-option"><input type="radio" name="q5" value="4"><div class="q-option-btn">4</div></label>
-          <label class="q-option"><input type="radio" name="q5" value="5"><div class="q-option-btn">5</div></label>
-        </div>
-        <div class="scale-labels">
-          <span class="scale-label-text">Not at all</span>
-          <span class="scale-label-text">Absolutely</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- SECTION 3: Trust -->
-    <div class="question-block" id="section-2">
-      <p class="q-category">Category 03 — Trust & Candour</p>
-      <h2 class="q-section-title">What's really being<br>said in the hallways?</h2>
-      <p class="q-section-count">3 questions · Rate how true each statement feels for your team right now</p>
-      <div class="question-item">
-        <p class="q-text">Staff feel genuinely safe to raise concerns, disagree with leadership, or name a problem — without fear of consequence or being seen as difficult.</p>
-        <div class="q-scale" data-q="6">
-          <label class="q-option"><input type="radio" name="q6" value="1"><div class="q-option-btn">1</div></label>
-          <label class="q-option"><input type="radio" name="q6" value="2"><div class="q-option-btn">2</div></label>
-          <label class="q-option"><input type="radio" name="q6" value="3"><div class="q-option-btn">3</div></label>
-          <label class="q-option"><input type="radio" name="q6" value="4"><div class="q-option-btn">4</div></label>
-          <label class="q-option"><input type="radio" name="q6" value="5"><div class="q-option-btn">5</div></label>
-        </div>
-        <div class="scale-labels">
-          <span class="scale-label-text">Not at all</span>
-          <span class="scale-label-text">Absolutely</span>
-        </div>
-      </div>
-      <div class="question-item">
-        <p class="q-text">What people say in staff meetings reflects what they actually think — there's no pattern of agreement in the room and frustration in the car park.</p>
-        <div class="q-scale" data-q="7">
-          <label class="q-option"><input type="radio" name="q7" value="1"><div class="q-option-btn">1</div></label>
-          <label class="q-option"><input type="radio" name="q7" value="2"><div class="q-option-btn">2</div></label>
-          <label class="q-option"><input type="radio" name="q7" value="3"><div class="q-option-btn">3</div></label>
-          <label class="q-option"><input type="radio" name="q7" value="4"><div class="q-option-btn">4</div></label>
-          <label class="q-option"><input type="radio" name="q7" value="5"><div class="q-option-btn">5</div></label>
-        </div>
-        <div class="scale-labels">
-          <span class="scale-label-text">Not at all</span>
-          <span class="scale-label-text">Absolutely</span>
-        </div>
-      </div>
-      <div class="question-item">
-        <p class="q-text">Feedback flows in both directions — leaders actively seek input and respond well to it, not just hand it down.</p>
-        <div class="q-scale" data-q="8">
-          <label class="q-option"><input type="radio" name="q8" value="1"><div class="q-option-btn">1</div></label>
-          <label class="q-option"><input type="radio" name="q8" value="2"><div class="q-option-btn">2</div></label>
-          <label class="q-option"><input type="radio" name="q8" value="3"><div class="q-option-btn">3</div></label>
-          <label class="q-option"><input type="radio" name="q8" value="4"><div class="q-option-btn">4</div></label>
-          <label class="q-option"><input type="radio" name="q8" value="5"><div class="q-option-btn">5</div></label>
-        </div>
-        <div class="scale-labels">
-          <span class="scale-label-text">Not at all</span>
-          <span class="scale-label-text">Absolutely</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- SECTION 4: Leadership Clarity -->
-    <div class="question-block" id="section-3">
-      <p class="q-category">Category 04 — Leadership Clarity</p>
-      <h2 class="q-section-title">Does everyone know<br>who owns what?</h2>
-      <p class="q-section-count">3 questions · Rate how true each statement feels for your team right now</p>
-      <div class="question-item">
-        <p class="q-text">Every staff member knows clearly what they're responsible for — there's minimal overlap, confusion, or "who should handle this?" moments.</p>
-        <div class="q-scale" data-q="9">
-          <label class="q-option"><input type="radio" name="q9" value="1"><div class="q-option-btn">1</div></label>
-          <label class="q-option"><input type="radio" name="q9" value="2"><div class="q-option-btn">2</div></label>
-          <label class="q-option"><input type="radio" name="q9" value="3"><div class="q-option-btn">3</div></label>
-          <label class="q-option"><input type="radio" name="q9" value="4"><div class="q-option-btn">4</div></label>
-          <label class="q-option"><input type="radio" name="q9" value="5"><div class="q-option-btn">5</div></label>
-        </div>
-        <div class="scale-labels">
-          <span class="scale-label-text">Not at all</span>
-          <span class="scale-label-text">Absolutely</span>
-        </div>
-      </div>
-      <div class="question-item">
-        <p class="q-text">Decisions get made at the right level — senior leaders aren't bottlenecks, and staff aren't left waiting for approval on things they should own.</p>
-        <div class="q-scale" data-q="10">
-          <label class="q-option"><input type="radio" name="q10" value="1"><div class="q-option-btn">1</div></label>
-          <label class="q-option"><input type="radio" name="q10" value="2"><div class="q-option-btn">2</div></label>
-          <label class="q-option"><input type="radio" name="q10" value="3"><div class="q-option-btn">3</div></label>
-          <label class="q-option"><input type="radio" name="q10" value="4"><div class="q-option-btn">4</div></label>
-          <label class="q-option"><input type="radio" name="q10" value="5"><div class="q-option-btn">5</div></label>
-        </div>
-        <div class="scale-labels">
-          <span class="scale-label-text">Not at all</span>
-          <span class="scale-label-text">Absolutely</span>
-        </div>
-      </div>
-      <div class="question-item">
-        <p class="q-text">Our leaders are actively developing others — not just managing tasks, but investing in the next generation of leadership capacity.</p>
-        <div class="q-scale" data-q="11">
-          <label class="q-option"><input type="radio" name="q11" value="1"><div class="q-option-btn">1</div></label>
-          <label class="q-option"><input type="radio" name="q11" value="2"><div class="q-option-btn">2</div></label>
-          <label class="q-option"><input type="radio" name="q11" value="3"><div class="q-option-btn">3</div></label>
-          <label class="q-option"><input type="radio" name="q11" value="4"><div class="q-option-btn">4</div></label>
-          <label class="q-option"><input type="radio" name="q11" value="5"><div class="q-option-btn">5</div></label>
-        </div>
-        <div class="scale-labels">
-          <span class="scale-label-text">Not at all</span>
-          <span class="scale-label-text">Absolutely</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- SECTION 5: Staff Wellbeing -->
-    <div class="question-block" id="section-4">
-      <p class="q-category">Category 05 — Staff Wellbeing</p>
-      <h2 class="q-section-title">Are your best people<br>staying or leaving?</h2>
-      <p class="q-section-count">3 questions · Rate how true each statement feels for your team right now</p>
-      <div class="question-item">
-        <p class="q-text">Our staff genuinely feel seen, supported, and cared for as people — not just as ministry resources.</p>
-        <div class="q-scale" data-q="12">
-          <label class="q-option"><input type="radio" name="q12" value="1"><div class="q-option-btn">1</div></label>
-          <label class="q-option"><input type="radio" name="q12" value="2"><div class="q-option-btn">2</div></label>
-          <label class="q-option"><input type="radio" name="q12" value="3"><div class="q-option-btn">3</div></label>
-          <label class="q-option"><input type="radio" name="q12" value="4"><div class="q-option-btn">4</div></label>
-          <label class="q-option"><input type="radio" name="q12" value="5"><div class="q-option-btn">5</div></label>
-        </div>
-        <div class="scale-labels">
-          <span class="scale-label-text">Not at all</span>
-          <span class="scale-label-text">Absolutely</span>
-        </div>
-      </div>
-      <div class="question-item">
-        <p class="q-text">Burnout is not the norm here — our pace and expectations are sustainable, and our leaders model healthy rhythms of rest and work.</p>
-        <div class="q-scale" data-q="13">
-          <label class="q-option"><input type="radio" name="q13" value="1"><div class="q-option-btn">1</div></label>
-          <label class="q-option"><input type="radio" name="q13" value="2"><div class="q-option-btn">2</div></label>
-          <label class="q-option"><input type="radio" name="q13" value="3"><div class="q-option-btn">3</div></label>
-          <label class="q-option"><input type="radio" name="q13" value="4"><div class="q-option-btn">4</div></label>
-          <label class="q-option"><input type="radio" name="q13" value="5"><div class="q-option-btn">5</div></label>
-        </div>
-        <div class="scale-labels">
-          <span class="scale-label-text">Not at all</span>
-          <span class="scale-label-text">Absolutely</span>
-        </div>
-      </div>
-      <div class="question-item">
-        <p class="q-text">Our best people are staying and growing here — we don't have a quiet attrition problem where our strongest staff quietly drift away.</p>
-        <div class="q-scale" data-q="14">
-          <label class="q-option"><input type="radio" name="q14" value="1"><div class="q-option-btn">1</div></label>
-          <label class="q-option"><input type="radio" name="q14" value="2"><div class="q-option-btn">2</div></label>
-          <label class="q-option"><input type="radio" name="q14" value="3"><div class="q-option-btn">3</div></label>
-          <label class="q-option"><input type="radio" name="q14" value="4"><div class="q-option-btn">4</div></label>
-          <label class="q-option"><input type="radio" name="q14" value="5"><div class="q-option-btn">5</div></label>
-        </div>
-        <div class="scale-labels">
-          <span class="scale-label-text">Not at all</span>
-          <span class="scale-label-text">Absolutely</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- NAV -->
-    <div class="quiz-nav">
-      <button class="btn-nav btn-back" id="btn-back" onclick="prevSection()" style="visibility:hidden;">← Back</button>
-      <div class="nav-dots" id="nav-dots">
-        <div class="nav-dot active" data-dot="0"></div>
-        <div class="nav-dot" data-dot="1"></div>
-        <div class="nav-dot" data-dot="2"></div>
-        <div class="nav-dot" data-dot="3"></div>
-        <div class="nav-dot" data-dot="4"></div>
-      </div>
-      <button class="btn-nav btn-next" id="btn-next" onclick="nextSection()" disabled>Next →</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════
-     RESULTS SCREEN
-══════════════════════════════════════ -->
-<div id="screen-results" class="screen results-screen">
-  <div class="results-header">
-    <a href="index.html" class="brand-logo">
-      <img src="ORANGE.png" alt="Orangery Solutions">
-    </a>
-    <span style="font-size:12px; color:rgba(245,240,232,0.35);">Your Church Culture Report</span>
-  </div>
-
-  <div class="results-body">
-    <div class="results-inner">
-
-      <div class="results-hero">
-        <p class="results-eyebrow">Your result</p>
-        <h2 class="archetype-name" id="archetype-name">—</h2>
-        <p class="archetype-desc" id="archetype-desc">—</p>
-
-        <div class="gauge-wrap">
-          <svg class="gauge-svg" viewBox="0 0 200 110">
-            <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#ddd5c4" stroke-width="14" stroke-linecap="round"/>
-            <path id="gauge-arc" d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#d4682a" stroke-width="14" stroke-linecap="round"
-              stroke-dasharray="251.3" stroke-dashoffset="251.3" style="transition: stroke-dashoffset 1.4s cubic-bezier(0.4,0,0.2,1)"/>
-            <text x="100" y="88" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="36" font-weight="500" fill="#1c2b1e" id="gauge-num">0</text>
-            <text x="100" y="106" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" fill="#6b6b60" letter-spacing="2">CULTURE SCORE</text>
-          </svg>
-        </div>
-      </div>
-
-      <!-- Category breakdown -->
-      <div class="breakdown-grid" id="breakdown-grid"></div>
-
-      <!-- Insight -->
-      <div class="insight-panel" id="insight-panel">
-        <span class="insight-label">What this means for your mission</span>
-        <p class="insight-text" id="insight-text">—</p>
-      </div>
-
-      <!-- Weak areas -->
-      <div class="weak-areas" id="weak-areas-wrap">
-        <p class="weak-areas-title">Your biggest opportunities</p>
-        <div class="weak-list" id="weak-list"></div>
-      </div>
-
-      <!-- CTA -->
-      <div class="cta-box">
-        <div class="cta-box-text">
-          <h3>Ready to build a culture<br>your church <em>deserves?</em></h3>
-          <p>This diagnostic is just the beginning. A free 30-minute culture call with Orangery will give you a personalised roadmap — and a clear first step.</p>
-        </div>
-        <div class="cta-box-actions">
-          <a href="https://calendly.com/orangery/30min" class="btn-cta-primary">Book a free culture call →</a>
-          <button class="btn-retake" onclick="resetQuiz()">Retake the diagnostic</button>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-</div><!-- /app -->
 
 <script>
-const CATEGORIES = [
-  { id: 'vision',    label: 'Vision Clarity',      icon: '🧭', threat: 'Without a shared north star, energy fragments and your distinctiveness quietly fades.' },
-  { id: 'unity',     label: 'Team Unity',           icon: '🤝', threat: 'Outward impact stalls when the parts of the body stop communicating.' },
-  { id: 'trust',     label: 'Trust & Candour',      icon: '🔒', threat: 'You can\'t build a church on a team performing unity while living in suspicion.' },
-  { id: 'clarity',   label: 'Leadership Clarity',   icon: '🎯', threat: 'When no one knows who owns what, God-given opportunities are squandered.' },
-  { id: 'wellbeing', label: 'Staff Wellbeing',       icon: '🌱', threat: 'You can\'t lead a healthy congregation from an unhealthy staff room.' },
+(function(){ emailjs.init({ publicKey: 'YOUR_EMAILJS_PUBLIC_KEY' }); })();
+const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';
+const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+const ORANGERY_EMAIL = 'lukehaythorpe@orangery.solutions';
+
+const DIAG_CATS = [
+  { id:'vision',    label:'Vision Clarity',          icon:'\u{1F9ED}' },
+  { id:'collab',    label:'Day-to-Day Collaboration', icon:'\u{1F6AA}' },
+  { id:'unity',     label:'Team Unity',               icon:'\u{1F91D}' },
+  { id:'trust',     label:'Trust & Candour',          icon:'\u{1F512}' },
+  { id:'clarity',   label:'Leadership Clarity',       icon:'\u{1F3AF}' },
+  { id:'wellbeing', label:'Staff Wellbeing',          icon:'\u{1F331}' },
 ];
 
-const ARCHETYPES = [
+const HEALTH_LEVELS = [
   {
-    min: 0, max: 29,
-    name: '<em>Survival Mode</em>',
-    desc: 'Your culture is under serious strain. There are real fractures beneath the surface — in trust, clarity, and wellbeing — that are actively costing you mission impact. The good news: naming it is the first act of courage.',
-    insight: 'Churches in this zone are often <strong>one leadership transition or one unresolved conflict</strong> away from a crisis. The mission is too important to let culture slide any further. This is the moment to act — before it becomes public.'
+    min:0, max:35, dot:'#e05a3a',
+    label:'Critical Attention Needed', range:'Score 0\u201335',
+    desc:'There are real strains running through your culture right now. This is not a verdict on your leadership. It is a signal worth taking seriously. Naming it clearly is where real change begins.',
+    insight:'Cultures in this range are often carrying <strong>unresolved tension that has become normalised</strong>. People have adapted to working around the friction rather than through it. We would love to help you see what is possible on the other side.',
+    nextStep:'Before anything else, consider one honest conversation with a trusted colleague or external guide about what you are noticing. Not to fix it all at once. Just to stop carrying it alone. A free 30-minute conversation with Orangery is a good place to start.',
   },
   {
-    min: 30, max: 44,
-    name: 'The <em>Hornet\'s Nest</em>',
-    desc: 'There are real strengths here, but significant tension underneath. Some areas of your culture are working — but others are quietly undermining your mission and wearing out your best people.',
-    insight: 'The danger here is that <strong>things look okay on the surface</strong> while the erosion is happening below it. Staff are managing the tension rather than thriving. Culture at this level tends to drift — it rarely improves on its own.'
+    min:36, max:53, dot:'#c8543a',
+    label:'Worth Paying Attention To', range:'Score 36\u201353',
+    desc:'There are areas of genuine strength here alongside places where the culture is carrying more weight than it should. Some things are working. But others are quietly draining energy that should be going toward your mission.',
+    insight:'The most common pattern at this level is <strong>a culture that functions but does not flourish</strong>. People are managing the friction, but it costs them. Small, intentional moves in the right areas tend to unlock disproportionate change.',
+    nextStep:'Look at the two categories where you scored lowest. Pick one and ask: what would it look like to have one honest conversation about that area this month? You do not need a programme. You need a starting point.',
   },
   {
-    min: 45, max: 57,
-    name: 'The <em>Cozy Middle</em>',
-    desc: 'Your culture is functional, and maybe even pleasant — but it\'s not producing the kind of fruit your mission calls for. Nice. Polite. But not electric. There\'s a ceiling, and you can feel it.',
-    insight: 'Churches in this zone often confuse <strong>the absence of conflict with the presence of health</strong>. Real culture isn\'t just the absence of problems — it\'s the presence of trust, clarity, and shared purpose. You\'re closer than you think.'
+    min:54, max:68, dot:'#c9a052',
+    label:'Developing Well', range:'Score 54\u201368',
+    desc:'Your culture has a solid foundation. There is real goodwill and some genuine health here. There are also a few areas that, if left unattended, could quietly erode what you have built.',
+    insight:'At this level, <strong>the risk is assuming you have arrived</strong>. Cultures that stay here tend to do so because the hard conversations are just comfortable enough to avoid. The gap between developing and thriving is usually smaller than it looks.',
+    nextStep:'Identify one relationship or dynamic in your team that you have been meaning to address but keep deferring. Not a programme. Just a conversation. That is often the one thing that unlocks the next level of trust.',
   },
   {
-    min: 58, max: 68,
-    name: 'Building <em>Momentum</em>',
-    desc: 'You\'ve done real work here. Your culture has genuine strengths and people who are bought in. A few areas still need intentional attention — and addressing them will unlock the next level.',
-    insight: 'The risk at this stage is <strong>assuming the work is done</strong>. Culture drifts when leaders stop being intentional. Your foundation is solid — now it\'s time to build the culture people will talk about for all the right reasons.'
+    min:69, max:80, dot:'#7a9980',
+    label:'Strong & Growing', range:'Score 69\u201380',
+    desc:'You have built something genuinely healthy here. Your team experiences real trust, good clarity, and a culture people choose to be part of. The work now is to protect what you have built and keep it from drifting.',
+    insight:'Strong cultures <strong>do not stay strong by accident</strong>. The churches that sustain this level are the ones who stay intentional, especially during transitions, growth seasons, and whenever new people join.',
+    nextStep:'Consider sharing this diagnostic with two or three people you lead and asking them to complete it independently. Compare notes. The gap between how leaders and team members experience the culture is often the most useful data point you can have.',
   },
   {
-    min: 69, max: 75,
-    name: 'The <em>\'IT\' Culture</em>',
-    desc: 'This is what Orangery works toward with every church. Your culture has the hallmarks of something rare — trust, clarity, unity, and health. Don\'t take it for granted. Culture at this level is worth protecting intentionally.',
-    insight: 'Even the healthiest cultures need <strong>ongoing attention</strong>. New seasons, new staff, and new pressures will all test what you\'ve built. The churches that stay here are the ones who never stop being intentional about culture.'
+    min:81, max:90, dot:'#3a4840',
+    label:'Exceptionally Healthy', range:'Score 81\u201390',
+    desc:'This is rare. What you have built reflects sustained, intentional investment in the people and culture of your organisation. Do not take it for granted. And do not stop here.',
+    insight:'Cultures at this level <strong>become a gift to the wider church</strong>. The leaders who build them often do not realise how unusual they are, or how much they have to offer others who are further back on the journey.',
+    nextStep:'Think about who in your network is leading a team that is struggling. You have something worth sharing. Consider forwarding this diagnostic to a peer leader who might benefit from the reflection.',
   },
 ];
 
-const WEAK_INSIGHTS = {
-  vision:    'Staff are likely operating from different mental maps of where the church is going. Before any other culture work, the vision needs to be re-landed — clearly and consistently.',
-  unity:     'Ministry departments are functioning as separate organisations rather than one body. Cross-departmental friction is draining energy that should be going toward the mission.',
-  trust:     'Your team isn\'t saying what they actually think — and that gap between public and private is where toxicity takes root. Candour needs to become a practised value, not just a hoped-for one.',
-  clarity:   'Leadership ambiguity is creating frustration at every level. People either wait for approval on things they should own, or step on each other\'s toes. Role clarity is a culture issue, not just an HR one.',
-  wellbeing: 'Your people are running on empty. If burnout is the norm, your best staff are already planning their exit — they just haven\'t told you yet. Sustainable rhythms and genuine pastoral care are urgent.',
+const DIAG_WEAK = {
+  vision:    'Your team may be operating from different mental maps of where you are going. Before anything else, the vision needs to be re-landed, not just communicated, but genuinely owned.',
+  collab:    'When going to another part of the organisation feels like an imposition, that is a culture issue not a logistics one. Unspoken hierarchies are worth naming directly.',
+  unity:     'When ministry areas function as separate organisations, the friction compounds quietly. The whole works best when the parts are genuinely connected, not just coordinated.',
+  trust:     'The gap between what is said in meetings and what is said privately is where most culture problems live. Candour is the foundation everything else is built on.',
+  clarity:   'Ambiguity about who owns what is exhausting, even when everyone is well-intentioned. Clarity is one of the most practical gifts a leader can give their team.',
+  wellbeing: 'If the pace is unsustainable or people do not feel genuinely seen, your best people may already be planning their exit. They just have not told you yet.',
 };
 
-let currentSection = 0;
-const answers = new Array(15).fill(null);
+const TOTAL_SECTIONS = 6;
+const QUESTIONS_PER  = 3;
+let diagSection = 0;
+const diagAnswers = new Array(TOTAL_SECTIONS * QUESTIONS_PER).fill(null);
+let diagSubmitterName   = '';
+let diagSubmitterChurch = '';
+let diagSubmitterEmail  = '';
 
-function startQuiz() {
-  showScreen('quiz');
-  updateProgress();
-  checkSectionComplete();
+function diagShowState(id) {
+  document.querySelectorAll('.diag-state').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const shell = document.querySelector('.diag-shell');
+  if (shell) { setTimeout(() => shell.scrollIntoView({ behavior:'smooth', block:'start' }), 50); }
 }
 
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => {
-    s.classList.remove('active');
-    s.style.display = 'none';
+function diagStart() {
+  diagSection = 0;
+  diagAnswers.fill(null);
+  document.querySelectorAll('.diag-q-btn').forEach(b => b.classList.remove('sel'));
+  document.querySelectorAll('.diag-q-block').forEach((b, i) => b.classList.toggle('active', i === 0));
+  diagUpdateProgress();
+  diagCheckComplete();
+  diagShowState('diag-quiz');
+}
+
+function diagUpdateProgress() {
+  const pct = (diagSection / TOTAL_SECTIONS) * 100;
+  const pf = document.getElementById('diag-prog-fill'); if (pf) pf.style.width = pct + '%';
+  const pl = document.getElementById('diag-prog-label'); if (pl) pl.textContent = (diagSection + 1) + ' of ' + TOTAL_SECTIONS;
+  (document.querySelectorAll('.diag-dot') || []).forEach((d, i) => {
+    d.classList.remove('active', 'done');
+    if (i < diagSection) d.classList.add('done');
+    else if (i === diagSection) d.classList.add('active');
   });
-  const el = document.getElementById('screen-' + id);
-  el.style.display = 'flex';
-  setTimeout(() => el.classList.add('active'), 10);
-  window.scrollTo(0, 0);
+  const backBtn = document.getElementById('diag-btn-back');
+  if (backBtn) backBtn.style.visibility = diagSection === 0 ? 'hidden' : 'visible';
 }
 
-function updateProgress() {
-  const pct = ((currentSection) / 5) * 100;
-  document.getElementById('progress-fill').style.width = pct + '%';
-  document.getElementById('progress-label').textContent = 'Section ' + (currentSection + 1) + ' of 5';
-  document.querySelectorAll('.nav-dot').forEach((dot, i) => {
-    dot.classList.remove('active', 'done');
-    if (i < currentSection) dot.classList.add('done');
-    else if (i === currentSection) dot.classList.add('active');
-  });
-  document.getElementById('btn-back').style.visibility = currentSection === 0 ? 'hidden' : 'visible';
+function diagCheckComplete() {
+  const start = diagSection * QUESTIONS_PER;
+  const ok = diagAnswers.slice(start, start + QUESTIONS_PER).every(a => a !== null);
+  const btn = document.getElementById('diag-btn-next');
+  if (btn) { btn.disabled = !ok; btn.textContent = diagSection === TOTAL_SECTIONS - 1 ? 'See my results →' : 'Next →'; }
 }
 
-function checkSectionComplete() {
-  const start = currentSection * 3;
-  const complete = answers.slice(start, start + 3).every(a => a !== null);
-  document.getElementById('btn-next').disabled = !complete;
-  const isLast = currentSection === 4;
-  document.getElementById('btn-next').textContent = isLast ? 'See my results →' : 'Next →';
-}
-
-document.querySelectorAll('.q-scale').forEach(scale => {
-  const qIndex = parseInt(scale.dataset.q);
-  scale.querySelectorAll('.q-option-btn').forEach((btn, i) => {
+document.querySelectorAll('.diag-q-scale').forEach(scale => {
+  const qi = parseInt(scale.dataset.q);
+  scale.querySelectorAll('.diag-q-btn').forEach((btn, i) => {
     btn.addEventListener('click', () => {
-      answers[qIndex] = i + 1;
-      scale.querySelectorAll('.q-option-btn').forEach(b => b.classList.remove('selected'));
-      btn.classList.add('selected');
-      checkSectionComplete();
+      diagAnswers[qi] = i + 1;
+      scale.querySelectorAll('.diag-q-btn').forEach(b => b.classList.remove('sel'));
+      btn.classList.add('sel');
+      diagCheckComplete();
     });
   });
 });
 
-function nextSection() {
-  if (currentSection < 4) {
-    document.getElementById('section-' + currentSection).classList.remove('active');
-    currentSection++;
-    const next = document.getElementById('section-' + currentSection);
-    next.style.animation = 'none';
-    next.offsetHeight;
-    next.style.animation = '';
-    next.classList.add('active');
-    updateProgress();
-    checkSectionComplete();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+function diagNext() {
+  if (diagSection < TOTAL_SECTIONS - 1) {
+    document.getElementById('dq-' + diagSection).classList.remove('active');
+    diagSection++;
+    const next = document.getElementById('dq-' + diagSection);
+    if (next) { next.style.animation = 'none'; next.offsetHeight; next.style.animation = ''; next.classList.add('active'); }
+    diagUpdateProgress();
+    diagCheckComplete();
   } else {
-    showResults();
+    diagShowState('diag-email');
   }
 }
 
-function prevSection() {
-  if (currentSection > 0) {
-    document.getElementById('section-' + currentSection).classList.remove('active');
-    currentSection--;
-    document.getElementById('section-' + currentSection).classList.add('active');
-    updateProgress();
-    checkSectionComplete();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+function diagPrev() {
+  if (diagSection > 0) {
+    document.getElementById('dq-' + diagSection).classList.remove('active');
+    diagSection--;
+    document.getElementById('dq-' + diagSection).classList.add('active');
+    diagUpdateProgress();
+    diagCheckComplete();
   }
 }
 
-function getCategoryScore(catIndex) {
-  const start = catIndex * 3;
-  const vals = answers.slice(start, start + 3).map(a => a || 0);
-  return vals.reduce((a, b) => a + b, 0);
+function diagCatScore(i) { return diagAnswers.slice(i * QUESTIONS_PER, (i + 1) * QUESTIONS_PER).reduce((a, b) => a + (b || 0), 0); }
+function diagTotal() { return diagAnswers.reduce((a, b) => a + (b || 0), 0); }
+function diagPct(score, max) { return Math.round((score / max) * 100); }
+function diagGetLevel(total) { return HEALTH_LEVELS.find(l => total >= l.min && total <= l.max) || HEALTH_LEVELS[HEALTH_LEVELS.length - 1]; }
+
+function diagBarColor(pct) {
+  if (pct >= 87) return '#3a4840';
+  if (pct >= 75) return '#7a9980';
+  if (pct >= 58) return '#c9a052';
+  if (pct >= 38) return '#c8543a';
+  return '#e05a3a';
+}
+function diagBarStatus(pct) {
+  if (pct >= 87) return 'Exceptional';
+  if (pct >= 75) return 'Strong';
+  if (pct >= 58) return 'Developing';
+  if (pct >= 38) return 'Needs attention';
+  return 'Critical';
 }
 
-function getTotalScore() {
-  return answers.reduce((a, b) => a + (b || 0), 0);
-}
+function diagBuildResults() {
+  const total = diagTotal();
+  const level = diagGetLevel(total);
+  const hdot = document.getElementById('diag-health-dot');
+  if (hdot) { hdot.style.background = level.dot; hdot.style.boxShadow = '0 0 0 5px ' + level.dot + '22'; }
+  const hlevel = document.getElementById('diag-health-level'); if (hlevel) hlevel.textContent = level.label;
+  const hrange = document.getElementById('diag-health-range'); if (hrange) hrange.textContent = level.range;
+  const adesc = document.getElementById('diag-archetype-desc'); if (adesc) adesc.textContent = level.desc;
+  const itext = document.getElementById('diag-insight-text'); if (itext) itext.innerHTML = level.insight;
+  const ntext = document.getElementById('diag-next-step-text'); if (ntext) ntext.textContent = level.nextStep;
 
-function getPercentage(score, max) {
-  return Math.round((score / max) * 100);
-}
-
-function getBarColor(pct) {
-  if (pct >= 80) return '#3d5a42';
-  if (pct >= 60) return '#7a9c7e';
-  if (pct >= 40) return '#c9a052';
-  return '#d4682a';
-}
-
-function getStatusLabel(pct) {
-  if (pct >= 80) return 'Thriving';
-  if (pct >= 60) return 'Developing';
-  if (pct >= 40) return 'Fragile';
-  return 'At risk';
-}
-
-function showResults() {
-  showScreen('results');
-
-  const total = getTotalScore();
-  const maxTotal = 75;
-  const pct = getPercentage(total, maxTotal);
-
-  // Archetype
-  const archetype = ARCHETYPES.find(a => total >= a.min && total <= a.max) || ARCHETYPES[ARCHETYPES.length - 1];
-  document.getElementById('archetype-name').innerHTML = archetype.name;
-  document.getElementById('archetype-desc').textContent = archetype.desc;
-  document.getElementById('insight-text').innerHTML = archetype.insight;
-
-  // Animate gauge
   setTimeout(() => {
-    const arcLen = 251.3;
-    const offset = arcLen - (arcLen * pct / 100);
-    document.getElementById('gauge-arc').style.strokeDashoffset = offset;
-    // Colour by score
-    const arcCol = pct >= 80 ? '#3d5a42' : pct >= 60 ? '#7a9c7e' : pct >= 40 ? '#c9a052' : '#d4682a';
-    document.getElementById('gauge-arc').style.stroke = arcCol;
-    // Animate number
-    let current = 0;
-    const target = total;
-    const step = Math.ceil(target / 40);
+    const arc = document.getElementById('diag-gauge-arc'); if (!arc) return;
+    const arcLen = 226.2;
+    const pct = diagPct(total, 90);
+    arc.style.strokeDashoffset = arcLen - (arcLen * pct / 100);
+    arc.style.stroke = level.dot;
+    let cur = 0;
     const timer = setInterval(() => {
-      current = Math.min(current + step, target);
-      document.getElementById('gauge-num').textContent = current;
-      if (current >= target) clearInterval(timer);
-    }, 35);
+      cur = Math.min(cur + 2, total);
+      const gnum = document.getElementById('diag-gauge-num'); if (gnum) gnum.textContent = cur;
+      if (cur >= total) clearInterval(timer);
+    }, 40);
   }, 200);
 
-  // Breakdown
-  const grid = document.getElementById('breakdown-grid');
+  const grid = document.getElementById('diag-bd-grid');
+  if (!grid) return;
   grid.innerHTML = '';
-  CATEGORIES.forEach((cat, i) => {
-    const score = getCategoryScore(i);
-    const maxCat = 15;
-    const catPct = getPercentage(score, maxCat);
-    const color = getBarColor(catPct);
-    const status = getStatusLabel(catPct);
-    const card = document.createElement('div');
-    card.className = 'breakdown-card';
-    card.innerHTML = `
-      <span class="breakdown-icon">${cat.icon}</span>
-      <p class="breakdown-cat">${cat.label}</p>
-      <div class="breakdown-bar-bg">
-        <div class="breakdown-bar-fill" style="background:${color}" data-pct="${catPct}"></div>
-      </div>
-      <p class="breakdown-score">${score}<span style="font-size:14px;color:var(--muted)">/15</span></p>
-      <p class="breakdown-status" style="color:${color}">${status}</p>
-    `;
+  DIAG_CATS.forEach((cat, i) => {
+    const score = diagCatScore(i);
+    const pct   = diagPct(score, 15);
+    const color  = diagBarColor(pct);
+    const status = diagBarStatus(pct);
+    const card   = document.createElement('div');
+    card.className = 'diag-bd-card';
+    card.innerHTML = '<span class="diag-bd-icon">' + cat.icon + '</span><p class="diag-bd-cat">' + cat.label + '</p><div class="diag-bd-bar-bg"><div class="diag-bd-bar-fill" style="background:' + color + '" data-pct="' + pct + '"></div></div><p class="diag-bd-score">' + score + '<span style="font-size:12px;color:var(--muted)">/15</span></p><p class="diag-bd-status" style="color:' + color + '">' + status + '</p>';
     grid.appendChild(card);
   });
-  setTimeout(() => {
-    document.querySelectorAll('.breakdown-bar-fill').forEach(bar => {
-      bar.style.width = bar.dataset.pct + '%';
-    });
-  }, 300);
+  setTimeout(() => document.querySelectorAll('.diag-bd-bar-fill').forEach(b => b.style.width = b.dataset.pct + '%'), 300);
 
-  // Weak areas (2 lowest)
-  const scored = CATEGORIES.map((cat, i) => ({
-    ...cat, score: getCategoryScore(i), pct: getPercentage(getCategoryScore(i), 15)
-  })).sort((a, b) => a.score - b.score);
-
-  const weakList = document.getElementById('weak-list');
+  const scored = DIAG_CATS.map((c, i) => ({ ...c, score: diagCatScore(i) })).sort((a, b) => a.score - b.score);
+  const weakList = document.getElementById('diag-weak-list');
+  if (!weakList) return;
   weakList.innerHTML = '';
   scored.slice(0, 2).forEach(cat => {
     const item = document.createElement('div');
-    item.className = 'weak-item';
-    item.innerHTML = `
-      <div>
-        <p class="weak-item-name">${cat.icon} ${cat.label}</p>
-        <p class="weak-item-desc">${WEAK_INSIGHTS[cat.id]}</p>
-      </div>
-      <div class="weak-item-score">${cat.score}/15</div>
-    `;
+    item.className = 'diag-weak-item';
+    item.innerHTML = '<div><p class="diag-weak-name">' + cat.icon + ' ' + cat.label + '</p><p class="diag-weak-desc">' + DIAG_WEAK[cat.id] + '</p></div><div class="diag-weak-score">' + cat.score + '/15</div>';
     weakList.appendChild(item);
   });
 }
 
-function resetQuiz() {
-  currentSection = 0;
-  answers.fill(null);
-  document.querySelectorAll('.q-option-btn').forEach(b => b.classList.remove('selected'));
-  document.querySelectorAll('.q-scale').forEach(s => {
-    s.querySelectorAll('input').forEach(i => i.checked = false);
-  });
-  document.querySelectorAll('.question-block').forEach((b, i) => {
-    b.classList.toggle('active', i === 0);
-  });
-  showScreen('intro');
+async function diagSubmit() {
+  const fname  = document.getElementById('diag-fname').value.trim();
+  const lname  = document.getElementById('diag-lname').value.trim();
+  const email  = document.getElementById('diag-email-input').value.trim();
+  const church = document.getElementById('diag-church').value.trim();
+  const role   = document.getElementById('diag-role').value.trim();
+  const status = document.getElementById('diag-email-status');
+  const setStatus = (msg, col) => { if (status) { status.textContent = msg; status.style.color = col || 'var(--muted)'; } };
+
+  if (!fname || !email) { setStatus('Please enter your name and email to continue.', 'var(--rust)'); return; }
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRe.test(email)) { setStatus('Please enter a valid email address.', 'var(--rust)'); return; }
+
+  diagSubmitterName   = (fname + ' ' + lname).trim();
+  diagSubmitterChurch = church;
+  diagSubmitterEmail  = email;
+
+  const btn = document.getElementById('diag-submit-btn');
+  if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+  setStatus('', 'var(--muted)');
+
+  const params   = new URLSearchParams(window.location.search);
+  const teamId   = params.get('team') || null;
+  const isTeam   = !!teamId;
+  const total    = diagTotal();
+  const level    = diagGetLevel(total);
+  const pct      = diagPct(total, 90);
+  const breakdown= DIAG_CATS.map((c, i) => c.icon + ' ' + c.label + ': ' + diagCatScore(i) + '/15').join('\n');
+  const scored   = DIAG_CATS.map((c, i) => ({ ...c, score: diagCatScore(i) })).sort((a, b) => a.score - b.score);
+  const weakAreas= scored.slice(0, 2).map(c => c.label + ' (' + c.score + '/15)').join(', ');
+
+  const baseParams = {
+    respondent_name:  diagSubmitterName,
+    respondent_email: email,
+    church_name:      church || 'Not provided',
+    respondent_role:  role   || 'Not provided',
+    total_score:      total + '/90',
+    percent:          pct + '%',
+    health_level:     level.label,
+    health_range:     level.range,
+    level_desc:       level.desc,
+    next_step:        level.nextStep,
+    breakdown,
+    weak_areas:       weakAreas,
+    is_team_member:   isTeam ? 'Yes' : 'No',
+    team_id:          teamId || 'N/A',
+    submitted_at:     new Date().toLocaleString('en-GB', { dateStyle:'medium', timeStyle:'short' }),
+  };
+
+  try {
+    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, { ...baseParams, to_email: ORANGERY_EMAIL, reply_to: email });
+    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, { ...baseParams, to_email: email, reply_to: ORANGERY_EMAIL });
+    setStatus('✓ Report sent! Check your inbox.', 'var(--char-light)');
+  } catch(err) {
+    console.warn('EmailJS error:', err);
+    setStatus('Could not send email — but your results are ready below.', 'var(--muted)');
+  }
+
+  diagBuildResults();
+  diagShowState('diag-results');
+  if (btn) { btn.disabled = false; btn.textContent = 'See my results →'; }
 }
+
+function diagGenerateShareLink() {
+  const church = diagSubmitterChurch || 'your church';
+  const name   = diagSubmitterName   || '';
+  const token  = btoa(encodeURIComponent(church)) + '-' + btoa(encodeURIComponent(name));
+  const url    = window.location.origin + window.location.pathname + '?team=' + encodeURIComponent(token);
+  document.getElementById('diag-share-link').value = url;
+  document.getElementById('diag-share-link-wrap').style.display = 'flex';
+  document.getElementById('diag-share-btn').style.display = 'none';
+}
+
+function diagCopyLink() {
+  const input = document.getElementById('diag-share-link');
+  input.select(); input.setSelectionRange(0, 99999);
+  navigator.clipboard ? navigator.clipboard.writeText(input.value).catch(() => { try { document.execCommand('copy'); } catch(_){} }) : (function(){ try { document.execCommand('copy'); } catch(_){} })();
+  const btn = document.querySelector('.btn-diag-copy');
+  const orig = btn.textContent;
+  btn.textContent = 'Copied \u2713'; btn.style.background = '#3a4840';
+  setTimeout(() => { btn.textContent = orig; btn.style.background = ''; }, 2400);
+}
+
+function diagReset() {
+  diagSection = 0; diagAnswers.fill(null);
+  document.querySelectorAll('.diag-q-btn').forEach(b => b.classList.remove('sel'));
+  ['diag-fname','diag-lname','diag-email-input','diag-church','diag-role'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+  const es = document.getElementById('diag-email-status'); if (es) es.textContent = '';
+  const shareBtn  = document.getElementById('diag-share-btn');
+  const shareLinkWrap = document.getElementById('diag-share-link-wrap');
+  if (shareBtn) shareBtn.style.display = '';
+  if (shareLinkWrap) shareLinkWrap.style.display = 'none';
+  diagShowState('diag-intro');
+}
+
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('main-nav');
+  if (nav) nav.style.padding = window.scrollY > 60 ? '12px 48px' : '18px 48px';
+});
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>

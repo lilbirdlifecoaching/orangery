@@ -4,1079 +4,1003 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Orangery Solutions — Healthy Church Culture</title>
-<link rel="icon" href="ORANGE.png" type="image/png">
-<link rel="apple-touch-icon" href="ORANGE.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
-  :root {
-    --forest: #1c2b1e;
-    --forest-mid: #2d4230;
-    --forest-light: #3d5a42;
-    --sage: #7a9c7e;
-    --sage-light: #b2c9b5;
-    --cream: #f5f0e8;
-    --cream-warm: #ede7d9;
-    --cream-deep: #ddd5c4;
-    --orange: #d4682a;
-    --orange-light: #e8895a;
-    --orange-pale: #f5ddd0;
-    --gold: #c9a052;
-    --gold-pale: #f0e4c8;
-    --charcoal: #2a2a25;
-    --ink: #1a1a16;
-    --muted: #6b6b60;
-    --font-display: 'Cormorant Garamond', Georgia, serif;
-    --font-body: 'DM Sans', system-ui, sans-serif;
-  }
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --char: #1e2020;
+  --char-mid: #2e3830;
+  --char-light: #3a4840;
+  --sage: #7a9980;
+  --rust: #c8543a;
+  --rust-light: #d97055;
+  --rust-pale: #fceae4;
+  --gold: #c9a052;
+  --off: #f3f0e8;
+  --stone: #e8e0d4;
+  --stone-deep: #d8cfc0;
+  --muted: #6a6a60;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+}
 
-  html { scroll-behavior: smooth; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--off);
+  color: var(--char);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
 
-  body {
-    font-family: var(--font-body);
-    background: var(--cream);
-    color: var(--charcoal);
-    font-size: 16px;
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 48px;
+  background: rgba(30,32,32,0.97);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: padding 0.3s ease;
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-logo img { height: 32px; filter: brightness(0) invert(1); opacity: 0.9; }
+.nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+.nav-links a { font-size: 13px; color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: rgba(255,255,255,0.95); }
+.nav-cta {
+  background: var(--rust) !important; color: white !important;
+  padding: 8px 20px; border-radius: 3px; font-weight: 500 !important;
+}
+.nav-cta:hover { background: var(--rust-light) !important; }
 
-  /* ── NAV ── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 48px;
-    background: rgba(28, 43, 30, 0.96);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255,255,255,0.07);
-    transition: padding 0.3s ease;
-  }
-  .nav-logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    text-decoration: none;
-  }
-  .nav-logo img {
-    height: 42px;
-    width: auto;
-    display: block;
-  }
-  .nav-logo-text {
-    font-family: var(--font-display);
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.85);
-    line-height: 1.2;
-  }
-  .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 36px;
-    list-style: none;
-  }
-  .nav-links a {
-    font-size: 13px;
-    font-weight: 400;
-    letter-spacing: 0.04em;
-    color: rgba(255,255,255,0.65);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: rgba(255,255,255,0.95); }
-  .nav-cta {
-    background: var(--orange) !important;
-    color: white !important;
-    padding: 9px 22px;
-    border-radius: 3px;
-    font-weight: 500 !important;
-    letter-spacing: 0.03em !important;
-    transition: background 0.2s !important;
-  }
-  .nav-cta:hover { background: var(--orange-light) !important; }
+/* ── SHARED BUTTONS ── */
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--rust); color: white;
+  text-decoration: none; font-size: 14px; font-weight: 500;
+  padding: 13px 28px; border-radius: 3px; border: none; cursor: pointer;
+  transition: background 0.2s, transform 0.15s; align-self: flex-start;
+}
+.btn-primary:hover { background: var(--rust-light); transform: translateY(-1px); }
+.btn-primary .arrow { transition: transform 0.2s; }
+.btn-primary:hover .arrow { transform: translateX(4px); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: transparent; color: var(--off); text-decoration: none;
+  font-size: 14px; font-weight: 400; padding: 13px 28px; border-radius: 3px;
+  border: 1px solid rgba(255,255,255,0.2); cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,0.45); background: rgba(255,255,255,0.05); }
 
-  /* ── HERO ── */
-  .hero {
-    min-height: 100vh;
-    background: var(--forest);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr auto;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 60% 70% at 30% 50%, rgba(45,66,48,0.7) 0%, transparent 70%),
-      radial-gradient(ellipse 40% 60% at 80% 20%, rgba(212,104,42,0.08) 0%, transparent 60%);
-    pointer-events: none;
-  }
-  .hero-grain {
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    opacity: 0.4;
-  }
-  .hero-content {
-    grid-column: 1;
-    grid-row: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 128px 56px 48px 64px;
-    position: relative;
-    z-index: 2;
-    align-self: center;
-  }
-  .hero-tagline {
-    font-family: var(--font-display);
-    font-size: clamp(22px, 2.8vw, 30px);
-    font-weight: 400;
-    font-style: italic;
-    color: var(--gold);
-    line-height: 1.35;
-    margin-bottom: 20px;
-    max-width: 440px;
-  }
-  .hero-eyebrow {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 28px;
-  }
-  .hero-eyebrow-line {
-    width: 32px;
-    height: 1px;
-    background: var(--orange);
-  }
-  .hero-eyebrow-text {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--orange-light);
-  }
-  .hero h1 {
-    font-family: var(--font-display);
-    font-size: clamp(42px, 5.5vw, 68px);
-    font-weight: 400;
-    color: var(--cream);
-    line-height: 1.12;
-    margin-bottom: 24px;
-  }
-  .hero h1 em {
-    font-style: italic;
-    color: var(--gold);
-  }
-  .hero-sub {
-    font-size: 16px;
-    font-weight: 300;
-    color: rgba(245,240,232,0.62);
-    line-height: 1.7;
-    max-width: 440px;
-    margin-bottom: 28px;
-  }
-  .hero-pills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 32px;
-  }
-  .pill {
-    border: 1px solid rgba(255,255,255,0.22);
-    border-radius: 100px;
-    padding: 8px 18px;
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--cream);
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(8px);
-    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
-    transition: transform 0.2s, background 0.2s, border-color 0.2s;
-  }
-  .pill:hover {
-    transform: translateY(-2px);
-    background: rgba(255,255,255,0.14);
-    border-color: rgba(255,255,255,0.35);
-  }
-  .pill:nth-child(1) { border-color: rgba(201,160,82,0.45); background: rgba(201,160,82,0.14); }
-  .pill:nth-child(2) { border-color: rgba(178,201,181,0.5); background: rgba(122,156,126,0.18); }
-  .pill:nth-child(3) { border-color: rgba(232,137,90,0.45); background: rgba(212,104,42,0.16); }
-  .pill:nth-child(4) { border-color: rgba(245,240,232,0.35); background: rgba(245,240,232,0.1); }
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--orange);
-    color: white;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    padding: 14px 30px;
-    border-radius: 3px;
-    border: none;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
-    align-self: flex-start;
-  }
-  .btn-primary:hover { background: var(--orange-light); transform: translateY(-1px); }
-  .btn-primary .arrow { transition: transform 0.2s; }
-  .btn-primary:hover .arrow { transform: translateX(4px); }
-  .hero-actions {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 14px;
-  }
-  .btn-ghost {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: transparent;
-    color: var(--cream);
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 400;
-    letter-spacing: 0.04em;
-    padding: 14px 30px;
-    border-radius: 3px;
-    border: 1px solid rgba(255,255,255,0.2);
-    cursor: pointer;
-    transition: border-color 0.2s, background 0.2s;
-    align-self: flex-start;
-  }
-  .btn-ghost:hover { border-color: rgba(255,255,255,0.45); background: rgba(255,255,255,0.05); }
+/* ── SHARED SECTION ELEMENTS ── */
+.section-inner { max-width: 1140px; margin: 0 auto; padding: 72px 48px; }
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--rust); margin-bottom: 14px;
+}
+.eyebrow::before { content: ''; width: 22px; height: 1px; background: var(--rust); flex-shrink: 0; }
+.section-headline {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.8vw, 46px);
+  font-weight: 400; line-height: 1.2; color: var(--char); margin-bottom: 14px;
+}
+.section-headline em { font-style: italic; color: var(--rust); }
+.section-sub {
+  font-size: 16px; font-weight: 300; color: var(--muted);
+  line-height: 1.7; max-width: 560px; margin-bottom: 44px;
+}
 
-  .hero-image-side {
-    grid-column: 2;
-    grid-row: 1 / 3;
-    position: relative;
-    overflow: hidden;
-    min-height: 320px;
-  }
-  .hero-image-side img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 35%;
-    opacity: 0.92;
-    filter: contrast(1.02) saturate(1.05);
-  }
-  .hero-image-overlay {
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(to right, var(--forest) 0%, rgba(28,43,30,0.55) 22%, transparent 55%),
-      linear-gradient(to top, var(--forest) 0%, transparent 35%),
-      linear-gradient(to bottom, rgba(28,43,30,0.25) 0%, transparent 25%);
-  }
-  .hero-stat-strip {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    position: relative;
-    display: flex;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    background: rgba(22, 34, 24, 0.97);
-    z-index: 3;
-  }
-  .stat-item {
-    flex: 1;
-    padding: 22px 28px;
-    border-right: 1px solid rgba(255,255,255,0.08);
-  }
-  .stat-item:last-child { border-right: none; }
-  .stat-num {
-    font-family: var(--font-display);
-    font-size: 28px;
-    font-weight: 500;
-    color: var(--gold);
-    margin-bottom: 3px;
-    display: block;
-  }
-  .stat-label {
-    font-size: 12px;
-    color: rgba(245,240,232,0.45);
-    line-height: 1.4;
-  }
+/* ── FADE UP ── */
+.fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.fade-up.visible { opacity: 1; transform: none; }
 
-  /* ── SECTION SHARED ── */
-  section { position: relative; }
-  .section-inner {
-    max-width: 1160px;
-    margin: 0 auto;
-    padding: 96px 48px;
-  }
-  .eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--orange);
-    margin-bottom: 18px;
-  }
-  .eyebrow::before {
-    content: '';
-    width: 24px;
-    height: 1px;
-    background: var(--orange);
-    flex-shrink: 0;
-  }
-  .section-headline {
-    font-family: var(--font-display);
-    font-size: clamp(30px, 4vw, 48px);
-    font-weight: 400;
-    line-height: 1.2;
-    color: var(--forest);
-    margin-bottom: 16px;
-  }
-  .section-headline em { font-style: italic; color: var(--orange); }
-  .section-sub {
-    font-size: 17px;
-    font-weight: 300;
-    color: var(--muted);
-    line-height: 1.7;
-    max-width: 580px;
-    margin-bottom: 56px;
-  }
+/* ══════════════════════════════════
+   HERO
+══════════════════════════════════ */
+.hero {
+  background: var(--off);
+  display: grid; grid-template-columns: 1fr 1fr;
+  position: relative; min-height: 100vh;
+}
 
-  /* ── PAIN SECTION ── */
-  .pain-section { background: var(--cream); }
 
-  .pain-intro {
-    background: var(--forest);
-    border-radius: 6px;
-    padding: 36px 40px;
-    margin-bottom: 40px;
-    position: relative;
-    overflow: hidden;
-  }
-  .pain-intro::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 3px;
-    background: var(--orange);
-  }
-  .pain-intro p {
-    font-family: var(--font-display);
-    font-size: 20px;
-    font-weight: 400;
-    font-style: italic;
-    color: rgba(245,240,232,0.85);
-    line-height: 1.65;
-    max-width: 640px;
-  }
-  .pain-intro strong {
-    font-style: normal;
-    font-weight: 600;
-    color: var(--gold);
-  }
+.hero-content {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 130px 60px 100px; position: relative; z-index: 2;
+}
+.hero-eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.hero-eyebrow-line { width: 28px; height: 1px; background: var(--rust); }
+.hero-eyebrow-text { font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rust); }
+.hero h1 {
+  font-family: var(--font-display); font-size: clamp(40px, 5.2vw, 64px);
+  font-weight: 400; color: var(--char); line-height: 1.1; margin-bottom: 22px;
+}
+.hero h1 em { font-style: italic; color: var(--rust); }
+.hero-sub { font-size: 17px; font-weight: 300; color: var(--muted); line-height: 1.7; max-width: 400px; margin-bottom: 36px; }
+.hero-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 40px; }
+.pill {
+  border: 1px solid rgba(30,32,32,0.18); border-radius: 100px;
+  padding: 5px 15px; font-size: 12px; letter-spacing: 0.05em; color: var(--muted);
+}
+.hero-image-side { position: relative; overflow: hidden; }
+.hero-image-side img { width: 100%; height: 100%; object-fit: cover; opacity: 0.45; mix-blend-mode: luminosity; }
+.hero-image-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to right, var(--char) 0%, transparent 30%),
+              linear-gradient(to top, var(--char) 0%, transparent 35%);
+}
+.hero-stat-strip {
+  grid-column: 1 / -1;
+  display: flex; background: var(--char);
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.stat-item { flex: 1; padding: 20px 28px; border-right: 1px solid rgba(255,255,255,0.07); }
+.stat-item:last-child { border-right: none; }
+.stat-num { font-family: var(--font-display); font-size: 26px; font-weight: 500; color: var(--gold); margin-bottom: 3px; display: block; }
+.stat-label { font-size: 12px; color: rgba(243,240,232,0.4); line-height: 1.4; }
 
-  /* ── STRUGGLE CARDS ── */
-  .symptoms-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 18px;
-  }
-  .symptoms-grid .symptom-card:nth-child(1) { grid-column: span 2; }
-  .symptoms-grid .symptom-card:nth-child(2) { grid-column: span 2; }
-  .symptoms-grid .symptom-card:nth-child(3) { grid-column: span 2; }
-  .symptoms-grid .symptom-card:nth-child(4) { grid-column: 2 / span 2; }
-  .symptoms-grid .symptom-card:nth-child(5) { grid-column: 4 / span 2; }
 
-  .symptom-card {
-    position: relative;
-    background: white;
-    border: 1px solid var(--cream-deep);
-    border-radius: 8px;
-    padding: 28px 26px 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    overflow: hidden;
-    transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
-    cursor: default;
-  }
-  .symptom-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--sage), var(--forest-light));
-  }
-  .symptom-card:nth-child(2)::before { background: linear-gradient(90deg, var(--orange-light), var(--orange)); }
-  .symptom-card:nth-child(3)::before { background: linear-gradient(90deg, var(--gold), var(--gold-pale)); }
-  .symptom-card:nth-child(4)::before { background: linear-gradient(90deg, var(--forest-light), var(--sage)); }
-  .symptom-card:nth-child(5)::before { background: linear-gradient(90deg, var(--orange), #a84320); }
-  .symptom-card:hover {
-    border-color: var(--sage);
-    box-shadow: 0 12px 40px rgba(28,43,30,0.12);
-    transform: translateY(-4px);
-  }
-  .symptom-card .card-watermark {
-    position: absolute;
-    top: 8px;
-    right: 12px;
-    font-family: var(--font-display);
-    font-size: 56px;
-    font-weight: 600;
-    line-height: 1;
-    color: var(--cream-warm);
-    pointer-events: none;
-    user-select: none;
-  }
-  .symptom-card-header {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    position: relative;
-    z-index: 1;
-  }
-  .symptom-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: var(--cream-warm);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    flex-shrink: 0;
-  }
-  .symptom-card:nth-child(1) .symptom-icon { background: rgba(122,156,126,0.2); }
-  .symptom-card:nth-child(2) .symptom-icon { background: rgba(212,104,42,0.15); }
-  .symptom-card:nth-child(3) .symptom-icon { background: rgba(201,160,82,0.2); }
-  .symptom-card:nth-child(4) .symptom-icon { background: rgba(61,90,66,0.12); }
-  .symptom-card:nth-child(5) .symptom-icon { background: rgba(212,104,42,0.12); }
-  .card-num {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--forest-light);
-    margin-bottom: 2px;
-    display: block;
-  }
-  .card-title {
-    font-family: var(--font-display);
-    font-size: 22px;
-    font-weight: 500;
-    color: var(--forest);
-    line-height: 1.2;
-  }
-  .card-section-label {
-    font-size: 10px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-    margin-bottom: 5px;
-    display: block;
-  }
-  .card-body {
-    font-size: 13.5px;
-    color: #555550;
-    line-height: 1.6;
-  }
-  .card-threat {
-    margin-top: auto;
-    background: linear-gradient(135deg, var(--orange-pale) 0%, #f8ebe3 100%);
-    border-left: 3px solid var(--orange);
-    padding: 12px 16px;
-    font-size: 13px;
-    font-weight: 400;
-    color: #6b3018;
-    line-height: 1.55;
-    border-radius: 0 6px 6px 0;
-    position: relative;
-    z-index: 1;
-  }
-  .card-threat strong {
-    font-weight: 600;
-    color: #5a2810;
-  }
-  .card-divider {
-    height: 1px;
-    background: var(--cream-warm);
-  }
+/* hero right panel */
+.hero-right {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 140px 52px 140px 40px; gap: 13px; position: relative; z-index: 2;
+  border-left: 1px solid rgba(30,32,32,0.08);
+}
+.hero-right-label {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--sage); margin-bottom: 2px;
+}
+.hero-cat-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 14px; background: white;
+  border: 1px solid var(--stone-deep); border-radius: 6px; transition: border-color 0.2s;
+}
+.hero-cat-row:hover { border-color: var(--sage); }
+.hero-cat-icon {
+  width: 33px; height: 33px; border-radius: 50%;
+  background: var(--stone); display: flex; align-items: center;
+  justify-content: center; font-size: 14px; flex-shrink: 0;
+}
+.hero-cat-name { font-family: var(--font-display); font-size: 16px; font-weight: 500; color: var(--char); }
+.hero-cat-sub { font-size: 12px; color: var(--muted); line-height: 1.3; }
+.hero-quote { background: var(--char); border-radius: 6px; padding: 16px 18px; margin-top: 2px; }
+.hero-quote p { font-family: var(--font-display); font-size: 15px; font-style: italic; color: rgba(243,240,232,0.72); line-height: 1.6; }
+.hero-quote cite { font-size: 11px; color: var(--gold); font-style: normal; margin-top: 7px; display: block; }
 
-  /* ── SOLUTION SECTION ── */
-  .solution-section { background: var(--forest); }
-  .solution-section .section-headline { color: var(--cream); }
-  .solution-section .section-sub { color: rgba(245,240,232,0.55); }
-  .solution-section .eyebrow { color: var(--gold); }
-  .solution-section .eyebrow::before { background: var(--gold); }
+/* ══════════════════════════════════
+   DIAGNOSTIC SECTION (first cream)
+══════════════════════════════════ */
+.diagnostic-section { background: var(--off); }
+.diagnostic-section .section-inner { padding: 64px 48px 80px; }
 
-  .solution-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 64px;
-    align-items: start;
-  }
-  .solution-text p {
-    font-size: 16px;
-    color: rgba(245,240,232,0.65);
-    line-height: 1.75;
-    margin-bottom: 18px;
-  }
-  .solution-text p:last-child { margin-bottom: 0; }
+/* Diagnostic shell */
+.diag-shell { background: white; border: 1px solid var(--stone-deep); border-radius: 10px; overflow: hidden; }
 
-  .outcome-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .outcome-item {
-    display: grid;
-    grid-template-columns: 44px 1fr;
-    gap: 16px;
-    align-items: start;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 6px;
-    padding: 18px 20px;
-    transition: background 0.2s, border-color 0.2s;
-  }
-  .outcome-item:hover {
-    background: rgba(255,255,255,0.08);
-    border-color: rgba(255,255,255,0.14);
-  }
-  .outcome-icon-wrap {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: rgba(201,160,82,0.15);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .outcome-icon {
-    font-size: 20px;
-  }
-  .outcome-title {
-    font-family: var(--font-display);
-    font-size: 18px;
-    font-weight: 500;
-    color: var(--cream);
-    margin-bottom: 3px;
-  }
-  .outcome-desc {
-    font-size: 13px;
-    color: rgba(245,240,232,0.5);
-    line-height: 1.5;
-  }
+/* Diag states */
+.diag-state { display: none; }
+.diag-state.active { display: block; }
 
-  /* ── RECOGNISE SECTION ── */
-  .recognise-section { background: var(--cream-warm); }
-  .recognise-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 64px;
-    align-items: center;
-  }
-  .recognise-text h2 {
-    font-family: var(--font-display);
-    font-size: clamp(28px, 3.5vw, 42px);
-    font-weight: 400;
-    color: var(--forest);
-    line-height: 1.25;
-    margin-bottom: 20px;
-  }
-  .recognise-text h2 em { font-style: italic; color: var(--orange); }
-  .recognise-text p {
-    font-size: 16px;
-    color: var(--muted);
-    line-height: 1.7;
-    margin-bottom: 32px;
-  }
-  .bad-list, .good-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .bad-list-item, .good-list-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    font-size: 14px;
-    line-height: 1.5;
-    padding: 11px 16px;
-    border-radius: 5px;
-  }
-  .bad-list-item {
-    background: white;
-    border: 1px solid #e8ddd0;
-    color: #555;
-  }
-  .bad-list-item .marker { color: var(--orange); flex-shrink: 0; font-size: 16px; margin-top: -1px; }
-  .good-list-item {
-    background: var(--forest);
-    border: 1px solid transparent;
-    color: rgba(245,240,232,0.8);
-  }
-  .good-list-item .marker { color: var(--gold); flex-shrink: 0; font-size: 16px; margin-top: -1px; }
-  .list-label {
-    font-size: 11px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--muted);
-    margin-bottom: 12px;
-    display: block;
-  }
-  .list-label.good { color: var(--forest-light); }
-  .recognise-lists { display: flex; flex-direction: column; gap: 32px; }
+/* ── DIAG INTRO ── */
+.diag-intro {
+  display: grid; grid-template-columns: 1fr 1fr;
+}
+.diag-intro-left { background: var(--char); padding: 52px 48px;
+  position: relative; overflow: hidden;
+}
+.diag-intro-left::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 80% 60% at 20% 80%, rgba(201,160,82,0.07) 0%, transparent 60%);
+}
+.diag-intro-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+.diag-intro-eyebrow span:first-child { width: 22px; height: 1px; background: var(--rust); display: block; }
+.diag-intro-eyebrow-text { font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--rust-light); }
+.diag-intro-left h2 {
+  font-family: var(--font-display); font-size: clamp(26px, 3vw, 40px);
+  font-weight: 400; color: var(--off); line-height: 1.15; margin-bottom: 16px;
+}
+.diag-intro-left h2 em { font-style: italic; color: var(--gold); }
+.diag-intro-left p { font-size: 15px; color: rgba(245,240,232,0.6); line-height: 1.7; margin-bottom: 28px; max-width: 360px; }
+.diag-meta { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 32px; }
+.diag-meta-pill {
+  display: flex; align-items: center; gap: 7px;
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 100px; padding: 6px 13px; font-size: 12px; color: rgba(245,240,232,0.5);
+}
+.btn-diag-start {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--rust); color: white; border: none;
+  border-radius: 3px; padding: 14px 28px;
+  font-family: var(--font-body); font-size: 14px; font-weight: 500;
+  cursor: pointer; transition: background 0.2s, transform 0.15s;
+}
+.btn-diag-start:hover { background: var(--rust-light); transform: translateY(-1px); }
+.diag-intro-right { padding: 52px 40px; display: flex; flex-direction: column; justify-content: center; gap: 12px; }
+.diag-cat-label { font-size: 11px; font-weight: 500; letter-spacing: 0.13em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.diag-cat-row {
+  display: flex; align-items: center; gap: 14px;
+  padding: 13px 16px; background: var(--stone);
+  border: 1px solid var(--stone-deep); border-radius: 6px;
+}
+.diag-cat-icon {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--stone-deep); display: flex; align-items: center; justify-content: center;
+  font-size: 15px; flex-shrink: 0;
+}
+.diag-cat-name { font-family: var(--font-display); font-size: 16px; font-weight: 500; color: var(--char); }
+.diag-cat-sub { font-size: 12px; color: var(--muted); line-height: 1.3; }
 
-  /* ── WHAT WE DO ── */
-  .services-section { background: var(--cream); }
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    margin-top: 8px;
-  }
-  .service-card {
-    background: white;
-    border: 1px solid var(--cream-deep);
-    border-radius: 6px;
-    padding: 36px;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  .service-card:hover {
-    border-color: var(--sage-light);
-    box-shadow: 0 4px 20px rgba(28,43,30,0.07);
-  }
-  .service-icon {
-    font-size: 26px;
-    margin-bottom: 16px;
-    display: block;
-  }
-  .service-tag {
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--forest-light);
-    background: var(--cream-warm);
-    border-radius: 3px;
-    padding: 4px 10px;
-    display: inline-block;
-    margin-bottom: 14px;
-  }
-  .service-title {
-    font-family: var(--font-display);
-    font-size: 24px;
-    font-weight: 500;
-    color: var(--forest);
-    margin-bottom: 12px;
-    line-height: 1.2;
-  }
-  .service-body {
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.7;
-  }
-  .diagnostic-banner {
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 32px;
-    align-items: center;
-    background: var(--forest);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 6px;
-    padding: 40px 44px;
-    margin-bottom: 8px;
-  }
-  .diagnostic-banner .eyebrow { color: var(--gold); margin-bottom: 12px; }
-  .diagnostic-banner .eyebrow::before { background: var(--gold); }
-  .diagnostic-banner h3 {
-    font-family: var(--font-display);
-    font-size: clamp(24px, 3vw, 32px);
-    font-weight: 400;
-    color: var(--cream);
-    line-height: 1.25;
-    margin-bottom: 10px;
-  }
-  .diagnostic-banner h3 em { font-style: italic; color: var(--gold); }
-  .diagnostic-banner p {
-    font-size: 15px;
-    color: rgba(245,240,232,0.6);
-    line-height: 1.65;
-    max-width: 520px;
-  }
-  .diagnostic-banner .btn-primary { flex-shrink: 0; }
+/* ── DIAG QUIZ ── */
+.diag-quiz-header {
+  background: var(--char); padding: 16px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.diag-quiz-meta { font-size: 12px; color: rgba(245,240,232,0.45); }
+.diag-progress-wrap { display: flex; align-items: center; gap: 14px; flex: 1; max-width: 360px; margin: 0 auto; }
+.diag-progress-bg { flex: 1; height: 3px; background: rgba(255,255,255,0.1); border-radius: 100px; overflow: hidden; }
+.diag-progress-fill { height: 100%; background: var(--rust); border-radius: 100px; transition: width 0.5s cubic-bezier(0.4,0,0.2,1); width: 0%; }
+.diag-progress-label { font-size: 11px; color: rgba(245,240,232,0.4); white-space: nowrap; }
+.diag-exit-btn { font-size: 12px; color: rgba(245,240,232,0.3); background: none; border: none; cursor: pointer; padding: 4px 8px; transition: color 0.2s; }
+.diag-exit-btn:hover { color: rgba(245,240,232,0.7); }
 
-  /* ── PIVOT SECTION ── */
-  .pivot-section { background: var(--forest-mid); }
-  .pivot-section .section-inner { text-align: center; }
-  .pivot-section .section-headline { color: var(--cream); }
-  .pivot-section .eyebrow { color: var(--gold); }
-  .pivot-section .eyebrow::before { background: var(--gold); }
-  .pivot-arrows {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    margin: 0 auto 48px;
-    max-width: 560px;
-  }
-  .pivot-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    font-family: var(--font-display);
-    font-size: 18px;
-    color: rgba(245,240,232,0.6);
-  }
-  .pivot-row .from { text-align: right; flex: 1; font-style: italic; }
-  .pivot-row .arr { color: var(--gold); font-size: 20px; flex-shrink: 0; }
-  .pivot-row .to { text-align: left; flex: 1; font-weight: 600; color: var(--cream); font-style: normal; }
+.diag-quiz-body { padding: 40px 48px 36px; }
 
-  /* ── CTA SECTION ── */
-  .cta-section { background: var(--ink); }
-  .cta-section .section-inner {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 64px;
-    align-items: center;
-    padding-top: 72px;
-    padding-bottom: 72px;
-  }
-  .cta-headline {
-    font-family: var(--font-display);
-    font-size: clamp(28px, 3.5vw, 44px);
-    font-weight: 400;
-    color: var(--cream);
-    line-height: 1.25;
-    margin-bottom: 14px;
-  }
-  .cta-headline em { font-style: italic; color: var(--gold); }
-  .cta-sub {
-    font-size: 16px;
-    color: rgba(245,240,232,0.5);
-    line-height: 1.65;
-    max-width: 480px;
-  }
-  .cta-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    align-items: flex-end;
-    flex-shrink: 0;
-  }
+.diag-q-block { display: none; animation: qSlide 0.4s ease forwards; }
+.diag-q-block.active { display: block; }
+@keyframes qSlide { from { opacity: 0; transform: translateX(16px); } to { opacity: 1; transform: none; } }
 
-  /* ── FOOTER ── */
-  footer {
-    background: var(--forest);
-    padding: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-top: 1px solid rgba(255,255,255,0.06);
-  }
-  .footer-logo img {
-    height: 44px;
-    width: auto;
-    display: block;
-    opacity: 0.95;
-  }
-  .footer-info {
-    text-align: center;
-  }
-  .footer-info p {
-    font-size: 12px;
-    color: rgba(245,240,232,0.35);
-    line-height: 1.6;
-  }
-  .footer-links {
-    display: flex;
-    gap: 20px;
-  }
-  .footer-links a {
-    font-size: 12px;
-    color: rgba(245,240,232,0.4);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .footer-links a:hover { color: rgba(245,240,232,0.8); }
+.diag-q-category { font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--rust); margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+.diag-q-category::before { content: ''; width: 16px; height: 1px; background: var(--rust); }
+.diag-q-section-title { font-family: var(--font-display); font-size: clamp(22px, 2.8vw, 34px); font-weight: 400; color: var(--char); line-height: 1.2; margin-bottom: 6px; }
+.diag-q-hint { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
 
-  /* ── ANIMATIONS ── */
-  .fade-up {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.65s ease, transform 0.65s ease;
-  }
-  .fade-up.visible {
-    opacity: 1;
-    transform: none;
-  }
-  .fade-up:nth-child(2) { transition-delay: 0.1s; }
-  .fade-up:nth-child(3) { transition-delay: 0.2s; }
-  .fade-up:nth-child(4) { transition-delay: 0.3s; }
-  .fade-up:nth-child(5) { transition-delay: 0.4s; }
+.diag-q-item {
+  background: var(--stone); border: 1px solid var(--stone-deep);
+  border-radius: 7px; padding: 22px 24px; margin-bottom: 12px;
+  transition: border-color 0.2s;
+}
+.diag-q-item:hover { border-color: var(--sage); }
+.diag-q-text { font-size: 15px; color: var(--char); line-height: 1.6; margin-bottom: 18px; }
+.diag-q-scale { display: flex; gap: 7px; }
+.diag-q-opt { flex: 1; }
+.diag-q-opt input { display: none; }
+.diag-q-btn {
+  width: 100%; height: 40px; border: 1.5px solid var(--stone-deep);
+  border-radius: 5px; background: var(--stone); cursor: pointer;
+  font-size: 14px; font-weight: 500; color: var(--muted);
+  transition: all 0.16s; display: flex; align-items: center; justify-content: center;
+}
+.diag-q-btn.sel { background: var(--char); border-color: var(--char); color: var(--off); }
+.diag-q-opt:hover .diag-q-btn:not(.sel) { border-color: var(--sage); color: var(--char); background: white; }
+.diag-scale-ends { display: flex; justify-content: space-between; margin-top: 6px; padding: 0 2px; }
+.diag-scale-end { font-size: 11px; color: var(--muted); font-style: italic; }
 
-  @media (max-width: 1100px) {
-    .symptoms-grid {
-      grid-template-columns: 1fr 1fr;
-    }
-    .symptoms-grid .symptom-card:nth-child(1),
-    .symptoms-grid .symptom-card:nth-child(2),
-    .symptoms-grid .symptom-card:nth-child(3),
-    .symptoms-grid .symptom-card:nth-child(4),
-    .symptoms-grid .symptom-card:nth-child(5) {
-      grid-column: span 1;
-    }
-    .symptoms-grid .symptom-card:nth-child(5) {
-      grid-column: 1 / -1;
-      max-width: 520px;
-      justify-self: center;
-      width: 100%;
-    }
-  }
+.diag-quiz-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px 48px; border-top: 1px solid var(--stone-deep);
+  background: var(--stone);
+}
+.diag-nav-dots { display: flex; gap: 7px; }
+.diag-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--stone-deep); transition: background 0.2s; }
+.diag-dot.active { background: var(--rust); }
+.diag-dot.done { background: var(--sage); }
+.btn-diag-nav {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 11px 24px; border-radius: 3px; font-family: var(--font-body);
+  font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.18s; border: 1.5px solid;
+}
+.btn-diag-back { background: transparent; color: var(--muted); border-color: var(--stone-deep); }
+.btn-diag-back:hover { border-color: var(--sage); color: var(--char); }
+.btn-diag-next { background: var(--rust); color: white; border-color: var(--rust); }
+.btn-diag-next:hover { background: var(--rust-light); border-color: var(--rust-light); }
+.btn-diag-next:disabled { background: var(--stone-deep); border-color: var(--stone-deep); color: var(--muted); cursor: not-allowed; }
 
-  /* ── RESPONSIVE ── */
-  @media (max-width: 900px) {
-    nav { padding: 16px 24px; }
-    .nav-links { display: none; }
-    .hero {
-      grid-template-columns: 1fr;
-      grid-template-rows: auto auto auto;
-      min-height: auto;
-    }
-    .hero-content { grid-column: 1; grid-row: 1; padding: 112px 28px 32px; }
-    .hero-image-side {
-      grid-column: 1;
-      grid-row: 2;
-      display: block;
-      min-height: 240px;
-      max-height: 320px;
-    }
-    .hero-stat-strip { grid-column: 1; grid-row: 3; flex-direction: column; }
-    .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
-    .stat-item:last-child { border-bottom: none; }
-    .symptoms-grid { grid-template-columns: 1fr; }
-    .symptoms-grid .symptom-card { grid-column: 1 / -1 !important; }
-    .stat-item { padding: 18px 20px; }
-    .section-inner { padding: 64px 28px; }
-    .solution-layout { grid-template-columns: 1fr; gap: 40px; }
-    .recognise-grid { grid-template-columns: 1fr; gap: 40px; }
-    .services-grid { grid-template-columns: 1fr; }
-    .diagnostic-banner { grid-template-columns: 1fr; padding: 32px 28px; }
-    .diagnostic-banner .btn-primary { align-self: flex-start; }
-    .cta-section .section-inner { grid-template-columns: 1fr; gap: 32px; }
-    .cta-actions { align-items: flex-start; }
-    footer { flex-direction: column; gap: 24px; text-align: center; }
-    .footer-info { order: 2; }
-    .footer-links { justify-content: center; }
-  }
+/* ── DIAG EMAIL GATE ── */
+.diag-email-gate { padding: 52px 48px; max-width: 580px; margin: 0 auto; text-align: center; background: var(--off); }
+.diag-email-gate h3 { font-family: var(--font-display); font-size: 32px; font-weight: 400; color: var(--char); margin-bottom: 12px; line-height: 1.2; }
+.diag-email-gate h3 em { font-style: italic; color: var(--rust); }
+.diag-email-gate p { font-size: 15px; color: var(--muted); line-height: 1.65; margin-bottom: 28px; }
+.diag-email-form { display: flex; flex-direction: column; gap: 12px; text-align: left; }
+.diag-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.diag-field label { font-size: 12px; font-weight: 500; color: var(--char); letter-spacing: 0.05em; display: block; margin-bottom: 6px; }
+.diag-field input {
+  width: 100%; padding: 11px 14px; border: 1.5px solid var(--stone-deep);
+  border-radius: 5px; font-family: var(--font-body); font-size: 14px;
+  color: var(--char); background: var(--stone);
+  transition: border-color 0.2s, background 0.2s; outline: none;
+}
+.diag-field input:focus { border-color: var(--sage); background: white; }
+.btn-diag-results {
+  width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px;
+  background: var(--rust); color: white; border: none; border-radius: 3px;
+  padding: 14px 28px; font-family: var(--font-body); font-size: 15px; font-weight: 500;
+  cursor: pointer; transition: background 0.2s, transform 0.15s; margin-top: 4px;
+}
+.btn-diag-results:hover { background: var(--rust-light); transform: translateY(-1px); }
+.btn-diag-results:disabled { background: var(--stone-deep); color: var(--muted); cursor: not-allowed; transform: none; }
+.diag-privacy { font-size: 11px; color: var(--muted); text-align: center; margin-top: 8px; line-height: 1.5; }
+.diag-email-status { font-size: 13px; text-align: center; margin-top: 8px; min-height: 20px; }
+
+/* ── DIAG RESULTS ── */
+.diag-results { padding: 48px; background: var(--off); }
+.diag-results-top { text-align: center; margin-bottom: 40px; }
+.diag-result-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--rust); margin-bottom: 12px;
+}
+.diag-result-eyebrow::before, .diag-result-eyebrow::after { content: ''; width: 18px; height: 1px; background: var(--rust); }
+.diag-archetype-name { font-family: var(--font-display); font-size: clamp(32px, 4vw, 52px); font-weight: 400; color: var(--char); line-height: 1.1; margin-bottom: 12px; }
+.diag-archetype-name em { font-style: italic; color: var(--rust); }
+.diag-archetype-desc { font-size: 16px; color: var(--muted); line-height: 1.7; max-width: 520px; margin: 0 auto 28px; }
+
+.diag-gauge-wrap { display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; }
+.diag-gauge-svg { width: 180px; height: 100px; overflow: visible; }
+
+.diag-breakdown-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 32px;
+}
+.diag-bd-card {
+  background: var(--stone); border: 1px solid var(--stone-deep);
+  border-radius: 7px; padding: 16px 12px; text-align: center;
+  transition: border-color 0.2s;
+}
+.diag-bd-card:hover { border-color: var(--sage); }
+.diag-bd-icon { font-size: 20px; margin-bottom: 8px; display: block; }
+.diag-bd-cat { font-size: 10px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; line-height: 1.3; }
+.diag-bd-bar-bg { height: 5px; background: var(--stone); border-radius: 100px; overflow: hidden; margin-bottom: 7px; }
+.diag-bd-bar-fill { height: 100%; border-radius: 100px; transition: width 1.2s cubic-bezier(0.4,0,0.2,1); width: 0%; }
+.diag-bd-score { font-family: var(--font-display); font-size: 20px; font-weight: 500; color: var(--char); }
+.diag-bd-status { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+.diag-insight {
+  background: var(--char); border-radius: 7px; padding: 28px 32px;
+  margin-bottom: 24px; position: relative; overflow: hidden;
+}
+.diag-insight::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--gold); }
+.diag-insight-label { font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; display: block; }
+.diag-insight-text { font-family: var(--font-display); font-size: 18px; font-weight: 400; font-style: italic; color: rgba(243,240,232,0.8); line-height: 1.65; }
+.diag-insight-text strong { font-style: normal; color: var(--gold); font-weight: 600; }
+
+.diag-weak-label { font-size: 11px; font-weight: 500; letter-spacing: 0.13em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+.diag-weak-list { display: flex; flex-direction: column; gap: 9px; margin-bottom: 28px; }
+.diag-weak-item {
+  background: white; border: 1px solid var(--stone-deep); border-left: 3px solid var(--rust);
+  border-radius: 0 6px 6px 0; padding: 13px 16px;
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 14px;
+}
+.diag-weak-name { font-family: var(--font-display); font-size: 16px; font-weight: 500; color: var(--char); margin-bottom: 2px; }
+.diag-weak-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.diag-weak-score { font-family: var(--font-display); font-size: 22px; font-weight: 500; color: var(--rust); flex-shrink: 0; }
+
+.diag-cta-box {
+  background: var(--stone); border: 1px solid var(--stone-deep);
+  border-radius: 7px; padding: 28px 32px;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+}
+.diag-cta-box h3 { font-family: var(--font-display); font-size: 24px; font-weight: 400; color: var(--char); line-height: 1.2; margin-bottom: 6px; }
+.diag-cta-box h3 em { font-style: italic; color: var(--rust); }
+.diag-cta-box p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+.diag-cta-actions { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; flex-shrink: 0; }
+.btn-diag-book {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: var(--rust); color: white; border: none; border-radius: 3px;
+  padding: 13px 24px; font-family: var(--font-body); font-size: 14px; font-weight: 500;
+  cursor: pointer; text-decoration: none; white-space: nowrap;
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-diag-book:hover { background: var(--rust-light); transform: translateY(-1px); }
+.btn-diag-retake { background: none; border: none; color: var(--muted); font-size: 13px; cursor: pointer; text-decoration: underline; font-family: var(--font-body); text-underline-offset: 3px; transition: color 0.2s; }
+.btn-diag-retake:hover { color: var(--char); }
+
+/* ══════════════════════════════════
+   RECOGNISE SECTION
+══════════════════════════════════ */
+.stone-section { background: var(--stone); }
+.stone-section .section-headline { color: var(--char); }
+.recognise-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+.recognise-text h2 { font-family: var(--font-display); font-size: clamp(26px, 3.2vw, 40px); font-weight: 400; color: var(--char); line-height: 1.25; margin-bottom: 16px; }
+.recognise-text h2 em { font-style: italic; color: var(--rust); }
+.recognise-text p { font-size: 16px; color: var(--muted); line-height: 1.7; margin-bottom: 28px; }
+.list-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 10px; display: block; }
+.list-label.good { color: var(--char-light); }
+.bad-list, .good-list { display: flex; flex-direction: column; gap: 7px; }
+.bad-list-item, .good-list-item { display: flex; align-items: flex-start; gap: 11px; font-size: 14px; line-height: 1.5; padding: 10px 14px; border-radius: 5px; }
+.bad-list-item { background: white; border: 1px solid var(--stone-deep); color: #555; }
+.bad-list-item .marker { color: var(--rust); flex-shrink: 0; }
+.good-list-item { background: var(--char); border: 1px solid transparent; color: rgba(243,240,232,0.8); }
+.good-list-item .marker { color: var(--gold); flex-shrink: 0; }
+.recognise-lists { display: flex; flex-direction: column; gap: 24px; }
+
+/* ══════════════════════════════════
+   SOLUTION SECTION
+══════════════════════════════════ */
+.dark-section { background: var(--char-mid); }
+.dark-section .section-headline { color: var(--off); }
+.dark-section .section-sub { color: rgba(243,240,232,0.5); }
+.dark-section .eyebrow { color: var(--gold); }
+.dark-section .eyebrow::before { background: var(--gold); }
+.solution-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+.solution-text p { font-size: 16px; color: rgba(243,240,232,0.6); line-height: 1.75; margin-bottom: 16px; }
+.outcome-list { display: flex; flex-direction: column; gap: 10px; }
+.outcome-item {
+  display: grid; grid-template-columns: 42px 1fr; gap: 14px; align-items: start;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 6px; padding: 16px 18px; transition: background 0.2s;
+}
+.outcome-item:hover { background: rgba(255,255,255,0.08); }
+.outcome-icon-wrap { width: 42px; height: 42px; border-radius: 50%; background: rgba(201,160,82,0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.outcome-icon { font-size: 18px; }
+.outcome-title { font-family: var(--font-display); font-size: 17px; font-weight: 500; color: var(--off); margin-bottom: 2px; }
+.outcome-desc { font-size: 13px; color: rgba(245,240,232,0.5); line-height: 1.5; }
+
+/* ══════════════════════════════════
+   SERVICES SECTION
+══════════════════════════════════ */
+.services-section { background: var(--off); }
+.services-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 18px; }
+.service-card { background: white; border: 1px solid var(--stone-deep); border-radius: 7px; padding: 30px; transition: border-color 0.2s, box-shadow 0.2s; }
+.service-card:hover { border-color: var(--sage); box-shadow: 0 4px 18px rgba(28,43,30,0.07); }
+.service-icon { font-size: 24px; margin-bottom: 12px; display: block; }
+.service-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.13em; text-transform: uppercase; color: var(--char-light); background: var(--stone); border-radius: 3px; padding: 3px 9px; display: inline-block; margin-bottom: 11px; }
+.service-title { font-family: var(--font-display); font-size: 22px; font-weight: 500; color: var(--char); margin-bottom: 10px; line-height: 1.2; }
+.service-body { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+/* ══════════════════════════════════
+   PIVOT SECTION
+══════════════════════════════════ */
+.pivot-section { background: var(--char-mid); }
+.pivot-section .section-inner { text-align: center; }
+.pivot-section .eyebrow { color: var(--gold); }
+.pivot-section .eyebrow::before { background: var(--gold); }
+.pivot-arrows { display: flex; flex-direction: column; gap: 12px; margin: 0 auto 40px; max-width: 520px; }
+.pivot-row { display: flex; align-items: center; justify-content: center; gap: 14px; font-family: var(--font-display); font-size: 17px; color: rgba(245,240,232,0.6); }
+.pivot-row .from { text-align: right; flex: 1; font-style: italic; }
+.pivot-row .arr { color: var(--gold); font-size: 18px; flex-shrink: 0; }
+.pivot-row .to { text-align: left; flex: 1; font-weight: 600; color: var(--off); font-style: normal; }
+
+/* ══════════════════════════════════
+   CTA SECTION
+══════════════════════════════════ */
+.cta-section { background: var(--char); }
+.cta-section .section-inner { display: grid; grid-template-columns: 1fr auto; gap: 56px; align-items: center; padding-top: 64px; padding-bottom: 64px; }
+.cta-headline { font-family: var(--font-display); font-size: clamp(26px, 3.2vw, 42px); font-weight: 400; color: var(--off); line-height: 1.25; margin-bottom: 12px; }
+.cta-headline em { font-style: italic; color: var(--gold); }
+.cta-sub { font-size: 16px; color: rgba(243,240,232,0.45); line-height: 1.65; max-width: 460px; }
+.cta-actions { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; flex-shrink: 0; }
+
+/* ══════════════════════════════════
+   FOOTER
+══════════════════════════════════ */
+footer {
+  background: var(--char); padding: 40px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.footer-logo img { height: 36px; filter: brightness(0) invert(1); opacity: 0.65; }
+.footer-info p { font-size: 12px; color: rgba(245,240,232,0.35); line-height: 1.6; }
+.footer-links { display: flex; gap: 18px; }
+.footer-links a { font-size: 12px; color: rgba(245,240,232,0.38); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: rgba(243,240,232,0.8); }
+
+
+/* ══════════════════════════════════
+   SECTION TRANSITIONS — clip-path
+   Each section that needs an angled
+   edge gets negative margin-top to
+   pull it up over the previous, then
+   clip-path cuts the angle. Padding-top
+   compensates so content never clips.
+   Angles alternate L-high / R-high for
+   a gentle zigzag rhythm.
+   Angle depth = 52px across full width.
+══════════════════════════════════ */
+
+/* The stat strip sits flush under the hero — no angle needed there */
+
+/* Diagnostic — sits on same off-white as hero, no transition needed */
+
+/* Stone section: enters from off-white with a left-high angle */
+.stone-section {
+  margin-top: -52px;
+  clip-path: polygon(0 52px, 100% 0, 100% 100%, 0 100%);
+  padding-top: calc(72px + 52px);
+}
+
+/* Dark/solution section: enters from stone with a right-high angle */
+.dark-section {
+  margin-top: -52px;
+  clip-path: polygon(0 0, 100% 52px, 100% 100%, 0 100%);
+  padding-top: 0; /* section-inner handles its own padding */
+}
+.dark-section .section-inner {
+  padding-top: calc(72px + 52px);
+}
+
+/* Services: enters from dark with a left-high angle (back to light) */
+.services-section {
+  margin-top: -52px;
+  clip-path: polygon(0 52px, 100% 0, 100% 100%, 0 100%);
+  padding-top: 0;
+}
+.services-section .section-inner {
+  padding-top: calc(72px + 52px);
+}
+
+/* Pivot: enters from services (off-white) with right-high angle */
+.pivot-section {
+  margin-top: -52px;
+  clip-path: polygon(0 0, 100% 52px, 100% 100%, 0 100%);
+  padding-top: 0;
+}
+.pivot-section .section-inner {
+  padding-top: calc(72px + 52px);
+}
+
+/* CTA: enters from pivot (char-mid) with left-high angle into darkest char */
+.cta-section {
+  margin-top: -52px;
+  clip-path: polygon(0 52px, 100% 0, 100% 100%, 0 100%);
+}
+.cta-section .section-inner {
+  padding-top: calc(64px + 52px);
+}
+
+/* Footer: flush, no angle — clean terminus */
+footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* Ensure stacking order so clipped sections sit above previous */
+.stone-section   { position: relative; z-index: 2; }
+.dark-section    { position: relative; z-index: 3; }
+.services-section{ position: relative; z-index: 4; }
+.pivot-section   { position: relative; z-index: 5; }
+.cta-section     { position: relative; z-index: 6; }
+
+/* Mobile: reduce angle depth so it doesn't look too steep on narrow screens */
+@media (max-width: 900px) {
+  .stone-section    { clip-path: polygon(0 32px, 100% 0, 100% 100%, 0 100%); margin-top: -32px; padding-top: calc(52px + 32px); }
+  .dark-section     { clip-path: polygon(0 0, 100% 32px, 100% 100%, 0 100%); margin-top: -32px; }
+  .dark-section .section-inner { padding-top: calc(52px + 32px); }
+  .services-section { clip-path: polygon(0 32px, 100% 0, 100% 100%, 0 100%); margin-top: -32px; }
+  .services-section .section-inner { padding-top: calc(52px + 32px); }
+  .pivot-section    { clip-path: polygon(0 0, 100% 32px, 100% 100%, 0 100%); margin-top: -32px; }
+  .pivot-section .section-inner { padding-top: calc(52px + 32px); }
+  .cta-section      { clip-path: polygon(0 32px, 100% 0, 100% 100%, 0 100%); margin-top: -32px; }
+  .cta-section .section-inner { padding-top: calc(64px + 32px); }
+}
+
+
+/* ── HEALTH BADGE ── */
+.diag-health-badge {
+  display: inline-flex; align-items: center; gap: 14px;
+  background: white; border: 1px solid var(--stone-deep);
+  border-radius: 8px; padding: 14px 22px; margin: 0 auto 18px;
+}
+.diag-health-dot {
+  width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0;
+  box-shadow: 0 0 0 4px rgba(0,0,0,0.06);
+}
+.diag-health-level {
+  font-family: var(--font-display); font-size: 22px; font-weight: 500; color: var(--char);
+  line-height: 1.1;
+}
+.diag-health-range {
+  font-size: 12px; color: var(--muted); margin-top: 2px;
+}
+
+/* ── PRACTICAL NEXT STEP ── */
+.diag-next-step {
+  margin-bottom: 24px;
+  border: 1px solid var(--stone-deep); border-radius: 7px; overflow: hidden;
+}
+.diag-next-step-inner {
+  background: var(--gold-pale, #f5eccf);
+  border-left: 4px solid var(--gold);
+  padding: 22px 28px;
+}
+.diag-next-step-label {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.13em; text-transform: uppercase;
+  color: #7a6020; display: block; margin-bottom: 8px;
+}
+.diag-next-step-text {
+  font-family: var(--font-display); font-size: 17px; font-weight: 400;
+  color: var(--char); line-height: 1.65;
+}
+
+/* ── SHARE BOX ── */
+.diag-share-box {
+  background: var(--stone); border: 1px solid var(--stone-deep);
+  border-radius: 7px; padding: 26px 28px;
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 24px; margin-bottom: 24px;
+}
+.diag-share-text h4 {
+  font-family: var(--font-display); font-size: 20px; font-weight: 500;
+  color: var(--char); margin-bottom: 6px; line-height: 1.2;
+}
+.diag-share-text p { font-size: 14px; color: var(--muted); line-height: 1.6; max-width: 360px; }
+.diag-share-actions { flex-shrink: 0; display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
+.btn-diag-share {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--char); color: var(--off); border: none; border-radius: 3px;
+  padding: 11px 20px; font-family: var(--font-body); font-size: 13px; font-weight: 500;
+  cursor: pointer; white-space: nowrap; transition: background 0.2s;
+}
+.btn-diag-share:hover { background: var(--char-mid); }
+.diag-share-link-wrap { display: flex; gap: 8px; align-items: center; }
+.diag-share-input {
+  width: 240px; padding: 9px 12px; border: 1.5px solid var(--stone-deep);
+  border-radius: 4px; font-size: 12px; font-family: monospace;
+  color: var(--char); background: white; outline: none;
+}
+.btn-diag-copy {
+  background: var(--sage); color: white; border: none; border-radius: 3px;
+  padding: 9px 14px; font-size: 12px; font-weight: 500; cursor: pointer;
+  font-family: var(--font-body); transition: background 0.2s; white-space: nowrap;
+}
+.btn-diag-copy:hover { background: var(--char-light); }
+.diag-share-note { font-size: 11px; color: var(--muted); line-height: 1.5; max-width: 280px; text-align: right; }
+
+@media (max-width: 900px) {
+  .diag-share-box { flex-direction: column; }
+  .diag-share-actions { align-items: flex-start; }
+  .diag-share-note { text-align: left; }
+  .diag-breakdown-grid { grid-template-columns: repeat(3,1fr); }
+}
+
+
+/* ── HEALTH BADGE ── */
+.diag-health-badge {
+  display: inline-flex; align-items: center; gap: 14px;
+  background: white; border: 1px solid var(--stone-deep);
+  border-radius: 8px; padding: 14px 22px; margin: 0 auto 18px;
+}
+.diag-health-dot { width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0; }
+.diag-health-level { font-family: var(--font-display); font-size: 22px; font-weight: 500; color: var(--char); line-height: 1.1; }
+.diag-health-range { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+/* ── PRACTICAL NEXT STEP ── */
+.diag-next-step { margin-bottom: 24px; border: 1px solid var(--stone-deep); border-radius: 7px; overflow: hidden; }
+.diag-next-step-inner { background: #f5eccf; border-left: 4px solid var(--gold); padding: 22px 28px; }
+.diag-next-step-label { font-size: 11px; font-weight: 500; letter-spacing: 0.13em; text-transform: uppercase; color: #7a6020; display: block; margin-bottom: 8px; }
+.diag-next-step-text { font-family: var(--font-display); font-size: 17px; font-weight: 400; color: var(--char); line-height: 1.65; }
+
+/* ── SHARE BOX ── */
+.diag-share-box { background: var(--stone); border: 1px solid var(--stone-deep); border-radius: 7px; padding: 26px 28px; display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
+.diag-share-text h4 { font-family: var(--font-display); font-size: 20px; font-weight: 500; color: var(--char); margin-bottom: 6px; line-height: 1.2; }
+.diag-share-text p { font-size: 14px; color: var(--muted); line-height: 1.6; max-width: 360px; }
+.diag-share-actions { flex-shrink: 0; display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
+.btn-diag-share { display: inline-flex; align-items: center; gap: 8px; background: var(--char); color: var(--off); border: none; border-radius: 3px; padding: 11px 20px; font-family: var(--font-body); font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap; transition: background 0.2s; }
+.btn-diag-share:hover { background: var(--char-mid); }
+.diag-share-link-wrap { display: flex; gap: 8px; align-items: center; }
+.diag-share-input { width: 240px; padding: 9px 12px; border: 1.5px solid var(--stone-deep); border-radius: 4px; font-size: 12px; font-family: monospace; color: var(--char); background: white; outline: none; }
+.btn-diag-copy { background: var(--sage); color: white; border: none; border-radius: 3px; padding: 9px 14px; font-size: 12px; font-weight: 500; cursor: pointer; font-family: var(--font-body); transition: background 0.2s; white-space: nowrap; }
+.btn-diag-copy:hover { background: var(--char-light); }
+.diag-share-note { font-size: 11px; color: var(--muted); line-height: 1.5; max-width: 280px; text-align: right; }
+
+/* ══════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════ */
+@media (max-width: 900px) {
+  nav { padding: 14px 20px; }
+  .nav-links { display: none; }
+  .hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero-content { padding: 110px 24px 40px; }
+  .hero-image-side { display: none; }
+  .hero-stat-strip { position: static; }
+  .stat-item { padding: 16px 18px; }
+  .section-inner { padding: 52px 24px; }
+  .diag-intro { grid-template-columns: 1fr; }
+  .diag-intro-right { display: none; }
+  .diag-quiz-body { padding: 28px 24px 24px; }
+  .diag-quiz-nav { padding: 18px 24px; }
+  .diag-breakdown-grid { grid-template-columns: repeat(3,1fr); }
+  .diag-results { padding: 28px 24px; }
+  .diag-cta-box { flex-direction: column; }
+  .diag-cta-actions { align-items: flex-start; }
+  .diag-email-gate { padding: 36px 24px; }
+  .diag-form-row { grid-template-columns: 1fr; }
+  .recognise-grid { grid-template-columns: 1fr; gap: 32px; }
+  .solution-layout { grid-template-columns: 1fr; gap: 36px; }
+  .services-grid { grid-template-columns: 1fr; }
+  .cta-section .section-inner { grid-template-columns: 1fr; gap: 28px; }
+  .cta-actions { align-items: flex-start; }
+  footer { flex-direction: column; gap: 20px; text-align: center; }
+  .footer-links { justify-content: center; }
+}
+@media (max-width: 540px) {
+  .diag-breakdown-grid { grid-template-columns: 1fr 1fr; }
+  .diag-q-scale { flex-wrap: wrap; }
+  .pivot-row { font-size: 15px; }
+}
+
 </style>
 </head>
 <body>
-
 <!-- NAV -->
-<nav>
-  <a href="index.html" class="nav-logo">
-    <img src="ORANGE.png" alt="Orangery Solutions">
+<nav id="main-nav">
+  <a href="#" class="nav-logo">
+    <img src="https://images.squarespace-cdn.com/content/v1/61771991617ef211f58fd8ae/fc8180ef-0cbc-4d4c-ad56-2b13c32f71c3/Orangery+solutions+logo.png?format=1500w" alt="Orangery Solutions">
   </a>
   <ul class="nav-links">
-    <li><a href="orangery-culture-diagnostic.html">Culture Diagnostic</a></li>
-    <li><a href="#services">How We Work</a></li>
+    <li><a href="#">Healthy Church Culture</a></li>
+    <li><a href="#">About Orangery</a></li>
+    <li><a href="#">Certification</a></li>
     <li><a href="https://calendly.com/orangery/30min" class="nav-cta">Talk to Someone</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
+<!-- ══════════ HERO — light, typographic ══════════ -->
 <section class="hero">
-  <div class="hero-grain"></div>
   <div class="hero-content">
     <div class="hero-eyebrow">
       <span class="hero-eyebrow-line"></span>
       <span class="hero-eyebrow-text">Orangery Solutions</span>
     </div>
-    <p class="hero-tagline">Building cultures no one wants to leave</p>
     <h1>Your church<br>has a mission.<br><em>Does your culture<br>match it?</em></h1>
-    <p class="hero-sub">High-trust coaching and diagnostics for church staff teams and elder boards — so your team stops surviving and starts thriving.</p>
+    <p class="hero-sub">We build high-trust, high-impact cultures for church staff teams and elder boards — so your team stops surviving and starts thriving.</p>
     <div class="hero-pills">
       <span class="pill">Clarity</span>
       <span class="pill">Unity</span>
       <span class="pill">Loyalty</span>
       <span class="pill">Fruit</span>
     </div>
-    <div class="hero-actions">
-      <a href="https://calendly.com/orangery/30min" class="btn-primary">
-        Start the conversation <span class="arrow">→</span>
-      </a>
-      <a href="orangery-culture-diagnostic.html" class="btn-ghost">
-        Take the culture diagnostic
-      </a>
-    </div>
+    <a href="https://calendly.com/orangery/30min" class="btn-primary">Start the conversation <span class="arrow">&#x2192;</span></a>
   </div>
-  <div class="hero-image-side">
-    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1400&q=85&auto=format&fit=crop" alt="Diverse team laughing together in candid conversation">
-    <div class="hero-image-overlay"></div>
+  <div class="hero-right">
+    <p class="hero-right-label">What we measure</p>
+    <div class="hero-cat-row"><div class="hero-cat-icon">&#x1F9ED;</div><div><p class="hero-cat-name">Vision Clarity</p><p class="hero-cat-sub">Do your teams share a north star?</p></div></div>
+    <div class="hero-cat-row"><div class="hero-cat-icon">&#x1F91D;</div><div><p class="hero-cat-name">Team Unity</p><p class="hero-cat-sub">One body, or competing islands?</p></div></div>
+    <div class="hero-cat-row"><div class="hero-cat-icon">&#x1F512;</div><div><p class="hero-cat-name">Trust &amp; Candour</p><p class="hero-cat-sub">What's said in meetings vs. hallways?</p></div></div>
+    <div class="hero-cat-row"><div class="hero-cat-icon">&#x1F3AF;</div><div><p class="hero-cat-name">Leadership Clarity</p><p class="hero-cat-sub">Who owns what — and does everyone know?</p></div></div>
+    <div class="hero-cat-row"><div class="hero-cat-icon">&#x1F331;</div><div><p class="hero-cat-name">Staff Wellbeing</p><p class="hero-cat-sub">Are your best people staying or leaving?</p></div></div>
+    <div class="hero-quote">
+      <p>"The one place that should be the healthiest, most aligned team in the room — the church staff — is often running on low trust and unspoken tension."</p>
+      <cite>— Orangery Solutions</cite>
+    </div>
   </div>
   <div class="hero-stat-strip">
-    <div class="stat-item">
-      <span class="stat-num">1 in 2</span>
-      <span class="stat-label">church staff say their team is unhealthy</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num">3 yrs</span>
-      <span class="stat-label">consecutive decline in staff health scores</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num">25%</span>
-      <span class="stat-label">of top-performing staff quietly slipping away</span>
-    </div>
+    <div class="stat-item"><span class="stat-num">1 in 2</span><span class="stat-label">church staff say their team is unhealthy</span></div>
+    <div class="stat-item"><span class="stat-num">3 yrs</span><span class="stat-label">consecutive decline in staff health scores</span></div>
+    <div class="stat-item"><span class="stat-num">25%</span><span class="stat-label">of top-performing staff quietly slipping away</span></div>
   </div>
 </section>
 
-<!-- PAIN SECTION -->
-<section class="pain-section">
+<!-- ══════════ DIAGNOSTIC SECTION ══════════ -->
+<section class="diagnostic-section">
   <div class="section-inner">
-    <span class="eyebrow">Is this your church?</span>
-    <h2 class="section-headline">Your culture might be quietly<br><em>undermining your mission.</em></h2>
-    <p class="section-sub">These aren't corporate problems. They're church problems — with higher emotional stakes, fewer HR guardrails, and a mission too important to let slide.</p>
+    <span class="eyebrow">Free Culture Diagnostic</span>
+    <h2 class="section-headline">How healthy is your<br>church culture, <em>really?</em></h2>
+    <p class="section-sub">In 6 minutes, find out what is working, what is quietly eroding your mission, and where to focus first. Your personalised results are instant.</p>
 
-    <div class="pain-intro fade-up">
-      <p>The one place that should be the <strong>healthiest, most aligned team in the room</strong> — the church staff — is often running on low trust, unclear roles, and unspoken tension. And the damage is slow, quiet, and cumulative.</p>
-    </div>
+    <div class="diag-shell">
 
-    <div class="symptoms-grid">
-      <article class="symptom-card fade-up">
-        <span class="card-watermark" aria-hidden="true">01</span>
-        <div class="symptom-card-header">
-          <span class="symptom-icon" aria-hidden="true">🧭</span>
-          <div>
-            <span class="card-num">Symptom 01</span>
-            <p class="card-title">Vision Drift</p>
+      <!-- INTRO -->
+      <div class="diag-state active" id="diag-intro">
+        <div class="diag-intro">
+          <div class="diag-intro-left">
+            <div class="diag-intro-eyebrow"><span></span><span class="diag-intro-eyebrow-text">Church Culture Health Check</span></div>
+            <h2>Discover your<br><em>culture score</em></h2>
+            <p>18 honest questions across 6 dimensions of church culture. Instant results, a personalised health level, and a clear picture of where your team actually is right now.</p>
+            <div class="diag-meta">
+              <div class="diag-meta-pill">&#x23F1; 6 minutes</div>
+              <div class="diag-meta-pill">&#x2736; 6 categories</div>
+              <div class="diag-meta-pill">&#x26A1; Instant results</div>
+            </div>
+            <button class="btn-diag-start" onclick="diagStart()">Begin the diagnostic &#x2192;</button>
+          </div>
+          <div class="diag-intro-right">
+            <p class="diag-cat-label">What we are measuring</p>
+            <div class="diag-cat-row"><div class="diag-cat-icon">&#x1F9ED;</div><div><p class="diag-cat-name">Vision Clarity</p><p class="diag-cat-sub">Do your teams share a north star?</p></div></div>
+            <div class="diag-cat-row"><div class="diag-cat-icon">&#x1F6AA;</div><div><p class="diag-cat-name">Day-to-Day Collaboration</p><p class="diag-cat-sub">What actually happens when teams need each other?</p></div></div>
+            <div class="diag-cat-row"><div class="diag-cat-icon">&#x1F91D;</div><div><p class="diag-cat-name">Team Unity</p><p class="diag-cat-sub">One community, or competing islands?</p></div></div>
+            <div class="diag-cat-row"><div class="diag-cat-icon">&#x1F512;</div><div><p class="diag-cat-name">Trust &amp; Candour</p><p class="diag-cat-sub">What is said in meetings vs. hallways?</p></div></div>
+            <div class="diag-cat-row"><div class="diag-cat-icon">&#x1F3AF;</div><div><p class="diag-cat-name">Leadership Clarity</p><p class="diag-cat-sub">Who owns what and does everyone know?</p></div></div>
+            <div class="diag-cat-row"><div class="diag-cat-icon">&#x1F331;</div><div><p class="diag-cat-name">Staff Wellbeing</p><p class="diag-cat-sub">Are your best people staying or leaving?</p></div></div>
           </div>
         </div>
-        <div class="card-divider"></div>
-        <div>
-          <span class="card-section-label">What it looks like</span>
-          <p class="card-body">Departments pulling in different directions. New staff never truly absorbed the culture. Language around "why we exist" has gone stale — and nobody's noticed.</p>
+      </div>
+
+      <!-- QUIZ -->
+      <div class="diag-state" id="diag-quiz">
+        <div class="diag-quiz-header">
+          <span class="diag-quiz-meta">Orangery Diagnostic</span>
+          <div class="diag-progress-wrap">
+            <div class="diag-progress-bg"><div class="diag-progress-fill" id="diag-prog-fill"></div></div>
+            <span class="diag-progress-label" id="diag-prog-label">1 of 6</span>
+          </div>
+          <button class="diag-exit-btn" onclick="diagReset()">&#x2715; Exit</button>
         </div>
-        <p class="card-threat"><strong>The risk:</strong> Without a shared north star, energy fragments and your church's distinctiveness fades.</p>
-      </article>
-      <article class="symptom-card fade-up">
-        <span class="card-watermark" aria-hidden="true">02</span>
-        <div class="symptom-card-header">
-          <span class="symptom-icon" aria-hidden="true">⛪</span>
-          <div>
-            <span class="card-num">Symptom 02</span>
-            <p class="card-title">Ministry Silos</p>
+        <div class="diag-quiz-body">
+
+          <div class="diag-q-block active" id="dq-0">
+            <p class="diag-q-category">01 &#x2014; Vision Clarity</p>
+            <h3 class="diag-q-section-title">Where is your church going?<br>Does everyone know?</h3>
+            <p class="diag-q-hint">Rate how true each statement feels right now. Be honest &#x2014; this is for you.</p>
+            <div class="diag-q-item"><p class="diag-q-text">Our staff could each describe our church's mission and direction in the same way, without being prompted or coached.</p><div class="diag-q-scale" data-q="0"><label class="diag-q-opt"><input type="radio" name="dq0" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq0" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq0" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq0" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq0" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+            <div class="diag-q-item"><p class="diag-q-text">When new people join our staff, they genuinely absorb who we are and what we are about. It does not feel like we are constantly reintroducing them to the culture.</p><div class="diag-q-scale" data-q="1"><label class="diag-q-opt"><input type="radio" name="dq1" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq1" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq1" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq1" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq1" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+            <div class="diag-q-item"><p class="diag-q-text">Our vision feels alive and relevant today &#x2014; not something written years ago that nobody actually refers to in real decisions.</p><div class="diag-q-scale" data-q="2"><label class="diag-q-opt"><input type="radio" name="dq2" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq2" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq2" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq2" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq2" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+          </div>
+
+          <div class="diag-q-block" id="dq-1">
+            <p class="diag-q-category">02 &#x2014; Day-to-Day Collaboration</p>
+            <h3 class="diag-q-section-title">What actually happens<br>when teams need each other?</h3>
+            <p class="diag-q-hint">These questions are about lived reality &#x2014; what it feels like in the moment, not what the org chart says.</p>
+            <div class="diag-q-item"><p class="diag-q-text">When I go to another department with a need, I genuinely feel like a priority &#x2014; not like I am interrupting something more important.</p><div class="diag-q-scale" data-q="3"><label class="diag-q-opt"><input type="radio" name="dq3" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq3" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq3" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq3" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq3" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+            <div class="diag-q-item"><p class="diag-q-text">There are no unspoken hierarchies here. The status or size of a ministry does not determine whose needs get met first or whose voice gets heard.</p><div class="diag-q-scale" data-q="4"><label class="diag-q-opt"><input type="radio" name="dq4" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq4" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq4" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq4" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq4" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+            <div class="diag-q-item"><p class="diag-q-text">When I need something from another part of the organisation, I know who to go to and feel confident the response will be timely and genuinely collaborative.</p><div class="diag-q-scale" data-q="5"><label class="diag-q-opt"><input type="radio" name="dq5" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq5" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq5" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq5" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq5" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+          </div>
+
+          <div class="diag-q-block" id="dq-2">
+            <p class="diag-q-category">03 &#x2014; Team Unity</p>
+            <h3 class="diag-q-section-title">One community, or<br>competing islands?</h3>
+            <p class="diag-q-hint">Rate how true each statement feels right now.</p>
+            <div class="diag-q-item"><p class="diag-q-text">Our ministry areas genuinely celebrate each other's wins &#x2014; there is no quiet competition over budget, volunteers, or visibility.</p><div class="diag-q-scale" data-q="6"><label class="diag-q-opt"><input type="radio" name="dq6" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq6" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq6" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq6" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq6" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+            <div class="diag-q-item"><p class="diag-q-text">When a major initiative comes up, people from different areas of the organisation step in without being asked. There is an all-of-us instinct here.</p><div class="diag-q-scale" data-q="7"><label class="diag-q-opt"><input type="radio" name="dq7" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq7" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq7" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq7" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq7" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+            <div class="diag-q-item"><p class="diag-q-text">People across our organisation genuinely know and care about each other &#x2014; the connections here feel real, not just professional.</p><div class="diag-q-scale" data-q="8"><label class="diag-q-opt"><input type="radio" name="dq8" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq8" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq8" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq8" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq8" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+          </div>
+
+          <div class="diag-q-block" id="dq-3">
+            <p class="diag-q-category">04 &#x2014; Trust &amp; Candour</p>
+            <h3 class="diag-q-section-title">What is really being<br>said in the hallways?</h3>
+            <p class="diag-q-hint">Rate how true each statement feels right now.</p>
+            <div class="diag-q-item"><p class="diag-q-text">People here feel genuinely safe to raise a concern, push back, or name something difficult &#x2014; without fear of being sidelined or labelled as a problem.</p><div class="diag-q-scale" data-q="9"><label class="diag-q-opt"><input type="radio" name="dq9" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq9" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq9" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq9" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq9" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+            <div class="diag-q-item"><p class="diag-q-text">What is said in meetings reflects what people actually think. There is no pattern of agreement in the room followed by frustration elsewhere.</p><div class="diag-q-scale" data-q="10"><label class="diag-q-opt"><input type="radio" name="dq10" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq10" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq10" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq10" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq10" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+            <div class="diag-q-item"><p class="diag-q-text">Feedback moves in both directions. Leaders seek it out, receive it well, and people trust that raising something will lead somewhere useful.</p><div class="diag-q-scale" data-q="11"><label class="diag-q-opt"><input type="radio" name="dq11" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq11" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq11" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq11" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq11" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+          </div>
+
+          <div class="diag-q-block" id="dq-4">
+            <p class="diag-q-category">05 &#x2014; Leadership Clarity</p>
+            <h3 class="diag-q-section-title">Does everyone know<br>who owns what?</h3>
+            <p class="diag-q-hint">Rate how true each statement feels right now.</p>
+            <div class="diag-q-item"><p class="diag-q-text">Everyone here has a clear sense of what they are responsible for &#x2014; there is minimal overlap, confusion, or who should handle this moments.</p><div class="diag-q-scale" data-q="12"><label class="diag-q-opt"><input type="radio" name="dq12" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq12" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq12" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq12" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq12" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+            <div class="diag-q-item"><p class="diag-q-text">Decisions get made at the right level. Senior leaders are not bottlenecks, and people are not left waiting for approval on things they should own.</p><div class="diag-q-scale" data-q="13"><label class="diag-q-opt"><input type="radio" name="dq13" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq13" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq13" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq13" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq13" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+            <div class="diag-q-item"><p class="diag-q-text">The leaders here are actively investing in the people around them &#x2014; not just getting things done, but genuinely developing the next generation.</p><div class="diag-q-scale" data-q="14"><label class="diag-q-opt"><input type="radio" name="dq14" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq14" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq14" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq14" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq14" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+          </div>
+
+          <div class="diag-q-block" id="dq-5">
+            <p class="diag-q-category">06 &#x2014; Staff Wellbeing</p>
+            <h3 class="diag-q-section-title">Are your best people<br>staying or quietly leaving?</h3>
+            <p class="diag-q-hint">Rate how true each statement feels right now.</p>
+            <div class="diag-q-item"><p class="diag-q-text">People here genuinely feel seen and cared for as human beings &#x2014; not just as the role they fill or the output they produce.</p><div class="diag-q-scale" data-q="15"><label class="diag-q-opt"><input type="radio" name="dq15" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq15" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq15" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq15" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq15" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+            <div class="diag-q-item"><p class="diag-q-text">The pace here is sustainable. Leaders model healthy rhythms, and burnout is not quietly accepted as the cost of doing ministry.</p><div class="diag-q-scale" data-q="16"><label class="diag-q-opt"><input type="radio" name="dq16" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq16" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq16" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq16" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq16" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+            <div class="diag-q-item"><p class="diag-q-text">Our strongest people are choosing to stay and grow here &#x2014; there is no quiet attrition problem where the best ones drift away without warning.</p><div class="diag-q-scale" data-q="17"><label class="diag-q-opt"><input type="radio" name="dq17" value="1"><div class="diag-q-btn">1</div></label><label class="diag-q-opt"><input type="radio" name="dq17" value="2"><div class="diag-q-btn">2</div></label><label class="diag-q-opt"><input type="radio" name="dq17" value="3"><div class="diag-q-btn">3</div></label><label class="diag-q-opt"><input type="radio" name="dq17" value="4"><div class="diag-q-btn">4</div></label><label class="diag-q-opt"><input type="radio" name="dq17" value="5"><div class="diag-q-btn">5</div></label></div><div class="diag-scale-ends"><span class="diag-scale-end">Not at all</span><span class="diag-scale-end">Absolutely</span></div></div>
+          </div>
+
+        </div>
+        <div class="diag-quiz-nav">
+          <button class="btn-diag-nav btn-diag-back" id="diag-btn-back" onclick="diagPrev()" style="visibility:hidden;">&#x2190; Back</button>
+          <div class="diag-nav-dots" id="diag-dots">
+            <div class="diag-dot active"></div><div class="diag-dot"></div><div class="diag-dot"></div><div class="diag-dot"></div><div class="diag-dot"></div><div class="diag-dot"></div>
+          </div>
+          <button class="btn-diag-nav btn-diag-next" id="diag-btn-next" onclick="diagNext()" disabled>Next &#x2192;</button>
+        </div>
+      </div>
+
+      <!-- EMAIL GATE -->
+      <div class="diag-state" id="diag-email">
+        <div class="diag-email-gate">
+          <h3>One last step to<br><em>unlock your results</em></h3>
+          <p>Enter your details and we will send your full culture report to your inbox &#x2014; including a practical first step based on where you are right now.</p>
+          <div class="diag-email-form">
+            <div class="diag-form-row">
+              <div class="diag-field"><label>First name</label><input type="text" id="diag-fname" placeholder="e.g. Sarah"></div>
+              <div class="diag-field"><label>Last name</label><input type="text" id="diag-lname" placeholder="e.g. Johnson"></div>
+            </div>
+            <div class="diag-field"><label>Email address</label><input type="email" id="diag-email-input" placeholder="you@yourchurch.org"></div>
+            <div class="diag-field"><label>Church / Organisation</label><input type="text" id="diag-church" placeholder="e.g. Grace Community Church"></div>
+            <div class="diag-field"><label>Your role</label><input type="text" id="diag-role" placeholder="e.g. Lead Pastor, Executive Director"></div>
+            <button class="btn-diag-results" id="diag-submit-btn" onclick="diagSubmit()">See my results &#x2192;</button>
+            <p class="diag-privacy">&#x1F512; We respect your privacy. Your results stay with you and Orangery &#x2014; no spam, ever.</p>
+            <p class="diag-email-status" id="diag-email-status"></p>
           </div>
         </div>
-        <div class="card-divider"></div>
-        <div>
-          <span class="card-section-label">What it looks like</span>
-          <p class="card-body">Turf wars over budget, volunteers, and calendar. "My ministry, my rooms." Worship vs. children's vs. youth — competing islands instead of one body.</p>
-        </div>
-        <p class="card-threat"><strong>The risk:</strong> Outward impact stalls when the parts of the body stop communicating.</p>
-      </article>
-      <article class="symptom-card fade-up">
-        <span class="card-watermark" aria-hidden="true">03</span>
-        <div class="symptom-card-header">
-          <span class="symptom-icon" aria-hidden="true">🤝</span>
-          <div>
-            <span class="card-num">Symptom 03</span>
-            <p class="card-title">The Trust Deficit</p>
+      </div>
+
+      <!-- RESULTS -->
+      <div class="diag-state" id="diag-results">
+        <div class="diag-results">
+          <div class="diag-results-top">
+            <p class="diag-result-eyebrow">Your culture health level</p>
+            <div class="diag-health-badge">
+              <div class="diag-health-dot" id="diag-health-dot"></div>
+              <div>
+                <div class="diag-health-level" id="diag-health-level">&#x2014;</div>
+                <div class="diag-health-range" id="diag-health-range">&#x2014;</div>
+              </div>
+            </div>
+            <p class="diag-archetype-desc" id="diag-archetype-desc">&#x2014;</p>
+            <div class="diag-gauge-wrap">
+              <svg class="diag-gauge-svg" viewBox="0 0 180 100" overflow="visible">
+                <path d="M 18 90 A 72 72 0 0 1 162 90" fill="none" stroke="#d8cfc0" stroke-width="12" stroke-linecap="round"/>
+                <path id="diag-gauge-arc" d="M 18 90 A 72 72 0 0 1 162 90" fill="none" stroke="#c8543a" stroke-width="12" stroke-linecap="round" stroke-dasharray="226.2" stroke-dashoffset="226.2" style="transition:stroke-dashoffset 1.4s cubic-bezier(0.4,0,0.2,1)"/>
+                <text x="90" y="78" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="32" font-weight="500" fill="#1e2020" id="diag-gauge-num">0</text>
+                <text x="90" y="96" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="#6a6a60" letter-spacing="2">CULTURE SCORE / 90</text>
+              </svg>
+            </div>
+          </div>
+          <div class="diag-breakdown-grid" id="diag-bd-grid"></div>
+          <div class="diag-insight">
+            <span class="diag-insight-label">What this means for your mission</span>
+            <p class="diag-insight-text" id="diag-insight-text">&#x2014;</p>
+          </div>
+          <p class="diag-weak-label">Where to focus first</p>
+          <div class="diag-weak-list" id="diag-weak-list"></div>
+          <div class="diag-next-step">
+            <div class="diag-next-step-inner">
+              <span class="diag-next-step-label">A practical first step &#x2014; free, no strings</span>
+              <p class="diag-next-step-text" id="diag-next-step-text">&#x2014;</p>
+            </div>
+          </div>
+          <div class="diag-share-box">
+            <div class="diag-share-text">
+              <h4>Want to know how your team sees it?</h4>
+              <p>Share this diagnostic with your staff and get a picture of the culture from multiple perspectives &#x2014; not just the view from the top.</p>
+            </div>
+            <div class="diag-share-actions">
+              <button class="btn-diag-share" id="diag-share-btn" onclick="diagGenerateShareLink()">Generate team share link &#x2192;</button>
+              <div class="diag-share-link-wrap" id="diag-share-link-wrap" style="display:none">
+                <input type="text" class="diag-share-input" id="diag-share-link" readonly>
+                <button class="btn-diag-copy" onclick="diagCopyLink()">Copy</button>
+              </div>
+              <p class="diag-share-note">Each response is tagged to your church and sent to Orangery &#x2014; so you will get a combined picture of how the whole team experiences the culture.</p>
+            </div>
+          </div>
+          <div class="diag-cta-box">
+            <div>
+              <h3>We are for you &#x2014; and we are for<br>your <em>highest good.</em></h3>
+              <p>A free 30-minute culture conversation with Orangery is not a sales call &#x2014; it is a chance to think out loud with someone genuinely on your side.</p>
+            </div>
+            <div class="diag-cta-actions">
+              <a href="https://calendly.com/orangery/30min" class="btn-diag-book">Book a free conversation &#x2192;</a>
+              <button class="btn-diag-retake" onclick="diagReset()">Retake the diagnostic</button>
+            </div>
           </div>
         </div>
-        <div class="card-divider"></div>
-        <div>
-          <span class="card-section-label">What it looks like</span>
-          <p class="card-body">Passive agreement in meetings. Real concerns shared in the hallway. Gossip dressed as prayer requests. A growing sense of church "politics."</p>
-        </div>
-        <p class="card-threat"><strong>The risk:</strong> You can't build a church on a team performing unity while living in suspicion.</p>
-      </article>
-      <article class="symptom-card fade-up">
-        <span class="card-watermark" aria-hidden="true">04</span>
-        <div class="symptom-card-header">
-          <span class="symptom-icon" aria-hidden="true">📋</span>
-          <div>
-            <span class="card-num">Symptom 04</span>
-            <p class="card-title">Leadership Without Clarity</p>
-          </div>
-        </div>
-        <div class="card-divider"></div>
-        <div>
-          <span class="card-section-label">What it looks like</span>
-          <p class="card-body">Role confusion, accountability gaps, senior leaders as bottlenecks. Staff unsure who to go to — decisions feel slow, arbitrary, or political.</p>
-        </div>
-        <p class="card-threat"><strong>The risk:</strong> When no one knows who owns what, God-given opportunities are squandered.</p>
-      </article>
-      <article class="symptom-card fade-up">
-        <span class="card-watermark" aria-hidden="true">05</span>
-        <div class="symptom-card-header">
-          <span class="symptom-icon" aria-hidden="true">💚</span>
-          <div>
-            <span class="card-num">Symptom 05</span>
-            <p class="card-title">Staff Health in Decline</p>
-          </div>
-        </div>
-        <div class="card-divider"></div>
-        <div>
-          <span class="card-section-label">What it looks like</span>
-          <p class="card-body">Your best people are quietly leaving. Burnout masked as busyness. A growing gap between what staff say publicly and what they feel privately.</p>
-        </div>
-        <p class="card-threat"><strong>The risk:</strong> You can't lead a healthy congregation from an unhealthy staff room.</p>
-      </article>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- RECOGNISE SECTION -->
-<section class="recognise-section">
+<!-- ══════════ RECOGNISE SECTION ══════════ -->
+<section class="stone-section">
   <div class="section-inner">
     <div class="recognise-grid">
       <div class="recognise-text">
         <span class="eyebrow">Does this sound familiar?</span>
-        <h2>From hornet's nest<br>to <em>the church people<br>talk about.</em></h2>
+        <h2>From where you are to <em>the culture your people deserve.</em></h2>
         <p>The gap between a toxic staff culture and a thriving one isn't talent or theology. It's trust, clarity, and the courage to build something better — intentionally.</p>
-        <a href="https://calendly.com/orangery/30min" class="btn-primary" style="background: var(--forest); margin-top: 8px;">
-          Let's talk about your culture <span class="arrow">→</span>
-        </a>
+        <a href="https://calendly.com/orangery/30min" class="btn-primary" style="background:var(--char);">Let's talk about your culture <span class="arrow">→</span></a>
       </div>
       <div class="recognise-lists">
         <div>
           <span class="list-label">Right now, it might feel like…</span>
           <div class="bad-list">
-            <div class="bad-list-item"><span class="marker">✗</span> <span><strong>Burnout Central</strong> — "All pressure, no pastoral care."</span></div>
-            <div class="bad-list-item"><span class="marker">✗</span> <span><strong>The Void</strong> — "Where calling goes to die."</span></div>
-            <div class="bad-list-item"><span class="marker">✗</span> <span><strong>Feedback-Free Zone</strong> — "No truth 'til your exit interview."</span></div>
-            <div class="bad-list-item"><span class="marker">✗</span> <span><strong>Cozy Complacent</strong> — "Nice. Polite. Going nowhere."</span></div>
+            <div class="bad-list-item"><span class="marker">✗</span><span><strong>Burnout Central</strong> — "All pressure, no pastoral care."</span></div>
+            <div class="bad-list-item"><span class="marker">✗</span><span><strong>The Void</strong> — "Where calling goes to die."</span></div>
+            <div class="bad-list-item"><span class="marker">✗</span><span><strong>Feedback-Free Zone</strong> — "No truth 'til your exit interview."</span></div>
+            <div class="bad-list-item"><span class="marker">✗</span><span><strong>Cozy Complacent</strong> — "Nice. Polite. Going nowhere."</span></div>
           </div>
         </div>
         <div>
           <span class="list-label good">The 'IT' Culture looks like…</span>
           <div class="good-list">
-            <div class="good-list-item"><span class="marker">✓</span> <span>Where clarity meets compassion</span></div>
-            <div class="good-list-item"><span class="marker">✓</span> <span>Where feedback builds, not breaks</span></div>
-            <div class="good-list-item"><span class="marker">✓</span> <span>Where challenge fuels spiritual and organisational growth</span></div>
-            <div class="good-list-item"><span class="marker">✓</span> <span>Where people show up bought into the mission</span></div>
+            <div class="good-list-item"><span class="marker">✓</span><span>Where clarity meets compassion</span></div>
+            <div class="good-list-item"><span class="marker">✓</span><span>Where feedback builds, not breaks</span></div>
+            <div class="good-list-item"><span class="marker">✓</span><span>Where challenge fuels spiritual and organisational growth</span></div>
+            <div class="good-list-item"><span class="marker">✓</span><span>Where people show up bought into the mission</span></div>
           </div>
         </div>
       </div>
@@ -1084,156 +1008,86 @@
   </div>
 </section>
 
-<!-- SOLUTION SECTION -->
-<section class="solution-section">
+
+<!-- ══════════ SOLUTION SECTION ══════════ -->
+<section class="dark-section">
   <div class="section-inner">
     <span class="eyebrow">What we do</span>
-    <h2 class="section-headline" style="color: var(--cream);">We don't do fluff.<br>We build cultures people <em>want to stay part of.</em></h2>
+    <h2 class="section-headline" style="color:var(--off);">We don't do fluff.<br>We build cultures people <em>want to stay part of.</em></h2>
     <p class="section-sub">At Orangery Solutions, we work with church staff teams and elder boards to move from survival mode to standout health — through coaching that transforms how your team communicates, aligns, and grows.</p>
     <div class="solution-layout">
       <div class="solution-text">
-        <p>Culture isn't fixed in a weekend retreat. It's built through consistent, intentional work on the invisible things — trust, candor, role clarity, shared language, and relational intelligence.</p>
+        <p>Culture isn't fixed in a weekend retreat. It's built through consistent, intentional work on the invisible things — trust, candour, role clarity, shared language, and relational intelligence.</p>
         <p>We bring a structured, high-trust process that names what's underneath the surface, creates space for honest conversation, and gives your team tools that make healthy culture inevitable — not accidental.</p>
         <p>No gimmicks. No guesswork. Just a church culture people talk about — for all the right reasons.</p>
       </div>
       <div class="outcome-list">
-        <div class="outcome-item">
-          <div class="outcome-icon-wrap"><span class="outcome-icon">🌱</span></div>
-          <div>
-            <p class="outcome-title">Leaders multiply</p>
-            <p class="outcome-desc">Culture so healthy it develops the next generation naturally — without you forcing it.</p>
-          </div>
-        </div>
-        <div class="outcome-item">
-          <div class="outcome-icon-wrap"><span class="outcome-icon">🤝</span></div>
-          <div>
-            <p class="outcome-title">Teams align</p>
-            <p class="outcome-desc">Shared vision and language that holds even when new people join and seasons change.</p>
-          </div>
-        </div>
-        <div class="outcome-item">
-          <div class="outcome-icon-wrap"><span class="outcome-icon">❤️</span></div>
-          <div>
-            <p class="outcome-title">People stay</p>
-            <p class="outcome-desc">High-trust environments your best staff and volunteers actively choose to remain in.</p>
-          </div>
-        </div>
-        <div class="outcome-item">
-          <div class="outcome-icon-wrap"><span class="outcome-icon">🚀</span></div>
-          <div>
-            <p class="outcome-title">Mission advances</p>
-            <p class="outcome-desc">Healthy teams produce fruit — in the building, in the community, and beyond.</p>
-          </div>
-        </div>
+        <div class="outcome-item"><div class="outcome-icon-wrap"><span class="outcome-icon">🌱</span></div><div><p class="outcome-title">Leaders multiply</p><p class="outcome-desc">Culture so healthy it develops the next generation naturally.</p></div></div>
+        <div class="outcome-item"><div class="outcome-icon-wrap"><span class="outcome-icon">🤝</span></div><div><p class="outcome-title">Teams align</p><p class="outcome-desc">Shared vision and language that holds even when new people join.</p></div></div>
+        <div class="outcome-item"><div class="outcome-icon-wrap"><span class="outcome-icon">❤️</span></div><div><p class="outcome-title">People stay</p><p class="outcome-desc">High-trust environments your best staff actively choose to remain in.</p></div></div>
+        <div class="outcome-item"><div class="outcome-icon-wrap"><span class="outcome-icon">🚀</span></div><div><p class="outcome-title">Mission advances</p><p class="outcome-desc">Healthy teams produce fruit — in the building, in the community, and beyond.</p></div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SERVICES SECTION -->
-<section class="services-section" id="services">
+<!-- ══════════ SERVICES ══════════ -->
+<section class="services-section">
   <div class="section-inner">
     <span class="eyebrow">How we work with you</span>
-    <h2 class="section-headline">Four ways we build your<br><em>'IT' Culture</em></h2>
+    <h2 class="section-headline">Four ways we build your <em>'IT' Culture</em></h2>
     <p class="section-sub">From one-on-one coaching to immersive team experiences — every engagement is built around your church's specific season, size, and needs.</p>
     <div class="services-grid">
-      <div class="diagnostic-banner fade-up">
-        <div>
-          <span class="eyebrow">Free tool</span>
-          <h3>Not ready for a call?<br>Start with the <em>Culture Diagnostic.</em></h3>
-          <p>15 questions across five culture areas. Get your archetype, score breakdown, and where to focus first — about 5 minutes, no signup required.</p>
-        </div>
-        <a href="orangery-culture-diagnostic.html" class="btn-primary">Take the diagnostic <span class="arrow">→</span></a>
-      </div>
-      <div class="service-card fade-up">
-        <span class="service-icon">🎯</span>
-        <span class="service-tag">Coaching</span>
-        <p class="service-title">Coaching for the Culture Setters</p>
-        <p class="service-body">You shape the culture — whether you're the lead pastor, an executive director, or a ministry leader rallying volunteers on a Tuesday night. We coach church leaders who carry both the weight and the spark. Our coaching goes beyond frameworks and performance plans. We dig into who you are, how you lead, and what kind of environment you're actually creating around you.</p>
-      </div>
-      <div class="service-card fade-up">
-        <span class="service-icon">💬</span>
-        <span class="service-tag">Workshops</span>
-        <p class="service-title">Team Workshops That Actually Change Things</p>
-        <p class="service-body">This isn't trust falls and whiteboard theology. These are culture-leveling, clarity-bringing, voice-activating experiences that get everyone speaking the same language — and actually hearing each other for once. We cover 5 Voices team dynamics, communication frameworks, Peace Index, and collaboration blockers, all tailored to your team.</p>
-      </div>
-      <div class="service-card fade-up">
-        <span class="service-icon">🔥</span>
-        <span class="service-tag">Team Building</span>
-        <p class="service-title">Forge Culture. Literally.</p>
-        <p class="service-body">Sometimes the best way to build a ministry team isn't another planning meeting — it's holding fire, breaking glass, and making something real together. In partnership with Visual Philosophy Art Studio, we offer hands-on experiences in blacksmithing, stained glass, and screen printing that bond teams through shared breakthrough — not forced trust exercises.</p>
-      </div>
-      <div class="service-card fade-up">
-        <span class="service-icon">🌿</span>
-        <span class="service-tag">Ongoing Care</span>
-        <p class="service-title">Ongoing Partnership</p>
-        <p class="service-body">Church culture isn't built in a day — and it definitely doesn't sustain itself. For churches that want more than a one-off workshop, we offer ongoing partnership through a retainer model. Part coach, part consultant, part creative spark — we become your outsourced culture and leadership development team.</p>
-      </div>
+      <div class="service-card fade-up"><span class="service-icon">🎯</span><span class="service-tag">Coaching</span><p class="service-title">Coaching for the Culture Setters</p><p class="service-body">You shape the culture — whether you're the lead pastor, an executive director, or a ministry leader rallying volunteers on a Tuesday night. We dig into who you are, how you lead, and what kind of environment you're actually creating around you.</p></div>
+      <div class="service-card fade-up"><span class="service-icon">💬</span><span class="service-tag">Workshops</span><p class="service-title">Team Workshops That Actually Change Things</p><p class="service-body">Culture-levelling, clarity-bringing, voice-activating experiences that get everyone speaking the same language — and actually hearing each other for once. 5 Voices, Peace Index, communication frameworks, and collaboration blockers — all tailored to your team.</p></div>
+      <div class="service-card fade-up"><span class="service-icon">🔥</span><span class="service-tag">Team Building</span><p class="service-title">Forge Culture. Literally.</p><p class="service-body">In partnership with Visual Philosophy Art Studio, we offer hands-on experiences — blacksmithing, stained glass, screen printing — that bond teams through shared breakthrough, not forced trust exercises.</p></div>
+      <div class="service-card fade-up"><span class="service-icon">🌿</span><span class="service-tag">Ongoing Care</span><p class="service-title">Ongoing Partnership</p><p class="service-body">Part coach, part consultant, part creative spark — we become your outsourced culture and leadership development team through a retainer model that keeps culture growing as your church grows.</p></div>
     </div>
   </div>
 </section>
 
-<!-- PIVOT SECTION -->
+
+<!-- ══════════ PIVOT SECTION ══════════ -->
 <section class="pivot-section">
   <div class="section-inner">
-    <span class="eyebrow" style="display: inline-flex; margin: 0 auto 24px;">It's time to pivot</span>
-    <h2 class="section-headline" style="color: var(--cream); margin-bottom: 48px;">From where you are<br>to <em>where you're called to be.</em></h2>
+    <span class="eyebrow" style="display:inline-flex;margin:0 auto 20px;">It's time to pivot</span>
+    <h2 class="section-headline" style="color:var(--off);margin-bottom:40px;">From where you are<br>to <em>where you're called to be.</em></h2>
     <div class="pivot-arrows">
-      <div class="pivot-row">
-        <span class="from">Siloed ministries</span>
-        <span class="arr">→</span>
-        <span class="to">Shared purpose</span>
-      </div>
-      <div class="pivot-row">
-        <span class="from">Burnout and bravado</span>
-        <span class="arr">→</span>
-        <span class="to">Trust and collaboration</span>
-      </div>
-      <div class="pivot-row">
-        <span class="from">Chasing superstars</span>
-        <span class="arr">→</span>
-        <span class="to">Championing one another</span>
-      </div>
-      <div class="pivot-row">
-        <span class="from">Survival mode</span>
-        <span class="arr">→</span>
-        <span class="to">Standout health</span>
-      </div>
+      <div class="pivot-row"><span class="from">Siloed ministries</span><span class="arr">→</span><span class="to">Shared purpose</span></div>
+      <div class="pivot-row"><span class="from">Burnout and bravado</span><span class="arr">→</span><span class="to">Trust and collaboration</span></div>
+      <div class="pivot-row"><span class="from">Chasing superstars</span><span class="arr">→</span><span class="to">Championing one another</span></div>
+      <div class="pivot-row"><span class="from">Survival mode</span><span class="arr">→</span><span class="to">Standout health</span></div>
     </div>
-    <p style="font-family: var(--font-display); font-size: 20px; font-style: italic; color: rgba(245,240,232,0.5); text-align: center; max-width: 480px; margin: 0 auto 40px; line-height: 1.6;">Because when your church culture works, <strong style="font-style: normal; color: var(--gold); font-weight: 600;">everything</strong> works better.</p>
-    <div style="text-align: center;">
-      <a href="https://calendly.com/orangery/30min" class="btn-primary">Book your strategy session <span class="arrow">→</span></a>
-    </div>
+    <p style="font-family:var(--font-display);font-size:19px;font-style:italic;color:rgba(243,240,232,0.45);text-align:center;max-width:460px;margin:0 auto 36px;line-height:1.6;">Because when your church culture works, <strong style="font-style:normal;color:var(--gold);font-weight:600;">everything</strong> works better.</p>
+    <div style="text-align:center;"><a href="https://calendly.com/orangery/30min" class="btn-primary">Book your strategy session <span class="arrow">→</span></a></div>
   </div>
 </section>
 
-<!-- CTA -->
+<!-- ══════════ CTA SECTION ══════════ -->
 <section class="cta-section">
   <div class="section-inner">
     <div>
-      <span class="eyebrow" style="color: var(--gold);">Ready to start?</span>
+      <span class="eyebrow" style="color:var(--gold);">Ready to start?</span>
       <h2 class="cta-headline">Your culture is either working<br>for your mission — or <em>against it.</em></h2>
       <p class="cta-sub">Let's find out where you are and build toward where you need to be. No obligation, no pressure — just an honest conversation about your church culture.</p>
     </div>
     <div class="cta-actions">
       <a href="https://calendly.com/orangery/30min" class="btn-primary">Book a free culture call <span class="arrow">→</span></a>
-      <a href="orangery-culture-diagnostic.html" class="btn-ghost">Take the culture diagnostic</a>
-      <a href="mailto:orangery.team.solutions@gmail.com" class="btn-ghost">Send us an email</a>
+      <a href="mailto:lukehaythorpe@orangery.solutions" class="btn-ghost">Send us an email</a>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ══════════ FOOTER ══════════ -->
 <footer>
   <div class="footer-logo">
-    <img src="ORANGE.png" alt="Orangery Solutions">
+    <img src="https://images.squarespace-cdn.com/content/v1/61771991617ef211f58fd8ae/177ba3f4-a491-4cee-a7f2-dc5cf58115a2/Orangery+solutions+logo.png" alt="Orangery Solutions">
   </div>
   <div class="footer-info">
     <p>Silicon Valley–San Jose, CA &nbsp;·&nbsp; San Francisco Bay Area</p>
-    <p style="margin-top: 4px;"><a href="mailto:orangery.team.solutions@gmail.com" style="color: rgba(245,240,232,0.35); text-decoration: none;">orangery.team.solutions@gmail.com</a></p>
+    <p style="margin-top:3px;"><a href="mailto:lukehaythorpe@orangery.solutions" style="color:rgba(245,240,232,0.35);text-decoration:none;">lukehaythorpe@orangery.solutions</a></p>
   </div>
   <div class="footer-links">
-    <a href="orangery-culture-diagnostic.html">Culture Diagnostic</a>
     <a href="#">Terms & Conditions</a>
     <a href="#">Privacy Policy</a>
     <a href="https://www.linkedin.com/in/luke-haythorpe-030b982a/" target="_blank">LinkedIn</a>
@@ -1242,24 +1096,323 @@
 </footer>
 
 <script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.12 });
+(function(){ emailjs.init({ publicKey: 'YOUR_EMAILJS_PUBLIC_KEY' }); })();
+const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';
+const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+const ORANGERY_EMAIL = 'lukehaythorpe@orangery.solutions';
 
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+const DIAG_CATS = [
+  { id:'vision',    label:'Vision Clarity',          icon:'\u{1F9ED}' },
+  { id:'collab',    label:'Day-to-Day Collaboration', icon:'\u{1F6AA}' },
+  { id:'unity',     label:'Team Unity',               icon:'\u{1F91D}' },
+  { id:'trust',     label:'Trust & Candour',          icon:'\u{1F512}' },
+  { id:'clarity',   label:'Leadership Clarity',       icon:'\u{1F3AF}' },
+  { id:'wellbeing', label:'Staff Wellbeing',          icon:'\u{1F331}' },
+];
 
-  window.addEventListener('scroll', () => {
-    const nav = document.querySelector('nav');
-    if (window.scrollY > 60) {
-      nav.style.padding = '14px 48px';
-    } else {
-      nav.style.padding = '20px 48px';
-    }
+const HEALTH_LEVELS = [
+  {
+    min:0, max:35, dot:'#e05a3a',
+    label:'Critical Attention Needed', range:'Score 0\u201335',
+    desc:'There are real strains running through your culture right now. This is not a verdict on your leadership. It is a signal worth taking seriously. Naming it clearly is where real change begins.',
+    insight:'Cultures in this range are often carrying <strong>unresolved tension that has become normalised</strong>. People have adapted to working around the friction rather than through it. We would love to help you see what is possible on the other side.',
+    nextStep:'Before anything else, consider one honest conversation with a trusted colleague or external guide about what you are noticing. Not to fix it all at once. Just to stop carrying it alone. A free 30-minute conversation with Orangery is a good place to start.',
+  },
+  {
+    min:36, max:53, dot:'#c8543a',
+    label:'Worth Paying Attention To', range:'Score 36\u201353',
+    desc:'There are areas of genuine strength here alongside places where the culture is carrying more weight than it should. Some things are working. But others are quietly draining energy that should be going toward your mission.',
+    insight:'The most common pattern at this level is <strong>a culture that functions but does not flourish</strong>. People are managing the friction, but it costs them. Small, intentional moves in the right areas tend to unlock disproportionate change.',
+    nextStep:'Look at the two categories where you scored lowest. Pick one and ask: what would it look like to have one honest conversation about that area this month? You do not need a programme. You need a starting point.',
+  },
+  {
+    min:54, max:68, dot:'#c9a052',
+    label:'Developing Well', range:'Score 54\u201368',
+    desc:'Your culture has a solid foundation. There is real goodwill and some genuine health here. There are also a few areas that, if left unattended, could quietly erode what you have built.',
+    insight:'At this level, <strong>the risk is assuming you have arrived</strong>. Cultures that stay here tend to do so because the hard conversations are just comfortable enough to avoid. The gap between developing and thriving is usually smaller than it looks.',
+    nextStep:'Identify one relationship or dynamic in your team that you have been meaning to address but keep deferring. Not a programme. Just a conversation. That is often the one thing that unlocks the next level of trust.',
+  },
+  {
+    min:69, max:80, dot:'#7a9980',
+    label:'Strong & Growing', range:'Score 69\u201380',
+    desc:'You have built something genuinely healthy here. Your team experiences real trust, good clarity, and a culture people choose to be part of. The work now is to protect what you have built and keep it from drifting.',
+    insight:'Strong cultures <strong>do not stay strong by accident</strong>. The churches that sustain this level are the ones who stay intentional, especially during transitions, growth seasons, and whenever new people join.',
+    nextStep:'Consider sharing this diagnostic with two or three people you lead and asking them to complete it independently. Compare notes. The gap between how leaders and team members experience the culture is often the most useful data point you can have.',
+  },
+  {
+    min:81, max:90, dot:'#3a4840',
+    label:'Exceptionally Healthy', range:'Score 81\u201390',
+    desc:'This is rare. What you have built reflects sustained, intentional investment in the people and culture of your organisation. Do not take it for granted. And do not stop here.',
+    insight:'Cultures at this level <strong>become a gift to the wider church</strong>. The leaders who build them often do not realise how unusual they are, or how much they have to offer others who are further back on the journey.',
+    nextStep:'Think about who in your network is leading a team that is struggling. You have something worth sharing. Consider forwarding this diagnostic to a peer leader who might benefit from the reflection.',
+  },
+];
+
+const DIAG_WEAK = {
+  vision:    'Your team may be operating from different mental maps of where you are going. Before anything else, the vision needs to be re-landed, not just communicated, but genuinely owned.',
+  collab:    'When going to another part of the organisation feels like an imposition, that is a culture issue not a logistics one. Unspoken hierarchies are worth naming directly.',
+  unity:     'When ministry areas function as separate organisations, the friction compounds quietly. The whole works best when the parts are genuinely connected, not just coordinated.',
+  trust:     'The gap between what is said in meetings and what is said privately is where most culture problems live. Candour is the foundation everything else is built on.',
+  clarity:   'Ambiguity about who owns what is exhausting, even when everyone is well-intentioned. Clarity is one of the most practical gifts a leader can give their team.',
+  wellbeing: 'If the pace is unsustainable or people do not feel genuinely seen, your best people may already be planning their exit. They just have not told you yet.',
+};
+
+const TOTAL_SECTIONS = 6;
+const QUESTIONS_PER  = 3;
+let diagSection = 0;
+const diagAnswers = new Array(TOTAL_SECTIONS * QUESTIONS_PER).fill(null);
+let diagSubmitterName   = '';
+let diagSubmitterChurch = '';
+let diagSubmitterEmail  = '';
+
+function diagShowState(id) {
+  document.querySelectorAll('.diag-state').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const shell = document.querySelector('.diag-shell');
+  if (shell) { setTimeout(() => shell.scrollIntoView({ behavior:'smooth', block:'start' }), 50); }
+}
+
+function diagStart() {
+  diagSection = 0;
+  diagAnswers.fill(null);
+  document.querySelectorAll('.diag-q-btn').forEach(b => b.classList.remove('sel'));
+  document.querySelectorAll('.diag-q-block').forEach((b, i) => b.classList.toggle('active', i === 0));
+  diagUpdateProgress();
+  diagCheckComplete();
+  diagShowState('diag-quiz');
+}
+
+function diagUpdateProgress() {
+  const pct = (diagSection / TOTAL_SECTIONS) * 100;
+  const pf = document.getElementById('diag-prog-fill'); if (pf) pf.style.width = pct + '%';
+  const pl = document.getElementById('diag-prog-label'); if (pl) pl.textContent = (diagSection + 1) + ' of ' + TOTAL_SECTIONS;
+  (document.querySelectorAll('.diag-dot') || []).forEach((d, i) => {
+    d.classList.remove('active', 'done');
+    if (i < diagSection) d.classList.add('done');
+    else if (i === diagSection) d.classList.add('active');
   });
+  const backBtn = document.getElementById('diag-btn-back');
+  if (backBtn) backBtn.style.visibility = diagSection === 0 ? 'hidden' : 'visible';
+}
+
+function diagCheckComplete() {
+  const start = diagSection * QUESTIONS_PER;
+  const ok = diagAnswers.slice(start, start + QUESTIONS_PER).every(a => a !== null);
+  const btn = document.getElementById('diag-btn-next');
+  if (btn) { btn.disabled = !ok; btn.textContent = diagSection === TOTAL_SECTIONS - 1 ? 'See my results →' : 'Next →'; }
+}
+
+document.querySelectorAll('.diag-q-scale').forEach(scale => {
+  const qi = parseInt(scale.dataset.q);
+  scale.querySelectorAll('.diag-q-btn').forEach((btn, i) => {
+    btn.addEventListener('click', () => {
+      diagAnswers[qi] = i + 1;
+      scale.querySelectorAll('.diag-q-btn').forEach(b => b.classList.remove('sel'));
+      btn.classList.add('sel');
+      diagCheckComplete();
+    });
+  });
+});
+
+function diagNext() {
+  if (diagSection < TOTAL_SECTIONS - 1) {
+    document.getElementById('dq-' + diagSection).classList.remove('active');
+    diagSection++;
+    const next = document.getElementById('dq-' + diagSection);
+    if (next) { next.style.animation = 'none'; next.offsetHeight; next.style.animation = ''; next.classList.add('active'); }
+    diagUpdateProgress();
+    diagCheckComplete();
+  } else {
+    diagShowState('diag-email');
+  }
+}
+
+function diagPrev() {
+  if (diagSection > 0) {
+    document.getElementById('dq-' + diagSection).classList.remove('active');
+    diagSection--;
+    document.getElementById('dq-' + diagSection).classList.add('active');
+    diagUpdateProgress();
+    diagCheckComplete();
+  }
+}
+
+function diagCatScore(i) { return diagAnswers.slice(i * QUESTIONS_PER, (i + 1) * QUESTIONS_PER).reduce((a, b) => a + (b || 0), 0); }
+function diagTotal() { return diagAnswers.reduce((a, b) => a + (b || 0), 0); }
+function diagPct(score, max) { return Math.round((score / max) * 100); }
+function diagGetLevel(total) { return HEALTH_LEVELS.find(l => total >= l.min && total <= l.max) || HEALTH_LEVELS[HEALTH_LEVELS.length - 1]; }
+
+function diagBarColor(pct) {
+  if (pct >= 87) return '#3a4840';
+  if (pct >= 75) return '#7a9980';
+  if (pct >= 58) return '#c9a052';
+  if (pct >= 38) return '#c8543a';
+  return '#e05a3a';
+}
+function diagBarStatus(pct) {
+  if (pct >= 87) return 'Exceptional';
+  if (pct >= 75) return 'Strong';
+  if (pct >= 58) return 'Developing';
+  if (pct >= 38) return 'Needs attention';
+  return 'Critical';
+}
+
+function diagBuildResults() {
+  const total = diagTotal();
+  const level = diagGetLevel(total);
+  const hdot = document.getElementById('diag-health-dot');
+  if (hdot) { hdot.style.background = level.dot; hdot.style.boxShadow = '0 0 0 5px ' + level.dot + '22'; }
+  const hlevel = document.getElementById('diag-health-level'); if (hlevel) hlevel.textContent = level.label;
+  const hrange = document.getElementById('diag-health-range'); if (hrange) hrange.textContent = level.range;
+  const adesc = document.getElementById('diag-archetype-desc'); if (adesc) adesc.textContent = level.desc;
+  const itext = document.getElementById('diag-insight-text'); if (itext) itext.innerHTML = level.insight;
+  const ntext = document.getElementById('diag-next-step-text'); if (ntext) ntext.textContent = level.nextStep;
+
+  setTimeout(() => {
+    const arc = document.getElementById('diag-gauge-arc'); if (!arc) return;
+    const arcLen = 226.2;
+    const pct = diagPct(total, 90);
+    arc.style.strokeDashoffset = arcLen - (arcLen * pct / 100);
+    arc.style.stroke = level.dot;
+    let cur = 0;
+    const timer = setInterval(() => {
+      cur = Math.min(cur + 2, total);
+      const gnum = document.getElementById('diag-gauge-num'); if (gnum) gnum.textContent = cur;
+      if (cur >= total) clearInterval(timer);
+    }, 40);
+  }, 200);
+
+  const grid = document.getElementById('diag-bd-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  DIAG_CATS.forEach((cat, i) => {
+    const score = diagCatScore(i);
+    const pct   = diagPct(score, 15);
+    const color  = diagBarColor(pct);
+    const status = diagBarStatus(pct);
+    const card   = document.createElement('div');
+    card.className = 'diag-bd-card';
+    card.innerHTML = '<span class="diag-bd-icon">' + cat.icon + '</span><p class="diag-bd-cat">' + cat.label + '</p><div class="diag-bd-bar-bg"><div class="diag-bd-bar-fill" style="background:' + color + '" data-pct="' + pct + '"></div></div><p class="diag-bd-score">' + score + '<span style="font-size:12px;color:var(--muted)">/15</span></p><p class="diag-bd-status" style="color:' + color + '">' + status + '</p>';
+    grid.appendChild(card);
+  });
+  setTimeout(() => document.querySelectorAll('.diag-bd-bar-fill').forEach(b => b.style.width = b.dataset.pct + '%'), 300);
+
+  const scored = DIAG_CATS.map((c, i) => ({ ...c, score: diagCatScore(i) })).sort((a, b) => a.score - b.score);
+  const weakList = document.getElementById('diag-weak-list');
+  if (!weakList) return;
+  weakList.innerHTML = '';
+  scored.slice(0, 2).forEach(cat => {
+    const item = document.createElement('div');
+    item.className = 'diag-weak-item';
+    item.innerHTML = '<div><p class="diag-weak-name">' + cat.icon + ' ' + cat.label + '</p><p class="diag-weak-desc">' + DIAG_WEAK[cat.id] + '</p></div><div class="diag-weak-score">' + cat.score + '/15</div>';
+    weakList.appendChild(item);
+  });
+}
+
+async function diagSubmit() {
+  const fname  = document.getElementById('diag-fname').value.trim();
+  const lname  = document.getElementById('diag-lname').value.trim();
+  const email  = document.getElementById('diag-email-input').value.trim();
+  const church = document.getElementById('diag-church').value.trim();
+  const role   = document.getElementById('diag-role').value.trim();
+  const status = document.getElementById('diag-email-status');
+  const setStatus = (msg, col) => { if (status) { status.textContent = msg; status.style.color = col || 'var(--muted)'; } };
+
+  if (!fname || !email) { setStatus('Please enter your name and email to continue.', 'var(--rust)'); return; }
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRe.test(email)) { setStatus('Please enter a valid email address.', 'var(--rust)'); return; }
+
+  diagSubmitterName   = (fname + ' ' + lname).trim();
+  diagSubmitterChurch = church;
+  diagSubmitterEmail  = email;
+
+  const btn = document.getElementById('diag-submit-btn');
+  if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+  setStatus('', 'var(--muted)');
+
+  const params   = new URLSearchParams(window.location.search);
+  const teamId   = params.get('team') || null;
+  const isTeam   = !!teamId;
+  const total    = diagTotal();
+  const level    = diagGetLevel(total);
+  const pct      = diagPct(total, 90);
+  const breakdown= DIAG_CATS.map((c, i) => c.icon + ' ' + c.label + ': ' + diagCatScore(i) + '/15').join('\n');
+  const scored   = DIAG_CATS.map((c, i) => ({ ...c, score: diagCatScore(i) })).sort((a, b) => a.score - b.score);
+  const weakAreas= scored.slice(0, 2).map(c => c.label + ' (' + c.score + '/15)').join(', ');
+
+  const baseParams = {
+    respondent_name:  diagSubmitterName,
+    respondent_email: email,
+    church_name:      church || 'Not provided',
+    respondent_role:  role   || 'Not provided',
+    total_score:      total + '/90',
+    percent:          pct + '%',
+    health_level:     level.label,
+    health_range:     level.range,
+    level_desc:       level.desc,
+    next_step:        level.nextStep,
+    breakdown,
+    weak_areas:       weakAreas,
+    is_team_member:   isTeam ? 'Yes' : 'No',
+    team_id:          teamId || 'N/A',
+    submitted_at:     new Date().toLocaleString('en-GB', { dateStyle:'medium', timeStyle:'short' }),
+  };
+
+  try {
+    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, { ...baseParams, to_email: ORANGERY_EMAIL, reply_to: email });
+    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, { ...baseParams, to_email: email, reply_to: ORANGERY_EMAIL });
+    setStatus('✓ Report sent! Check your inbox.', 'var(--char-light)');
+  } catch(err) {
+    console.warn('EmailJS error:', err);
+    setStatus('Could not send email — but your results are ready below.', 'var(--muted)');
+  }
+
+  diagBuildResults();
+  diagShowState('diag-results');
+  if (btn) { btn.disabled = false; btn.textContent = 'See my results →'; }
+}
+
+function diagGenerateShareLink() {
+  const church = diagSubmitterChurch || 'your church';
+  const name   = diagSubmitterName   || '';
+  const token  = btoa(encodeURIComponent(church)) + '-' + btoa(encodeURIComponent(name));
+  const url    = window.location.origin + window.location.pathname + '?team=' + encodeURIComponent(token);
+  document.getElementById('diag-share-link').value = url;
+  document.getElementById('diag-share-link-wrap').style.display = 'flex';
+  document.getElementById('diag-share-btn').style.display = 'none';
+}
+
+function diagCopyLink() {
+  const input = document.getElementById('diag-share-link');
+  input.select(); input.setSelectionRange(0, 99999);
+  navigator.clipboard ? navigator.clipboard.writeText(input.value).catch(() => { try { document.execCommand('copy'); } catch(_){} }) : (function(){ try { document.execCommand('copy'); } catch(_){} })();
+  const btn = document.querySelector('.btn-diag-copy');
+  const orig = btn.textContent;
+  btn.textContent = 'Copied \u2713'; btn.style.background = '#3a4840';
+  setTimeout(() => { btn.textContent = orig; btn.style.background = ''; }, 2400);
+}
+
+function diagReset() {
+  diagSection = 0; diagAnswers.fill(null);
+  document.querySelectorAll('.diag-q-btn').forEach(b => b.classList.remove('sel'));
+  ['diag-fname','diag-lname','diag-email-input','diag-church','diag-role'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+  const es = document.getElementById('diag-email-status'); if (es) es.textContent = '';
+  const shareBtn  = document.getElementById('diag-share-btn');
+  const shareLinkWrap = document.getElementById('diag-share-link-wrap');
+  if (shareBtn) shareBtn.style.display = '';
+  if (shareLinkWrap) shareLinkWrap.style.display = 'none';
+  diagShowState('diag-intro');
+}
+
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('main-nav');
+  if (nav) nav.style.padding = window.scrollY > 60 ? '12px 48px' : '18px 48px';
+});
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>

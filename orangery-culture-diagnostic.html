@@ -206,7 +206,7 @@ body{font-family:var(--font-body);background:var(--off);color:var(--char);font-s
 .diag-gauge-svg { width: 180px; height: 100px; overflow: visible; }
 
 .diag-breakdown-grid {
-  display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 32px;
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 32px;
 }
 .diag-bd-card {
   background: var(--stone); border: 1px solid var(--stone-deep);
@@ -261,7 +261,99 @@ body{font-family:var(--font-body);background:var(--off);color:var(--char);font-s
 .btn-diag-retake { background: none; border: none; color: var(--muted); font-size: 13px; cursor: pointer; text-decoration: underline; font-family: var(--font-body); text-underline-offset: 3px; transition: color 0.2s; }
 .btn-diag-retake:hover { color: var(--char); }
 
-/* ══════════════════════════════════@media(max-width:900px){
+.diag-health-badge {
+  display: inline-flex; align-items: center; gap: 14px;
+  background: white; border: 1px solid var(--stone-deep);
+  border-radius: 8px; padding: 14px 22px; margin: 0 auto 18px;
+}
+.diag-health-dot { width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0; }
+.diag-health-level { font-family: var(--font-display); font-size: 22px; font-weight: 500; color: var(--char); line-height: 1.1; }
+.diag-health-range { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+.diag-next-step { margin-bottom: 24px; border: 1px solid var(--stone-deep); border-radius: 7px; overflow: hidden; }
+.diag-next-step-inner { background: #f5eccf; border-left: 4px solid var(--gold); padding: 22px 28px; }
+.diag-next-step-label { font-size: 11px; font-weight: 500; letter-spacing: 0.13em; text-transform: uppercase; color: #7a6020; display: block; margin-bottom: 8px; }
+.diag-next-step-text { font-family: var(--font-display); font-size: 17px; font-weight: 400; color: var(--char); line-height: 1.65; }
+
+.diag-share-box {
+  background: var(--stone); border: 1px solid var(--stone-deep); border-radius: 7px;
+  padding: 26px 28px; display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 24px; margin-bottom: 24px;
+}
+.diag-share-text h4 { font-family: var(--font-display); font-size: 20px; font-weight: 500; color: var(--char); margin-bottom: 6px; line-height: 1.2; }
+.diag-share-text p { font-size: 14px; color: var(--muted); line-height: 1.6; max-width: 360px; }
+.diag-share-actions { flex-shrink: 0; display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
+.btn-diag-share {
+  display: inline-flex; align-items: center; gap: 8px; background: var(--char); color: var(--off);
+  border: none; border-radius: 3px; padding: 11px 20px; font-family: var(--font-body);
+  font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap; transition: background 0.2s;
+}
+.btn-diag-share:hover { background: var(--char-mid); }
+.diag-share-link-wrap { display: flex; gap: 8px; align-items: center; }
+.diag-share-input {
+  width: 240px; padding: 9px 12px; border: 1.5px solid var(--stone-deep); border-radius: 4px;
+  font-size: 12px; font-family: monospace; color: var(--char); background: white; outline: none;
+}
+.btn-diag-copy {
+  background: var(--sage); color: white; border: none; border-radius: 3px;
+  padding: 9px 14px; font-size: 12px; font-weight: 500; cursor: pointer;
+  font-family: var(--font-body); transition: background 0.2s; white-space: nowrap;
+}
+.btn-diag-copy:hover { background: var(--char-light); }
+.diag-share-note { font-size: 11px; color: var(--muted); line-height: 1.5; max-width: 100%; text-align: left; margin-top: 4px; }
+.diag-share-step-label {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--rust); display: block; margin-bottom: 8px;
+}
+.diag-share-safeguards {
+  margin: 14px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px;
+}
+.diag-share-safeguards li {
+  font-size: 13px; color: var(--muted); line-height: 1.5; padding-left: 18px; position: relative;
+}
+.diag-share-safeguards li::before {
+  content: ''; position: absolute; left: 0; top: 7px; width: 6px; height: 6px;
+  border-radius: 50%; background: var(--sage);
+}
+.diag-share-ready { display: none; flex-direction: column; gap: 10px; width: 100%; max-width: 320px; }
+.diag-share-ready.visible { display: flex; }
+.diag-share-invite {
+  width: 100%; min-height: 132px; padding: 12px 14px; border: 1.5px solid var(--stone-deep);
+  border-radius: 4px; font-size: 12px; line-height: 1.55; color: var(--char); background: white;
+  font-family: var(--font-body); resize: vertical; outline: none;
+}
+.btn-diag-copy-msg {
+  background: white; color: var(--char); border: 1.5px solid var(--stone-deep); border-radius: 3px;
+  padding: 9px 14px; font-size: 12px; font-weight: 500; cursor: pointer; font-family: var(--font-body);
+  transition: border-color 0.2s, color 0.2s; align-self: flex-start;
+}
+.btn-diag-copy-msg:hover { border-color: var(--char-light); color: var(--char-mid); }
+
+.diag-team-banner {
+  display: none; background: rgba(200, 84, 58, 0.1); border: 1px solid rgba(200, 84, 58, 0.25);
+  border-radius: 6px; padding: 14px 18px; margin-bottom: 24px; max-width: 360px;
+}
+.diag-team-banner.visible { display: block; }
+.diag-team-banner p { font-size: 14px; color: rgba(243, 240, 232, 0.75); line-height: 1.55; }
+.diag-team-banner strong { color: var(--off); }
+
+.diag-team-thanks {
+  padding: 56px 48px; text-align: center; background: var(--off); max-width: 520px; margin: 0 auto;
+}
+.diag-team-thanks-icon {
+  width: 56px; height: 56px; border-radius: 50%; background: rgba(122, 153, 128, 0.2);
+  color: var(--char-light); font-size: 28px; line-height: 56px; margin: 0 auto 20px;
+}
+.diag-team-thanks h3 {
+  font-family: var(--font-display); font-size: 32px; font-weight: 400; color: var(--char);
+  margin-bottom: 14px; line-height: 1.2;
+}
+.diag-team-thanks p { font-size: 16px; color: var(--muted); line-height: 1.65; margin-bottom: 28px; }
+
+/* ══════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════ */
+@media (max-width: 900px) {
   .diag-page-header{padding:14px 20px;}
   .diag-main{padding:36px 20px 60px;}
   .diag-intro{grid-template-columns:1fr;}
@@ -269,6 +361,9 @@ body{font-family:var(--font-body);background:var(--off);color:var(--char);font-s
   .diag-quiz-body{padding:28px 20px 20px;}
   .diag-quiz-nav{padding:16px 20px;}
   .diag-breakdown-grid{grid-template-columns:repeat(3,1fr);}
+  .diag-share-box{flex-direction:column;}
+  .diag-share-actions{align-items:flex-start;}
+  .diag-share-note{text-align:left;}
   .diag-results{padding:24px 20px;}
   .diag-cta-box{flex-direction:column;}
   .diag-cta-actions{align-items:flex-start;}
@@ -306,6 +401,7 @@ body{font-family:var(--font-body);background:var(--off);color:var(--char);font-s
         <div class="diag-intro">
           <div class="diag-intro-left">
             <div class="diag-intro-eyebrow"><span></span><span class="diag-intro-eyebrow-text">Church Culture Health Check</span></div>
+            <div class="diag-team-banner" id="diag-team-banner"><p id="diag-team-banner-text"></p></div>
             <h2>Discover your<br><em>culture score</em></h2>
             <p>18 honest questions across 6 dimensions of church culture. Instant results, a personalised health level, and a clear picture of where your team actually is right now.</p>
             <div class="diag-meta">
@@ -406,8 +502,8 @@ body{font-family:var(--font-body);background:var(--off);color:var(--char);font-s
       <!-- EMAIL GATE -->
       <div class="diag-state" id="diag-email">
         <div class="diag-email-gate">
-          <h3>One last step to<br><em>unlock your results</em></h3>
-          <p>Enter your details and we will send your full culture report to your inbox &#x2014; including a practical first step based on where you are right now.</p>
+          <h3 id="diag-email-title">One last step to<br><em>unlock your results</em></h3>
+          <p id="diag-email-sub">Enter your details and we will send your full culture report to your inbox &#x2014; including a practical first step based on where you are right now.</p>
           <div class="diag-email-form">
             <div class="diag-form-row">
               <div class="diag-field"><label>First name</label><input type="text" id="diag-fname" placeholder="e.g. Sarah"></div>
@@ -460,16 +556,26 @@ body{font-family:var(--font-body);background:var(--off);color:var(--char);font-s
           </div>
           <div class="diag-share-box">
             <div class="diag-share-text">
-              <h4>Want to know how your team sees it?</h4>
-              <p>Share this diagnostic with your staff and get a picture of the culture from multiple perspectives &#x2014; not just the view from the top.</p>
+              <span class="diag-share-step-label">Optional next step</span>
+              <h4>Hear how your team experiences culture</h4>
+              <p>You have your snapshot. Invite staff to answer the same questions — Orangery will share an <strong>anonymous, aggregated</strong> summary with you when there are enough responses. Names and individual scores are never passed to leadership.</p>
+              <ul class="diag-share-safeguards">
+                <li>Staff see a thank-you screen only — no personal score on screen</li>
+                <li>Leadership never receives identifiable staff responses</li>
+                <li>One-time culture check — not an ongoing monitoring tool</li>
+              </ul>
             </div>
             <div class="diag-share-actions">
-              <button class="btn-diag-share" id="diag-share-btn" onclick="diagGenerateShareLink()">Generate team share link &#x2192;</button>
-              <div class="diag-share-link-wrap" id="diag-share-link-wrap" style="display:none">
-                <input type="text" class="diag-share-input" id="diag-share-link" readonly>
-                <button class="btn-diag-copy" onclick="diagCopyLink()">Copy</button>
+              <button class="btn-diag-share" id="diag-share-btn" onclick="diagGenerateShareLink()">Get staff invite link &#x2192;</button>
+              <div class="diag-share-ready" id="diag-share-ready">
+                <div class="diag-share-link-wrap">
+                  <input type="text" class="diag-share-input" id="diag-share-link" readonly>
+                  <button class="btn-diag-copy" type="button" onclick="diagCopyLink()">Copy link</button>
+                </div>
+                <textarea class="diag-share-invite" id="diag-share-invite" readonly aria-label="Staff invite message"></textarea>
+                <button class="btn-diag-copy-msg" type="button" onclick="diagCopyInvite()">Copy invite message</button>
+                <p class="diag-share-note">Paste the message into email or Slack. Orangery holds staff identity; you only receive the anonymous team picture.</p>
               </div>
-              <p class="diag-share-note">Each response is tagged to your church and sent to Orangery &#x2014; so you will get a combined picture of how the whole team experiences the culture.</p>
             </div>
           </div>
           <div class="diag-cta-box">
@@ -482,6 +588,16 @@ body{font-family:var(--font-body);background:var(--off);color:var(--char);font-s
               <button class="btn-diag-retake" onclick="diagReset()">Retake the diagnostic</button>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- TEAM THANK YOU (no on-screen scores) -->
+      <div class="diag-state" id="diag-team-thanks">
+        <div class="diag-team-thanks">
+          <div class="diag-team-thanks-icon">&#x2713;</div>
+          <h3>Thank you — your responses are in.</h3>
+          <p id="diag-team-thanks-msg">Your honest input has been sent securely to Orangery Solutions. Your name is not shared with leadership alongside your scores. If your church receives a team summary, it will be anonymous so people can speak freely.</p>
+          <a href="/" class="btn-diag-book">Back to Orangery</a>
         </div>
       </div>
 
@@ -561,6 +677,48 @@ const diagAnswers = new Array(TOTAL_SECTIONS * QUESTIONS_PER).fill(null);
 let diagSubmitterName   = '';
 let diagSubmitterChurch = '';
 let diagSubmitterEmail  = '';
+let diagTeamContext     = null;
+
+function diagGetTeamContext() {
+  const raw = new URLSearchParams(window.location.search).get('team');
+  if (!raw) return null;
+  try {
+    const idx = raw.indexOf('-');
+    if (idx < 1) return null;
+    const church = decodeURIComponent(atob(raw.slice(0, idx)));
+    const leader = decodeURIComponent(atob(raw.slice(idx + 1)));
+    return { church, leader, token: raw };
+  } catch (_) { return null; }
+}
+
+function diagInitTeamMode() {
+  diagTeamContext = diagGetTeamContext();
+  if (!diagTeamContext) return;
+
+  const banner = document.getElementById('diag-team-banner');
+  const bannerText = document.getElementById('diag-team-banner-text');
+  if (banner && bannerText) {
+    banner.classList.add('visible');
+    const churchLabel = diagTeamContext.church || 'your church';
+    bannerText.innerHTML = 'You\'re completing the <strong>confidential staff version</strong> for ' + churchLabel + '. Your answers go to Orangery only — leadership never receives your name tied to scores, and you won\'t see a personal summary on screen.';
+  }
+
+  const churchInput = document.getElementById('diag-church');
+  if (churchInput && diagTeamContext.church) {
+    churchInput.value = diagTeamContext.church;
+    churchInput.readOnly = true;
+  }
+
+  const emailTitle = document.getElementById('diag-email-title');
+  const emailSub = document.getElementById('diag-email-sub');
+  const submitBtn = document.getElementById('diag-submit-btn');
+  if (emailTitle) emailTitle.innerHTML = 'One last step — <em>submit your responses</em>';
+  if (emailSub) emailSub.textContent = 'Your name is for Orangery\'s records only — it is not shared with church leadership alongside your scores. You will not see individual results on screen.';
+  if (submitBtn) submitBtn.textContent = 'Submit confidentially \u2192';
+
+  const metaPills = document.querySelectorAll('#diag-intro .diag-meta-pill');
+  if (metaPills[2]) metaPills[2].textContent = '\u2713 Confidential';
+}
 
 function diagScrollToShell() {
   const shell = document.querySelector('.diag-shell');
@@ -572,15 +730,15 @@ function diagScrollToShell() {
 
 function diagShowState(id) {
   document.querySelectorAll('.diag-state').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  const shell = document.querySelector('.diag-shell');
-  if (shell) {
-    setTimeout(() => {
-      const navHeight = (document.getElementById('main-nav') || { offsetHeight: 0 }).offsetHeight || 72;
-      const top = shell.getBoundingClientRect().top + window.scrollY - navHeight - 16;
-      window.scrollTo({ top, behavior: 'smooth' });
-    }, 50);
-  }
+  const el = document.getElementById(id);
+  if (el) el.classList.add('active');
+  setTimeout(() => {
+    const navHeight = (document.getElementById('main-nav') || { offsetHeight: 0 }).offsetHeight || 72;
+    const target = el || document.querySelector('.diag-shell');
+    if (!target) return;
+    const top = target.getBoundingClientRect().top + window.scrollY - navHeight - 16;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }, 50);
 }
 
 function diagStart() {
@@ -743,9 +901,9 @@ async function diagSubmit() {
   if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
   setStatus('', 'var(--muted)');
 
-  const params   = new URLSearchParams(window.location.search);
-  const teamId   = params.get('team') || null;
-  const isTeam   = !!teamId;
+  const teamCtx  = diagTeamContext || diagGetTeamContext();
+  const teamId   = teamCtx ? teamCtx.token : null;
+  const isTeam   = !!teamCtx;
   const total    = diagTotal();
   const level    = diagGetLevel(total);
   const pct      = diagPct(total, 90);
@@ -766,8 +924,14 @@ async function diagSubmit() {
     next_step:        level.nextStep,
     breakdown,
     weak_areas:       weakAreas,
+    level_insight:    (level.insight || '').replace(/<[^>]+>/g, ''),
     is_team_member:   isTeam ? 'Yes' : 'No',
+    submission_type:  isTeam ? 'team_confidential' : 'leader_self_assessment',
     team_id:          teamId || 'N/A',
+    team_church:      teamCtx ? (teamCtx.church || '') : '',
+    team_leader:      teamCtx ? (teamCtx.leader || '') : '',
+    leader_receives:  isTeam ? 'none_identifiable' : 'own_full_results',
+    team_visibility_to_leader: isTeam ? 'anonymous_aggregate_via_orangery_only' : 'n/a',
     submitted_at:     new Date().toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' }),
   };
 
@@ -779,19 +943,46 @@ async function diagSubmit() {
     });
     const json = await res.json();
     if (json.ok) {
-      setStatus('✓ Report sent! Check your inbox.', 'var(--char-light)');
+      setStatus(isTeam ? '\u2713 Submitted securely. Thank you.' : '\u2713 Report sent! Check your inbox.', 'var(--char-light)');
     } else {
       console.warn('Worker error:', json);
-      setStatus('Results ready below — email may be delayed.', 'var(--muted)');
+      setStatus(isTeam ? 'Submitted — if anything looks wrong, contact Orangery.' : 'Results ready below — email may be delayed.', 'var(--muted)');
     }
   } catch(err) {
     console.warn('Fetch error:', err);
-    setStatus('Could not send email — but your results are ready below.', 'var(--muted)');
+    setStatus(isTeam ? 'Could not confirm delivery — please try again or email Orangery.' : 'Could not send email — but your results are ready below.', 'var(--muted)');
+    if (isTeam) {
+      if (btn) { btn.disabled = false; btn.textContent = 'Submit confidentially \u2192'; }
+      return;
+    }
+  }
+
+  if (isTeam) {
+    const thanksMsg = document.getElementById('diag-team-thanks-msg');
+    if (thanksMsg) {
+      const churchLabel = teamCtx.church || 'your church';
+      thanksMsg.textContent = 'Your honest input for ' + churchLabel + ' has been sent securely to Orangery Solutions. Your name is not shared with leadership alongside your scores. If your church receives a team summary, it will be anonymous.';
+    }
+    diagShowState('diag-team-thanks');
+    if (btn) { btn.disabled = false; btn.textContent = 'Submit confidentially \u2192'; }
+    return;
   }
 
   diagBuildResults();
   diagShowState('diag-results');
-  if (btn) { btn.disabled = false; btn.textContent = 'See my results →'; }
+  if (btn) { btn.disabled = false; btn.textContent = 'See my results \u2192'; }
+}
+
+function diagBuildStaffInviteMessage(url, church, leaderName) {
+  const churchLabel = church || 'our church';
+  const leaderLine = leaderName
+    ? 'A leader at ' + churchLabel + ' has invited staff to share how you experience church culture — confidentially.\n\n'
+    : 'You\'re invited to share how you experience church culture at ' + churchLabel + ' — confidentially.\n\n';
+  return leaderLine +
+    '• About 6 minutes\n' +
+    '• Your answers go to Orangery only — not tied to your name for leadership\n' +
+    '• You won\'t see a personal score on screen\n\n' +
+    'Take it here:\n' + url;
 }
 
 function diagGenerateShareLink() {
@@ -799,9 +990,14 @@ function diagGenerateShareLink() {
   const name   = diagSubmitterName   || '';
   const token  = btoa(encodeURIComponent(church)) + '-' + btoa(encodeURIComponent(name));
   const url    = window.location.origin + '/orangery-culture-diagnostic.html?team=' + encodeURIComponent(token);
-  document.getElementById('diag-share-link').value = url;
-  document.getElementById('diag-share-link-wrap').style.display = 'flex';
-  document.getElementById('diag-share-btn').style.display = 'none';
+  const linkInput = document.getElementById('diag-share-link');
+  const inviteArea = document.getElementById('diag-share-invite');
+  const ready = document.getElementById('diag-share-ready');
+  const shareBtn = document.getElementById('diag-share-btn');
+  if (linkInput) linkInput.value = url;
+  if (inviteArea) inviteArea.value = diagBuildStaffInviteMessage(url, church, name);
+  if (ready) ready.classList.add('visible');
+  if (shareBtn) shareBtn.style.display = 'none';
 }
 
 function diagCopyLink() {
@@ -814,17 +1010,38 @@ function diagCopyLink() {
   setTimeout(() => { btn.textContent = orig; btn.style.background = ''; }, 2400);
 }
 
+function diagCopyInvite() {
+  const area = document.getElementById('diag-share-invite');
+  if (!area || !area.value) return;
+  const text = area.value;
+  const done = () => {
+    const btn = document.querySelector('.btn-diag-copy-msg');
+    if (!btn) return;
+    const orig = btn.textContent;
+    btn.textContent = 'Copied \u2713';
+    setTimeout(() => { btn.textContent = orig; }, 2400);
+  };
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(done).catch(() => { area.select(); try { document.execCommand('copy'); done(); } catch (_) {} });
+  } else {
+    area.select();
+    try { document.execCommand('copy'); done(); } catch (_) {}
+  }
+}
+
 function diagReset() {
   diagSection = 0; diagAnswers.fill(null);
   document.querySelectorAll('.diag-q-btn').forEach(b => b.classList.remove('sel'));
   ['diag-fname','diag-lname','diag-email-input','diag-church','diag-role'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
   const es = document.getElementById('diag-email-status'); if (es) es.textContent = '';
-  const shareBtn  = document.getElementById('diag-share-btn');
-  const shareLinkWrap = document.getElementById('diag-share-link-wrap');
+  const shareBtn = document.getElementById('diag-share-btn');
+  const shareReady = document.getElementById('diag-share-ready');
   if (shareBtn) shareBtn.style.display = '';
-  if (shareLinkWrap) shareLinkWrap.style.display = 'none';
+  if (shareReady) shareReady.classList.remove('visible');
   diagShowState('diag-intro');
 }
+
+diagInitTeamMode();
 
 window.addEventListener('scroll', () => {
   const nav = document.getElementById('main-nav');

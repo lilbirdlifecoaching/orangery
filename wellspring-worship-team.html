@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Team Sound · Worship Team Style Assessment</title>
+<title>Wellspring Worship Team Dynamics</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -143,6 +143,8 @@
     text-transform:uppercase;
   }
   .brand .dot{ width:7px; height:7px; border-radius:50%; background: var(--amber); box-shadow:0 0 10px var(--amber); }
+  .brand-logo{ height:22px; width:auto; flex:0 0 auto; border-radius:4px; }
+  .brand-name{ font-size:12.5px; }
   .waveform{ display:flex; align-items:flex-end; gap:3px; height:16px; margin-left:auto; }
   .waveform span{
     width:3px; border-radius:2px;
@@ -381,7 +383,10 @@
 <div class="app">
   <div class="strip" id="strip"></div>
   <div class="panel">
-    <div class="brand"><span class="dot"></span> TEAM SOUND · WORSHIP TEAM STYLE ASSESSMENT
+    <div class="brand">
+      <!-- LOGO_SLOT: once you send the church logo, it will be embedded here as an image -->
+      <span class="dot"></span>
+      <span class="brand-name">WELLSPRING · WORSHIP TEAM DYNAMICS</span>
       <div class="waveform"><span></span><span></span><span></span><span></span><span></span><span></span></div>
     </div>
     <div class="card" id="card"></div>

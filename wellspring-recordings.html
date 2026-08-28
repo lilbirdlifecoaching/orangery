@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luke Haythorpe · A Few Recordings</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #F6EFE1;
+    --paper-line: #E3D6BC;
+    --card: #FBF6EA;
+    --ink: #2B2418;
+    --ink-soft: #756A52;
+    --gold: #B8863B;
+    --gold-deep: #8F6526;
+    --rust: #A6472C;
+    --sage: #5C7A63;
+  }
+  *{ box-sizing: border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(700px 400px at 10% -10%, rgba(184,134,59,0.07), transparent 60%),
+      radial-gradient(600px 400px at 100% 10%, rgba(92,122,99,0.06), transparent 60%);
+  }
+  .wrap{
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 64px 24px 80px;
+  }
+  .eyebrow{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    text-align: center;
+    margin-bottom: 18px;
+  }
+  h1{
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 46px;
+    text-align: center;
+    margin: 0 0 18px;
+    letter-spacing: -0.01em;
+  }
+  .intro{
+    text-align: center;
+    font-size: 16.5px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    max-width: 460px;
+    margin: 0 auto 40px;
+  }
+  .rule{
+    display:flex; flex-direction:column; align-items:center; gap:4px;
+    margin: 0 auto 50px;
+    width: 100%;
+  }
+  .rule .line{ width: 100%; height:1px; background: var(--paper-line); }
+  .rule .line.thin{ max-width: 70%; margin: 0 auto; opacity:0.7; }
+
+  .tracklist{ display:flex; flex-direction:column; gap:22px; }
+
+  .track{
+    display:flex; gap:20px; align-items:flex-start;
+    background: var(--card);
+    border: 1px solid var(--paper-line);
+    border-radius: 10px;
+    padding: 22px 24px;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 14px 28px -20px rgba(43,36,24,0.35);
+    opacity: 0;
+    transform: translateY(10px);
+    animation: rise 0.6s ease forwards;
+  }
+  .track:nth-child(1){ animation-delay: 0.05s; }
+  .track:nth-child(2){ animation-delay: 0.18s; }
+  .track:nth-child(3){ animation-delay: 0.31s; }
+  @keyframes rise{ to{ opacity:1; transform:translateY(0); } }
+  @media (prefers-reduced-motion: reduce){
+    .track{ opacity:1; transform:none; animation:none; }
+  }
+
+  .numeral{
+    flex: 0 0 auto;
+    width: 52px; height: 64px;
+    border: 1.5px solid var(--ink);
+    border-radius: 4px;
+    background: var(--paper);
+    display:flex; align-items:center; justify-content:center;
+    font-family: 'EB Garamond', serif;
+    font-weight: 600;
+    font-size: 24px;
+    color: var(--ink);
+    transition: background 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
+  }
+  .track.playing .numeral{
+    background: var(--gold);
+    color: #FBF6EA;
+    box-shadow: 0 0 0 3px rgba(184,134,59,0.25);
+  }
+
+  .track-body{ flex: 1; min-width: 0; }
+  .track-title{
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 22px;
+    margin: 0 0 4px;
+  }
+  .track-caption{
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    margin: 0 0 14px;
+  }
+  audio{
+    width: 100%;
+    height: 36px;
+    accent-color: var(--gold-deep);
+  }
+
+  footer{
+    text-align: center;
+    margin-top: 56px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.02em;
+  }
+
+  @media (max-width: 480px){
+    .wrap{ padding: 44px 16px 60px; }
+    h1{ font-size: 36px; }
+    .track{ padding: 18px 16px; gap: 14px; }
+    .numeral{ width: 44px; height: 54px; font-size: 20px; }
+    .track-title{ font-size: 19px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Luke Haythorpe</div>
+  <h1>A few recordings</h1>
+  <p class="intro">A handful of songs I've led, some acoustic, some with the full team. Press play and have a listen.</p>
+
+  <div class="rule"><div class="line"></div><div class="line thin"></div></div>
+
+  <div class="tracklist">
+    <div class="track" id="track-1">
+      <div class="numeral">I</div>
+      <div class="track-body">
+        <p class="track-title">Acoustic, with Joy</p>
+        <p class="track-caption">A stripped-down acoustic set, 2022</p>
+        <audio controls preload="none" src="audio/acoustic-with-joy-2022.mp3"></audio>
+      </div>
+    </div>
+
+    <div class="track" id="track-2">
+      <div class="numeral">II</div>
+      <div class="track-body">
+        <p class="track-title">I Surrender All</p>
+        <p class="track-caption">Live at Wellspring, August 23, 2026</p>
+        <audio controls preload="none" src="audio/i-surrender-all-2026-08-23.mp3"></audio>
+      </div>
+    </div>
+
+    <div class="track" id="track-3">
+      <div class="numeral">III</div>
+      <div class="track-body">
+        <p class="track-title">10,000 Reasons</p>
+        <p class="track-caption">Live at Wellspring, August 23, 2026</p>
+        <audio controls preload="none" src="audio/10000-reasons-2026-08-23.mp3"></audio>
+      </div>
+    </div>
+  </div>
+
+  <div class="rule" style="margin-top:50px; margin-bottom:0;"><div class="line thin"></div><div class="line"></div></div>
+  <footer>Thanks for listening</footer>
+</div>
+
+<script>
+  document.querySelectorAll('audio').forEach(function(audio){
+    const track = audio.closest('.track');
+    audio.addEventListener('play', function(){
+      document.querySelectorAll('.track').forEach(function(t){ t.classList.remove('playing'); });
+      track.classList.add('playing');
+    });
+    audio.addEventListener('pause', function(){ track.classList.remove('playing'); });
+    audio.addEventListener('ended', function(){ track.classList.remove('playing'); });
+  });
+</script>
+</body>
+</html>

@@ -886,17 +886,18 @@ function buildWheel(entries){
 async function fetchRosterEntries(){
   const listResult = await backendList('worship-profile:');
   const keys = (listResult && listResult.keys) ? listResult.keys : [];
-  const entries = [];
-  for(const k of keys){
+  const results = await Promise.all(keys.map(async (k)=>{
     try{
       const res = await backendGet(k);
       if(res && res.value){
         const parsed = JSON.parse(res.value);
         parsed._key = k;
-        entries.push(parsed);
+        return parsed;
       }
     }catch(e){}
-  }
+    return null;
+  }));
+  const entries = results.filter(Boolean);
   entries.sort((a,b)=> new Date(b.savedAt) - new Date(a.savedAt));
   return entries;
 }
